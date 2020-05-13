@@ -1,0 +1,6 @@
+# Credetials Config
+shared/credentials
+
+# Terraform
+
+solutions-architect-associate/.terraform/
