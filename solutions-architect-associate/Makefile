@@ -1,10 +1,14 @@
 TF_BIN = `which terraform`
+TF_PATH = `pwd`/terraform
 
+.PHONY: init
 setup:
-	$(TF_BIN) init
+	cd $(TF_PATH); $(TF_BIN) init
 
+.PHONY: plan
 plan:
-	$(TF_BIN) plan
+	cd $(TF_PATH); $(TF_BIN) plan
 
+.PHONY: apply
 apply:
-	$(TF_BIN) apply
+	cd $(TF_PATH); $(TF_BIN) apply

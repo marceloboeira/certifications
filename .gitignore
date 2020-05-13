@@ -2,5 +2,5 @@
 shared/credentials
 
 # Terraform Plugins
-solutions-architect-associate/.terraform/
-solutions-architect-associate/*.tfstate.backup
+**/.terraform/
+**/*.tfstate.backup
