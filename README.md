@@ -1,7 +1,7 @@
 # AWS Certifications
 > 📒 My binder for certification studies
 
-# Tags 
+# Tags
 
 * 🆓 - No monetary cost
 * 💰 - Paid content
@@ -14,3 +14,11 @@
 
 ## Solutions Architect Associate
 > The first recommended certification
+
+### Terraform Project
+
+More info `solutions-architect-associate/` folder.
+
+* `make setup` - Install plugins and dependencies.
+* `make plan` - Shows diff.
+* `make apply` - Applies changes to AWS/State.

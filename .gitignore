@@ -1,6 +1,6 @@
 # Credetials Config
 shared/credentials
 
-# Terraform
-
+# Terraform Plugins
 solutions-architect-associate/.terraform/
+solutions-architect-associate/*.tfstate.backup

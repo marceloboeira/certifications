@@ -1,3 +1,10 @@
+TODO
+
+- [x] Terraform setup
+- [ ] Setup mind-flow?
+- [x] Makefile
+- [ ] Notes
+
 ### Storage 
 # S3 - 
 # OBject vs Block Base Storage
