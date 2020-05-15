@@ -4,3 +4,5 @@ shared/credentials
 # Terraform Plugins
 **/.terraform/
 **/*.tfstate.backup
+**/*.tfstate.lock.info
+**/secrets.tfvars

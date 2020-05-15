@@ -12,7 +12,7 @@ resource "aws_s3_bucket" "aux_storage_01" {
   lifecycle_rule {
     id      = "log"
     enabled = true
-    prefix = "log/"
+    prefix  = "log/"
 
     tags = {
       "rule"      = "log"

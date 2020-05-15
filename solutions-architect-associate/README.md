@@ -9,7 +9,8 @@
 
 1. Create an AWS Account
 2. Create Root Credentials (not the best practice, but convenient for learning. Once the first user is created you can use their credentials)
-3. Setup the `shared/credentials` file
+3. Setup the `shared/credentials` file based on the `.sample`
+3. Setup the `secrets.tfvars` file based on the `.sample`
 4. Run `make setup` to install Terraform plugins
 5. Run `make plan` to check all the things to be created on your account
 6. Run `make apply` to create and update the state
@@ -28,3 +29,4 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
 * [0 - Overview](topics/00_OVERVIEW.md)
 * [1 - IAM 101](topics/01_IAM.md)
 * [2 - S3 101](topics/02_S3.md)
+* [3 - AWS Organizations & Billing](topics/03_ORGANIZATIONS_AND_BILLING.md)
