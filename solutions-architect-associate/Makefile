@@ -1,6 +1,10 @@
 TF_BIN = `which terraform`
 TF_PATH = `pwd`/terraform
 
+.PHONY: format
+format:
+	@cd $(TF_PATH); $(TF_BIN) fmt
+
 .PHONY: init
 setup:
 	@cd $(TF_PATH); $(TF_BIN) init

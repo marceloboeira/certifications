@@ -15,6 +15,7 @@
 Within `terraform/` all terraform info is stored, the source, and the state. Not the ideal, but for this usecase of studying I didn't want to go over the setup of a complex state management, so, on any scenario feel free to delete the state file and re-create your own.
 
 * `make setup` - Install plugins and dependencies.
+* `make format` - Formats the Terraform code.
 * `make plan` - Shows diff.
 * `make apply` - Applies changes to AWS/State.
 
