@@ -4,60 +4,33 @@ provider "aws" {
   shared_credentials_file = "../../shared/credentials"
 }
 
+
 # TODO: Import Organization
 # https://www.terraform.io/docs/providers/aws/r/organizations_organization.html
 # https://www.terraform.io/docs/providers/aws/r/organizations_account.html
 
-# Limited User
-resource "aws_iam_user" "max_mustermann" {
-  name = "max.mustermann"
-}
+##################### S3 #######################
 
-# Admin User (equivalent to a root account permission)
-resource "aws_iam_user" "erika_mustermann" {
-  name = "erika.mustermann"
-}
+resource "aws_iam_role" "s3_full_access" {
+  name = "s3-full-access"
 
-# Create Engineers Group
-resource "aws_iam_group" "staff_engineers" {
-  name = "staff.engineers"
-}
-
-# Assign Erika to the Staff Engineering Group
-resource "aws_iam_user_group_membership" "erika_memberships" {
-  user = aws_iam_user.erika_mustermann.name
-
-  groups = [
-    aws_iam_group.staff_engineers.name,
-  ]
-}
-
-# Create Root Policy
-resource "aws_iam_policy" "root" {
-  name        = "root"
-  description = "God mode"
-
-  policy = <<EOF
+  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Action": [
-        "*"
-      ],
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
       "Effect": "Allow",
-      "Resource": "*"
+      "Sid": "foo"
     }
   ]
 }
 EOF
-}
 
-# Assign Root Policy to Staff Engineers
-resource "aws_iam_policy_attachment" "root_assignment" {
-  name = "root_assignment"
-  groups = [
-    aws_iam_group.staff_engineers.name,
-  ]
-  policy_arn = aws_iam_policy.root.arn
+  tags = {
+    tag-key = "tag-value"
+  }
 }

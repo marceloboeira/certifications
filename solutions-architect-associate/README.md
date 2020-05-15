@@ -1,6 +1,10 @@
 # Solutions Architect Associate
 > The first recommended certification
 
+# Official Links
+
+* [SAA-C02](https://aws.amazon.com/certification/certified-solutions-architect-associate/)
+
 ## Getting Started
 
 1. Create an AWS Account
@@ -22,4 +26,4 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
 ## Index
 
 * [0 - Overview](topics/00_OVERVIEW.md)
-* [1 - IAM](topics/01_IAM.md)
+* [1 - IAM 101](topics/01_IAM.md)
