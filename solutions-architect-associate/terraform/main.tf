@@ -4,11 +4,6 @@ provider "aws" {
   shared_credentials_file = "../../shared/credentials"
 }
 
-
-# TODO: Import Organization
-# https://www.terraform.io/docs/providers/aws/r/organizations_organization.html
-# https://www.terraform.io/docs/providers/aws/r/organizations_account.html
-
 ##################### S3 #######################
 
 resource "aws_iam_role" "s3_full_access" {
