@@ -1,7 +1,18 @@
 # Solutions Architect Associate
 > The first recommended certification
 
+## Getting Started
+
+1. Create an AWS Account
+2. Create Root Credentials (not the best practice, but convenient for learning. Once the first user is created you can use their credentials)
+3. Setup the `shared/credentials` file
+4. Run `make setup` to install Terraform plugins
+5. Run `make plan` to check all the things to be created on your account
+6. Run `make apply` to create and update the state
+
 ## Terraform Project
+
+Within `terraform/` all terraform info is stored, the source, and the state. Not the ideal, but for this usecase of studying I didn't want to go over the setup of a complex state management, so, on any scenario feel free to delete the state file and re-create your own.
 
 * `make setup` - Install plugins and dependencies.
 * `make plan` - Shows diff.
