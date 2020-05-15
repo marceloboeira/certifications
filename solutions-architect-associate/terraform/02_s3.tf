@@ -30,6 +30,12 @@ resource "aws_s3_bucket_policy" "allow_public_read" {
 EOF
 }
 
+# Encryption Key
+resource "aws_kms_key" "s3_key" {
+  description             = "Sample Key Test"
+  deletion_window_in_days = 7
+}
+
 # Public File
 resource "aws_s3_bucket_object" "example_public" {
   bucket       = aws_s3_bucket.aux_storage_01.bucket
@@ -44,4 +50,5 @@ resource "aws_s3_bucket_object" "example_forbidden" {
   key          = "private/forbidden.html"
   source       = "etc/forbidden.html"
   content_type = "text/html"
+  kms_key_id = aws_kms_key.s3_key.arn
 }
