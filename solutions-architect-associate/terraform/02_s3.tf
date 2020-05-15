@@ -2,7 +2,7 @@
 
 resource "aws_s3_bucket" "aux_storage_01" {
   bucket = "aux-storage-01"
-  acl = "private"
+  acl    = "private"
 
   versioning {
     enabled    = false
@@ -42,6 +42,7 @@ resource "aws_s3_bucket_object" "example_public" {
   key          = "public/index.html"
   source       = "etc/index.html"
   content_type = "text/html"
+  etag         = filemd5("etc/index.html")
 }
 
 # Forbidden File
@@ -50,5 +51,5 @@ resource "aws_s3_bucket_object" "example_forbidden" {
   key          = "private/forbidden.html"
   source       = "etc/forbidden.html"
   content_type = "text/html"
-  kms_key_id = aws_kms_key.s3_key.arn
+  kms_key_id   = aws_kms_key.s3_key.arn
 }
