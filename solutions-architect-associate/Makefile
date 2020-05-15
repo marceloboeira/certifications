@@ -1,6 +1,6 @@
 TF_BIN = `which terraform`
 TF_PATH = `pwd`/terraform
-TF_VAR_FILE = `pwd`/secrets.tf
+TF_VAR_FILE = `pwd`/secrets.tfvars
 
 .PHONY: format
 format:
