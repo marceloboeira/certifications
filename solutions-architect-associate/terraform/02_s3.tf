@@ -5,8 +5,33 @@ resource "aws_s3_bucket" "aux_storage_01" {
   acl    = "private"
 
   versioning {
-    enabled    = false
+    enabled    = true
     mfa_delete = false
+  }
+
+  lifecycle_rule {
+    id      = "log"
+    enabled = true
+    prefix = "log/"
+
+    tags = {
+      "rule"      = "log"
+      "autoclean" = "true"
+    }
+
+    transition {
+      days          = 30
+      storage_class = "ONEZONE_IA"
+    }
+
+    transition {
+      days          = 60
+      storage_class = "GLACIER"
+    }
+
+    expiration {
+      days = 90
+    }
   }
 }
 
