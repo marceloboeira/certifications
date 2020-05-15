@@ -1,21 +1,3 @@
-TODO
-
-- [x] Terraform setup
-- [ ] Setup mind-flow?
-- [x] Makefile
-- [x] Index
-- [x] Notes
-
-### Storage 
-# S3 - 
-# OBject vs Block Base Storage
-
-EFS - ??
-Glacier - ?
-Storage Gateway - 
-EBS - Virtual disk
-
-
 ### Databases
 
 ### RDS 
