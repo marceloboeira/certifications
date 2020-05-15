@@ -4,8 +4,6 @@ provider "aws" {
   shared_credentials_file = "../../shared/credentials"
 }
 
-##################### S3 #######################
-
 resource "aws_iam_role" "s3_full_access" {
   name = "s3-full-access"
 
@@ -29,3 +27,4 @@ EOF
     tag-key = "tag-value"
   }
 }
+
