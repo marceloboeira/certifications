@@ -22,9 +22,5 @@ resource "aws_iam_role" "s3_full_access" {
   ]
 }
 EOF
-
-  tags = {
-    tag-key = "tag-value"
-  }
 }
 
