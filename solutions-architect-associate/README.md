@@ -33,4 +33,6 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
 * [2 - S3 101](topics/02_S3.md)
   * [What is S3?](topics/02_S3.md#what-is-s3?)
   * [Lifecycle Management Lab](topics/02_S3.md#lifecycle-management-lab)
+  * [Cross-Region Replication](topics/02_S3.md#cross-region-replication)
+  * [Transfer Acceleration](topics/02_S3.md#transfer-acceleration)
 * [3 - Organizations & Billing](topics/03_ORGANIZATIONS_AND_BILLING.md)
