@@ -50,7 +50,7 @@ resource "aws_s3_bucket" "aux_storage_01" {
   }
 }
 
-# Replica
+# Replica bucket on another region
 resource "aws_s3_bucket" "aux_storage_01_replica" {
   bucket   = "aux-storage-01-replica"
   provider = aws.replica
@@ -61,6 +61,7 @@ resource "aws_s3_bucket" "aux_storage_01_replica" {
   }
 }
 
+# Allow public read of the specific folder
 resource "aws_s3_bucket_policy" "allow_public_read" {
   bucket = aws_s3_bucket.aux_storage_01.bucket
   policy = <<EOF
