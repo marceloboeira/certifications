@@ -3,6 +3,7 @@
 
 # Official Links
 
+* [A Cloud Guru - Course](https://acloud.guru/learn/aws-certified-solutions-architect-associate) - The one I have used to study 💰 📼
 * [SAA-C02](https://aws.amazon.com/certification/certified-solutions-architect-associate/)
 
 ## Getting Started
@@ -27,6 +28,9 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
 ## Index
 
 * [0 - Overview](topics/00_OVERVIEW.md)
+  * [Topics Covered In This Certification](topics/00_OVERVIEW.md#topics-covered-in-this-certification)
 * [1 - IAM 101](topics/01_IAM.md)
 * [2 - S3 101](topics/02_S3.md)
+  * [What is S3?](topics/02_S3.md#what-is-s3?)
+  * [Lifecycle Management Lab](topics/02_S3.md#lifecycle-management-lab)
 * [3 - Organizations & Billing](topics/03_ORGANIZATIONS_AND_BILLING.md)
