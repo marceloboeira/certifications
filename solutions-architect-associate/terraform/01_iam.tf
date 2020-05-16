@@ -95,3 +95,71 @@ resource "aws_iam_role_policy" "s3_full_access" {
 }
 EOF
 }
+
+# Policy to allow cross region replication
+resource "aws_iam_role" "s3_cross_region_replication" {
+  name = "s3-cross-region-replication"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+# Replication Policy
+resource "aws_iam_policy" "s3_cross_region_replication" {
+  name = "s3-cross-region-replication"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "s3:GetReplicationConfiguration",
+        "s3:ListBucket"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${aws_s3_bucket.aux_storage_01.arn}"
+      ]
+    },
+    {
+      "Action": [
+        "s3:GetObjectVersion",
+        "s3:GetObjectVersionAcl"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${aws_s3_bucket.aux_storage_01.arn}/*"
+      ]
+    },
+    {
+      "Action": [
+        "s3:ReplicateObject",
+        "s3:ReplicateDelete"
+      ],
+      "Effect": "Allow",
+      "Resource": "${aws_s3_bucket.aux_storage_01_replica.arn}/*"
+    }
+  ]
+}
+EOF
+}
+
+# Attach policy to role
+resource "aws_iam_role_policy_attachment" "s3_cross_region_replication" {
+  role       = aws_iam_role.s3_cross_region_replication.name
+  policy_arn = aws_iam_policy.s3_cross_region_replication.arn
+}

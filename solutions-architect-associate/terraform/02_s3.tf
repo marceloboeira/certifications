@@ -1,5 +1,6 @@
 ##################### S3 #######################
 
+# Main Test Bucket
 resource "aws_s3_bucket" "aux_storage_01" {
   bucket = "aux-storage-01"
   acl    = "private"
@@ -32,6 +33,31 @@ resource "aws_s3_bucket" "aux_storage_01" {
     expiration {
       days = 90
     }
+  }
+
+  replication_configuration {
+    role = aws_iam_role.s3_cross_region_replication.arn
+
+    rules {
+      id     = "main"
+      status = "Enabled"
+
+      destination {
+        bucket        = aws_s3_bucket.aux_storage_01_replica.arn
+        storage_class = "GLACIER"
+      }
+    }
+  }
+}
+
+# Replica
+resource "aws_s3_bucket" "aux_storage_01_replica" {
+  bucket   = "aux-storage-01-replica"
+  provider = aws.replica
+  region   = "eu-west-1"
+
+  versioning {
+    enabled = true
   }
 }
 
