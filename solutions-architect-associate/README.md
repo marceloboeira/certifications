@@ -29,4 +29,4 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
 * [0 - Overview](topics/00_OVERVIEW.md)
 * [1 - IAM 101](topics/01_IAM.md)
 * [2 - S3 101](topics/02_S3.md)
-* [3 - AWS Organizations & Billing](topics/03_ORGANIZATIONS_AND_BILLING.md)
+* [3 - Organizations & Billing](topics/03_ORGANIZATIONS_AND_BILLING.md)

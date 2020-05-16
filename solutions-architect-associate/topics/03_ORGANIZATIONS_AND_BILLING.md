@@ -1,4 +1,4 @@
-# AWS Organizations & Consolidated Billing
+# Organizations & Consolidated Billing
 > Account Management Service
 
 * Root Account is Usually For Billing Purposes
