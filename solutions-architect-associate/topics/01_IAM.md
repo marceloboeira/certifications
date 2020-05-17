@@ -36,3 +36,9 @@ It features:
 * New Users have NO permissions
 * New Users can be assigned to Access Key ID & Secret for API level access
 * New Users can be allowed to console access
+
+## Types of User
+
+* Root User - All access
+* New User - No access at all
+* PowerUser - All access except IAM administration (creating new users)

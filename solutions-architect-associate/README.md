@@ -27,15 +27,18 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
 
 ## Index
 
-* [0 - Overview](topics/00_OVERVIEW.md)
-  * [Topics Covered In This Certification](topics/00_OVERVIEW.md#topics-covered-in-this-certification)
-* [1 - IAM 101](topics/01_IAM.md)
-* [2 - S3 101](topics/02_S3.md)
-  * [What is S3?](topics/02_S3.md#what-is-s3?)
-  * [Lifecycle Management Lab](topics/02_S3.md#lifecycle-management-lab)
-  * [Cross-Region Replication](topics/02_S3.md#cross-region-replication)
-  * [Transfer Acceleration](topics/02_S3.md#transfer-acceleration)
-* [3 - Organizations & Billing](topics/03_ORGANIZATIONS_AND_BILLING.md)
-* [4 - CloudFront](topics/04_CLOUD_FRONT.md)
-* [5 - Snowball](topics/05_SNOWBALL.md)
-* [6 - Storage Gateway](topics/06_STOAGE_GATEWAY.md)
+* 10.000 foot overview
+  * [0 - Overview](topics/00_OVERVIEW.md)
+    * [Topics Covered In This Certification](topics/00_OVERVIEW.md#topics-covered-in-this-certification)
+* Identity Access Management & S3
+  * [1 - IAM 101](topics/01_IAM.md)
+  * [2 - S3 101](topics/02_S3.md)
+    * [What is S3?](topics/02_S3.md#what-is-s3?)
+    * [Lifecycle Management Lab](topics/02_S3.md#lifecycle-management-lab)
+    * [Cross-Region Replication](topics/02_S3.md#cross-region-replication)
+    * [Transfer Acceleration](topics/02_S3.md#transfer-acceleration)
+  * [3 - Organizations & Billing](topics/03_ORGANIZATIONS_AND_BILLING.md)
+  * [4 - CloudFront](topics/04_CLOUD_FRONT.md)
+  * [5 - Snowball](topics/05_SNOWBALL.md)
+  * [6 - Storage Gateway](topics/06_STOAGE_GATEWAY.md)
+  * [7 - Athena vs Macie](topics/07_ATHENA_VS_MACIE.md)
