@@ -32,3 +32,9 @@ AWS Exabyte-scale data transfer used to move massive volumes of data to the clou
 When to use it?
 
 * At a normal internet speed, 100Mbps, 100TB take 120 days to be transfered... using 80% of the bandwidth...
+
+More Info:
+
+* https://aws.amazon.com/snowball/
+* https://docs.aws.amazon.com/snowball/latest/ug/whatissnowball.html
+* https://aws.amazon.com/snowball/pricing/
