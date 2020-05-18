@@ -42,3 +42,5 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
   * [5 - Snowball](topics/05_SNOWBALL.md)
   * [6 - Storage Gateway](topics/06_STOAGE_GATEWAY.md)
   * [7 - Athena vs Macie](topics/07_ATHENA_VS_MACIE.md)
+* EC2 101
+  * [8 - EC2](topics/08_EC2.md)
