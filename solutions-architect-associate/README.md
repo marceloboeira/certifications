@@ -9,12 +9,13 @@
 ## Getting Started
 
 1. Create an AWS Account
-2. Create Root Credentials (not the best practice, but convenient for learning. Once the first user is created you can use their credentials)
-3. Setup the `shared/credentials` file based on the `.sample`
-3. Setup the `secrets.tfvars` file based on the `.sample`
-4. Run `make setup` to install Terraform plugins
-5. Run `make plan` to check all the things to be created on your account
-6. Run `make apply` to create and update the state
+1. Create Root Credentials (not the best practice, but convenient for learning. Once the first user is created you can use their credentials)
+1. Create a SSH key - [More info](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+1. Setup the `shared/credentials` file based on the `.sample`
+1. Setup the `secrets.tfvars` file based on the `.sample` (use the public key created before)
+1. Run `make setup` to install Terraform plugins
+1. Run `make plan` to check all the things to be created on your account
+1. Run `make apply` to create and update the state
 
 ## Terraform Project
 
