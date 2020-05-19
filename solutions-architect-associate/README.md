@@ -45,3 +45,7 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
   * [7 - Athena vs Macie](topics/07_ATHENA_VS_MACIE.md)
 * EC2 101
   * [8 - EC2](topics/08_EC2.md)
+    * [Security Groups](topics/08_EC2.md#security-groups-lab)
+    * [EBS](topics/08_EC2.md#ebs)
+    * [AMIs](topics/08_EC2.md#ami)
+    * [ENI vs ENA vs EFA](topics/08_EC2.md#eni-vs-ena-vs-efa)
