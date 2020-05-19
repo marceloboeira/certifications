@@ -4,6 +4,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     origin_id   = "s3-public"
   }
 
+  # Disabled to avoid costs
   enabled             = false
   is_ipv6_enabled     = true
   default_root_object = "index.html"
