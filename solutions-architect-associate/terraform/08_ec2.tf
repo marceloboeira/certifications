@@ -129,7 +129,7 @@ checkconfig httpd on
 echo "<h1>Deployed via Terraform</h1>" > /var/www/html/index.html
 
 aws s3 mb s3://random-bucket-202005192224999
-aws s3 cp  /var/www/html/index.html s3://random-bucket-202005192224999/index.html
+aws s3 cp /var/www/html/index.html s3://random-bucket-202005192224999/index.html
 
 EOF
 }
