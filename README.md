@@ -14,10 +14,10 @@
 ### Structure
 
 Each certification is composed of:
-* README.md - With an index of important infos
-* Makefile - to manage all operations of that repo
-* Terraform module - to test all infra
-* Topics folder - with multiple notes, links and important info on each topic covered on such certification.
+* `README.md` - With an index of important infos
+* `Makefile` - to manage all operations of that repo
+* `terraform/` - to practice and provision all infra required for the examples
+* `topics/` - multiple notes, links, take-aways and important info on each topic covered on such certification
 
 If you want to use the Terraform module, make sure to install terraform and create a new AWS account.
 
