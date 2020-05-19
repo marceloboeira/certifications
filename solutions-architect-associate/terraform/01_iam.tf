@@ -43,11 +43,18 @@ resource "aws_iam_policy" "root" {
 EOF
 }
 
-# Assign Root Policy to Staff Engineers
+# Assign Root Policy to
+# Groups:
+# - Staff Engineers
+# Roles
+# - EC2
 resource "aws_iam_policy_attachment" "root_assignment" {
   name = "root-assignment"
   groups = [
     aws_iam_group.staff_engineers.name,
+  ]
+  roles = [
+    aws_iam_role.ec2_admin.name,
   ]
   policy_arn = aws_iam_policy.root.arn
 }
@@ -183,10 +190,4 @@ resource "aws_iam_role" "ec2_admin" {
   ]
 }
 EOF
-}
-
-# Attach policy to role
-resource "aws_iam_role_policy_attachment" "ec2_admin" {
-  role       = aws_iam_role.ec2_admin.name
-  policy_arn = aws_iam_policy.root.arn
 }
