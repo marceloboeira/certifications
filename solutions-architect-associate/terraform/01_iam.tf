@@ -163,3 +163,30 @@ resource "aws_iam_role_policy_attachment" "s3_cross_region_replication" {
   role       = aws_iam_role.s3_cross_region_replication.name
   policy_arn = aws_iam_policy.s3_cross_region_replication.arn
 }
+
+
+# Policy to allow EC2 to perform AWS operations
+resource "aws_iam_role" "ec2_admin" {
+  name = "ec2-admin"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow"
+    }
+  ]
+}
+EOF
+}
+
+# Attach policy to role
+resource "aws_iam_role_policy_attachment" "ec2_admin" {
+  role       = aws_iam_role.ec2_admin.name
+  policy_arn = aws_iam_policy.root.arn
+}

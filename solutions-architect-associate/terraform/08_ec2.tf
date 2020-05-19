@@ -88,6 +88,13 @@ resource "aws_volume_attachment" "web_server_extra_attachment" {
   instance_id = aws_instance.web_server.id
 }
 
+
+# Allow WebServer to Use AWS Services
+resource "aws_iam_instance_profile" "web_server_profile" {
+  name = "web_server_profile"
+  role = aws_iam_role.ec2_admin.name
+}
+
 # EC2 Web Server
 resource "aws_instance" "web_server" {
   ami           = data.aws_ami.aws_linux_2.id
@@ -102,6 +109,9 @@ resource "aws_instance" "web_server" {
 
   # SSH Key
   key_name = aws_key_pair.ec2.key_name
+
+  # IAM Permission Profile
+  iam_instance_profile = aws_iam_instance_profile.web_server_profile.name
 
   tags = {
     Name = "HelloWorld"

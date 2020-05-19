@@ -50,3 +50,4 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
     * [AMIs](topics/08_EC2.md#ami)
     * [ENI vs ENA vs EFA](topics/08_EC2.md#eni-vs-ena-vs-efa)
   * [9 - Cloud Watch](topics/09_CLOUD_WATCH.md)
+  * [10 - CLI & Scripting](topics/10_CLI.md)
