@@ -45,11 +45,50 @@ data "aws_ami" "aws_linux_2" {
   owners = ["amazon"]
 }
 
+# SSH Keys
 resource "aws_key_pair" "ec2" {
   key_name   = "ec2-main-key"
   public_key = var.ec2_public_ssh_key
 }
 
+# EBS Root Volume
+resource "aws_ebs_volume" "web_server_root" {
+  availability_zone = "eu-central-1b"
+  size              = 8
+  type              = "gp2"
+  iops              = 100
+
+  tags = {
+    Name = "WebServerRoot"
+  }
+}
+
+# EBS Root Attachment
+resource "aws_volume_attachment" "web_server_root_attachment" {
+  device_name = "/dev/xvda"
+  volume_id   = aws_ebs_volume.web_server_root.id
+  instance_id = aws_instance.web_server.id
+}
+
+# EBS Extra Volume 1
+resource "aws_ebs_volume" "web_server_extra" {
+  availability_zone = "eu-central-1b"
+  size              = 1
+  type              = "standard"
+
+  tags = {
+    Name = "WebServerAttachment"
+  }
+}
+
+# EBS Extra Volume 1 Attachment
+resource "aws_volume_attachment" "web_server_extra_attachment" {
+  device_name = "/dev/sdb"
+  volume_id   = aws_ebs_volume.web_server_extra.id
+  instance_id = aws_instance.web_server.id
+}
+
+# EC2 Web Server
 resource "aws_instance" "web_server" {
   ami           = data.aws_ami.aws_linux_2.id
   instance_type = "t2.micro"
