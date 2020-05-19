@@ -6,8 +6,8 @@ data "aws_vpc" "main" {
 
 # Security Group for EC2
 resource "aws_security_group" "ec2" {
-  name        = "allow-web"
-  description = "allow-web"
+  name        = "allow-web-ssh-nfs"
+  description = "allow-web-ssh-nfs"
   vpc_id      = data.aws_vpc.main.id
 
   ingress {
@@ -22,6 +22,14 @@ resource "aws_security_group" "ec2" {
     description = "Web"
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "NFS"
+    from_port   = 2049
+    to_port     = 2049
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -88,6 +96,21 @@ resource "aws_key_pair" "ec2" {
 #  instance_id = aws_instance.web_server.id
 #}
 
+## EFS Example
+resource "aws_efs_file_system" "efs_volume" {
+  creation_token = "efs-volume"
+
+  tags = {
+    Name = "SharedAcrossInstances"
+  }
+}
+
+# Mounting the EFS to the EC2 Instance
+resource "aws_efs_mount_target" "efs_volume_mount" {
+  file_system_id  = aws_efs_file_system.efs_volume.id
+  subnet_id       = aws_instance.web_server.subnet_id
+  security_groups = [aws_security_group.ec2.id]
+}
 
 # Allow WebServer to Use AWS Services
 resource "aws_iam_instance_profile" "web_server_profile" {
@@ -126,10 +149,11 @@ yum install httpd -y
 service httpd start
 checkconfig httpd on
 
+yum install amazon-efs-utils -y
 echo "<h1>Deployed via Terraform</h1>" > /var/www/html/index.html
 
-aws s3 mb s3://random-bucket-202005192224999
-aws s3 cp /var/www/html/index.html s3://random-bucket-202005192224999/index.html
+aws s3 mb s3://random-bucket-202005192317
+aws s3 cp /var/www/html/index.html s3://random-bucket-202005192317/index.html
 
 EOF
 }
