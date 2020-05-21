@@ -79,11 +79,51 @@ Two different types of backup for RDS:
 
 ## Non-relational Databases
 
-* DynamoDB
+### DynamoDB
 
-## Redshift
+* NoSQL propriatary database from AWS
+* Consistent single-digit millisecond latency at any scale
+* Fully managed
+* key-value or documents
+* Uses SSD to store data
+* 3 different data-centers? (AZ?)
+* 2 models:
+  * Eventual Consistency Reads - After a write, it might take a couple ms to read
+  * Strongly Consistent Reads - After a write, it is already available for read
 
-## Elastic Cache
+### Redshift
+
+* AWS managed, fully operational fast and scalable pentabyte data-warehouse
+* From $0.25 per hour (cheapest on the market)
+* Single Node (160GB)
+* Multi-node
+  * Leader (manages connections and receive queries)
+  * Compute (performs queries, computations and store data)
+  * Up to 128 compute nodes
+* Advanced compression
+  * column based rather than traditional row compression
+  * it doesn't require indexes or materialized views
+  * automatically selects the best compression scheme
+* Massive Parallel Processing
+  * distribute queries across the nodes and makes it easier and faster to run big-data queries
+  * helps to scale
+* Backup
+  * Default 1 day
+  * Max 35 days
+  * At least 3 copies
+    * 1 original, 1 replica, 1 backup on S3
+  * Can automatically replicate to S3 for disaster recovery scenarios
+* Price
+  * Node-hour price
+    * No charge for leader, only compute nodes
+* Encryption
+  * In Transit SSL
+  * At rest AES-256
+  * Redshift takes care of key-management
+    * You can manage your own with HSM
+* Not available on multiple AZs (but you can restore)
+
+### Elastic Cache
 
 In Memory cache to store complex or IO-expensive data, since it is faster than disk-baked operations.
 
