@@ -125,7 +125,7 @@ resource "aws_instance" "web_server" {
 
   # Accidental Termination Protection
   # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#Using_ChangingDisableAPITermination
-  disable_api_termination = true
+  disable_api_termination = false
 
   # Security Groups
   security_groups = [aws_security_group.ec2.name]
