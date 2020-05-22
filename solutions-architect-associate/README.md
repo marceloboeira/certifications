@@ -58,3 +58,5 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
   * [11 - RDS](topics/11_DATABASES.md#rds)
     * [RedShift](topics/11_DATABASES.md#redshift)
     * [Aurora](topics/11_DATABASES.md#redshift)
+  * [11 - DynamoDB](topics/11_DATABASES.md#dynamodb)
+  * [11 - ElasticCache](topics/11_DATABASES.md#elastic-cache)

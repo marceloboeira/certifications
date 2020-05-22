@@ -163,7 +163,22 @@ In Memory cache to store complex or IO-expensive data, since it is faster than d
 
 Two different flavors:
 * Redis
+  * Redis is MultiAZ
+  * Advanced Data Types (arrays, geospacial, ...)
+  * Ranking Sorting
+  * PubSub
+  * Persisted
+  * MultiAZ
+  * BackupRestore
 * Memcached
+  * Multithreading
 
+#### Redis Lab
 
-
+1. Create a redis cluster
+1. Add the SG to EC2 access
+1. Ensure you install redis-cli on EC2 `sudo amazon-linux-extras install redis4.0`
+1. Then use the host from aws console to use the CLI `redis-cli -h $HOST`
+1. Create and Retrieve some keys
+1. `set k 100`
+1. `get k`
