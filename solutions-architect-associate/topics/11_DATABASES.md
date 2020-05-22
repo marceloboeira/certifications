@@ -182,3 +182,17 @@ Two different flavors:
 1. Create and Retrieve some keys
 1. `set k 100`
 1. `get k`
+
+## Quiz Take-aways
+
+* Provisioned IOPS - for performance requirements
+* Max 16TB storage
+* RDS Automated backups are enabled by default
+* Backup window maintenance changes are applied instantaneously
+* Athena File Format - Apache Parquet, JSON
+* Backup snapshots and replication transfer is not charged on AWS, ORC, AVRO... (https://docs.aws.amazon.com/athena/latest/ug/supported-format.html)
+* More:
+  * https://aws.amazon.com/rds/faqs/
+  * https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html
+* You cannot SSH into RDS
+* You cannot force single AZ for DynamoDB
