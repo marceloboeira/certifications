@@ -21,26 +21,27 @@ resource "aws_security_group" "mysql" {
   }
 }
 
-resource "aws_db_instance" "web_server_mysql" {
-  identifier = "ninenine"
-  name       = "ninenine"
-  username   = "noice"
-  password   = "toits-99"
-
-  engine               = "mysql"
-  engine_version       = "5.7"
-  parameter_group_name = "default.mysql5.7"
-
-  instance_class          = "db.t2.micro"
-  allocated_storage       = 20
-  storage_type            = "gp2"
-  apply_immediately       = true
-  backup_retention_period = 0
-
-  publicly_accessible    = true
-  vpc_security_group_ids = [aws_security_group.mysql.id]
-  multi_az               = true
-}
+# Database RDS, Uncomment if you want to run it
+# resource "aws_db_instance" "web_server_mysql" {
+#   identifier = "ninenine"
+#   name       = "ninenine"
+#   username   = "noice"
+#   password   = "toits-99"
+#
+#   engine               = "mysql"
+#   engine_version       = "5.7"
+#   parameter_group_name = "default.mysql5.7"
+#
+#   instance_class          = "db.t2.micro"
+#   allocated_storage       = 20
+#   storage_type            = "gp2"
+#   apply_immediately       = true
+#   backup_retention_period = 0
+#
+#   publicly_accessible    = true
+#   vpc_security_group_ids = [aws_security_group.mysql.id]
+#   multi_az               = true
+# }
 
 
 # data "aws_subnet_ids" "main" {
