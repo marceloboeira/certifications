@@ -123,6 +123,40 @@ Two different types of backup for RDS:
     * You can manage your own with HSM
 * Not available on multiple AZs (but you can restore)
 
+### Aurora
+
+MySQL/Postgres Compatible Database that combines speed and availability of high-end commercial databases with cost-effectiveness of an open-source.
+
+* up to 5 times more performance than MySQL and up to 3 times PgSQL
+* Up to 64 TB
+* 10GB increments
+* Scales automatically (storage)
+* Up to 32vCPUs & 244 GB of memory
+* 2 copies of your data are available within 3 availability zones, so 6 copies total
+* Designed to sustain the loss of 2 copies of your data without affecting the write availability
+* Up to 3 copies without affecting the read availability
+* Self-healing, data blocks and disks are continuosly scanned and automatically repaired
+* Replicas
+  * Aurora Replica (up to 15)
+  * MySQL Read Replicas (up to 5)
+  * PostgreSQL Read Replica (1)
+  * Supports different schemas
+  * Aurora replicas are only in the same region
+  * MySQL there is possible cross-region replica
+  * MySQL specified replication delay is possible
+* Backups
+  * Automated backups always eneabled
+  * Snapshots and Backups do not impact the performance of primary (write/read IOPS)
+* Serverless
+  * An option that is completely scalable and cost-effective
+  * Pay per invocation, good for infrequent, intermitent work-loads
+
+#### Aurora Lab
+
+1. Create an aurora read replica of the old mysql
+1. Wait for replication
+1. Promote to master (you can also do that from a snapshot)
+
 ### Elastic Cache
 
 In Memory cache to store complex or IO-expensive data, since it is faster than disk-baked operations.
@@ -130,3 +164,6 @@ In Memory cache to store complex or IO-expensive data, since it is faster than d
 Two different flavors:
 * Redis
 * Memcached
+
+
+

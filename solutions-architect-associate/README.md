@@ -55,5 +55,6 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
     * [WAF](topics/08_EC2.md#waf)
   * [9 - Cloud Watch](topics/09_CLOUD_WATCH.md)
 * [Databases  191](topics/11_DATABASES.md)
-  * [11 - Databases](topics/10_CLI.md)
-  * [11 - Databases](topics/10_CLI.md)
+  * [11 - RDS](topics/11_DATABASES.md#rds)
+    * [RedShift](topics/11_DATABASES.md#redshift)
+    * [Aurora](topics/11_DATABASES.md#redshift)

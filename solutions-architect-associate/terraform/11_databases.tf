@@ -41,3 +41,28 @@ resource "aws_db_instance" "web_server_mysql" {
   vpc_security_group_ids = [aws_security_group.mysql.id]
   multi_az               = true
 }
+
+
+# data "aws_subnet_ids" "main" {
+#   vpc_id = data.aws_vpc.main.id
+# }
+#
+# module "aurora_read_replica" {
+#   source  = "terraform-aws-modules/rds-aurora/aws"
+#   version = "~> 2.0"
+#
+#   replication_source_identifier = aws_db_instance.web_server_mysql.arn
+#
+#   name          = "ninenine-read-replica"
+#   engine        = "aurora-mysql"
+#   replica_count = 1
+#
+#   vpc_id                  = data.aws_vpc.main.id
+#   subnets                 = data.aws_subnet_ids.main.ids
+#   allowed_security_groups = [aws_security_group.mysql.id]
+#
+#   skip_final_snapshot = true
+#   instance_type       = "db.t2.micro"
+#   storage_encrypted   = false
+#   apply_immediately   = true
+# }
