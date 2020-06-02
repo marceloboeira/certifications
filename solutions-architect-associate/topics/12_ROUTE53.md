@@ -79,16 +79,29 @@ marcelo.github.io -> marceloboeira.com
 ## Routing Policies
 
 * Simple Routing - Rotates values randomly (multiple IP addresses)
-* Weighted Routing
-* Latency-based Routing
-* Failover Routing
-* Geolocation Routing
-* Geoproximity Routing
+* Weighted Routing - Split the traffic by resolving DNS (e.g.: 10% IP: 1, 90% IP: 2) (you can associate health-checa)
+* Latency-based Routing - Routes to the lowest latency to the client (user)
+* Failover Routing -
+* Geolocation Routing -
+* Geoproximity Routing -
 * MultiValue Routing
 
 ## Route53 Lab
 
+### Base
+
 1. Register a domain (or register NS records of a subdomain you already own)
-1. Create Machines
+1. Create Machines (into different regions if possible)
+1. Create an A record with simple distribution for the 2 machines
+1. Test the distribution with `nslookup ...`
 
 
+### Weighted
+
+1. Create another recordset, for weighted with a different distribution (e.g.: 70% to IP1, 30% to IP2)
+1. Double check that you can use health-checks
+
+### Latency
+
+1. Create another recordset for latency with a different distribution
+1. Test the recordset (it's not easy to test latency against another region without a VPN) (PureVPN is free for such tests)

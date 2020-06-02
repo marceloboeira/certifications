@@ -155,7 +155,7 @@ service httpd start
 checkconfig httpd on
 
 yum install amazon-efs-utils -y
-echo "<h1>Server Number 1</h1>" > /var/www/html/index.html
+echo "<h1>Server 1 - eu-central-1 - Frankfurt</h1>" > /var/www/html/index.html
 
 aws s3 mb s3://random-bucket-202005192317
 aws s3 cp /var/www/html/index.html s3://random-bucket-202005192317/index.html
@@ -243,7 +243,7 @@ yum install httpd -y
 service httpd start
 checkconfig httpd on
 
-echo "<h1>Server Number 2</h1>" > /var/www/html/index.html
+echo "<h1>Server 2 - eu-west-1 - Ireland </h1>" > /var/www/html/index.html
 
 EOF
 }
