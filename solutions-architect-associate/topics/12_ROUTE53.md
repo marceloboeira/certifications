@@ -80,8 +80,8 @@ marcelo.github.io -> marceloboeira.com
 
 * Simple Routing - Rotates values randomly (multiple IP addresses)
 * Weighted Routing - Split the traffic by resolving DNS (e.g.: 10% IP: 1, 90% IP: 2) (you can associate health-checa)
-* Latency-based Routing - Routes to the lowest latency to the client (user)
-* Failover Routing -
+* Latency-based Routing - Routes to the lowest latency to the client (user) (based on AWS regions)
+* Failover Routing - Active passive setup (e.g.: if A fails rollout to B)
 * Geolocation Routing -
 * Geoproximity Routing -
 * MultiValue Routing
@@ -105,3 +105,8 @@ marcelo.github.io -> marceloboeira.com
 
 1. Create another recordset for latency with a different distribution
 1. Test the recordset (it's not easy to test latency against another region without a VPN) (PureVPN is free for such tests)
+
+### Failover
+
+1. Create another recordset for failover with a different distribution
+1. Test the recordset (turn off the primary) (`sudo apachectl stop` also works)

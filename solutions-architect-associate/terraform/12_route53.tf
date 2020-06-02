@@ -72,3 +72,61 @@ resource "aws_route53_record" "latency_2" {
 
   records = [aws_instance.web_server_replica.public_ip]
 }
+
+# Create a failover based routing
+resource "aws_route53_record" "failover_primary" {
+  zone_id = aws_route53_zone.main_domain.zone_id
+  name    = "failover.${var.main_domain}"
+  type    = "A"
+  ttl     = "30"
+
+  set_identifier = "1"
+  failover_routing_policy {
+    type = "PRIMARY"
+  }
+
+  records = [aws_instance.web_server.public_ip]
+
+  health_check_id = aws_route53_health_check.failover_primary.id
+}
+
+resource "aws_route53_record" "failover_secondary" {
+  zone_id = aws_route53_zone.main_domain.zone_id
+  name    = "failover.${var.main_domain}"
+  type    = "A"
+  ttl     = "30"
+
+  set_identifier = "2"
+  failover_routing_policy {
+    type = "SECONDARY"
+  }
+
+  records         = [aws_instance.web_server_replica.public_ip]
+  health_check_id = aws_route53_health_check.failover_secondary.id
+}
+
+resource "aws_route53_health_check" "failover_primary" {
+  fqdn              = aws_instance.web_server.public_dns
+  port              = 80
+  type              = "HTTP"
+  resource_path     = "/"
+  failure_threshold = "2"
+  request_interval  = "10"
+
+  tags = {
+    Name = "test"
+  }
+}
+
+resource "aws_route53_health_check" "failover_secondary" {
+  fqdn              = aws_instance.web_server_replica.public_dns
+  port              = 80
+  type              = "HTTP"
+  resource_path     = "/"
+  failure_threshold = "2"
+  request_interval  = "10"
+
+  tags = {
+    Name = "test"
+  }
+}
