@@ -83,8 +83,8 @@ marcelo.github.io -> marceloboeira.com
 * Latency-based Routing - Routes to the lowest latency to the client (user) (based on AWS regions)
 * Failover Routing - Active passive setup (e.g.: if A fails rollout to B)
 * Geolocation Routing - Different than latency since it is enforced by cleint IP and not based on a metric
-* Geoproximity Routing -
-* MultiValue Routing
+* Geoproximity Routing - Custom specific location and biases (e.g.: lat,long geoboxes)
+* MultiValue Routing - SimpleRouting + HealthCheck (e.g.: different pools of IPs with health-checks and random rotations)
 
 ## Route53 Lab
 
