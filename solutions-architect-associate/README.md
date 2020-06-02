@@ -62,3 +62,5 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
   * [11 - ElasticCache](topics/11_DATABASES.md#elastic-cache)
 * DNS 101
   * [12 - Route53](topics/12_ROUTE53.md)
+  * [Record Types](topics/12_ROUTE53.md#records)
+  * [Routing Policies](topics/12_ROUTE53.md#routing-policies)
