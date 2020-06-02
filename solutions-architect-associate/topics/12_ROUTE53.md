@@ -75,3 +75,20 @@ Used to resolve 1 domain name to another:
 www.marceloboeira.com -> marceloboeira.com
 marcelo.github.io -> marceloboeira.com
 `
+
+## Routing Policies
+
+* Simple Routing - Rotates values randomly (multiple IP addresses)
+* Weighted Routing
+* Latency-based Routing
+* Failover Routing
+* Geolocation Routing
+* Geoproximity Routing
+* MultiValue Routing
+
+## Route53 Lab
+
+1. Register a domain (or register NS records of a subdomain you already own)
+1. Create Machines
+
+

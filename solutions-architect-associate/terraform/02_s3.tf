@@ -53,7 +53,7 @@ resource "aws_s3_bucket" "aux_storage_01" {
 # Replica bucket on another region
 resource "aws_s3_bucket" "aux_storage_01_replica" {
   bucket   = "aux-storage-01-replica"
-  provider = aws.replica
+  provider = aws.eu_west_1
   region   = "eu-west-1"
 
   versioning {

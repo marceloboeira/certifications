@@ -4,6 +4,11 @@ data "aws_vpc" "main" {
   id = "${var.vpc_id}"
 }
 
+data "aws_vpc" "main_replica" {
+  provider = aws.eu_west_1
+  id       = "${var.vpc_replica_id}"
+}
+
 # Security Group for EC2
 resource "aws_security_group" "ec2" {
   name        = "allow-web-ssh-nfs"
@@ -150,10 +155,95 @@ service httpd start
 checkconfig httpd on
 
 yum install amazon-efs-utils -y
-echo "<h1>Deployed via Terraform</h1>" > /var/www/html/index.html
+echo "<h1>Server Number 1</h1>" > /var/www/html/index.html
 
 aws s3 mb s3://random-bucket-202005192317
 aws s3 cp /var/www/html/index.html s3://random-bucket-202005192317/index.html
+
+EOF
+}
+
+#########################
+
+# Security Group for EC2
+resource "aws_security_group" "ec2_replica" {
+  provider    = aws.eu_west_1
+  name        = "allow-web-ssh"
+  description = "allow-web-ssh"
+  vpc_id      = data.aws_vpc.main_replica.id
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Web"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+data "aws_ami" "aws_linux_2_replica" {
+  provider = aws.eu_west_1
+
+  filter {
+    name   = "image-id"
+    values = ["ami-0ea3405d2d2522162"]
+  }
+
+  owners = ["amazon"]
+}
+
+# SSH Keys
+resource "aws_key_pair" "ec2_replica" {
+  provider   = aws.eu_west_1
+  key_name   = "ec2-main-key"
+  public_key = var.ec2_public_ssh_key
+}
+
+# EC2 Web Server (In Another Region)
+resource "aws_instance" "web_server_replica" {
+  provider      = aws.eu_west_1
+  ami           = data.aws_ami.aws_linux_2_replica.id
+  instance_type = "t2.micro"
+
+  # Accidental Termination Protection
+  # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#Using_ChangingDisableAPITermination
+  disable_api_termination = false
+
+  # Security Groups
+  security_groups = [aws_security_group.ec2_replica.name]
+
+  # SSH Key
+  key_name = aws_key_pair.ec2_replica.key_name
+
+  tags = {
+    Name = "HelloWorld"
+  }
+
+  # Startup Script
+  user_data = <<EOF
+#!/bin/bash
+
+yum update -y
+yum install httpd -y
+service httpd start
+checkconfig httpd on
+
+echo "<h1>Server Number 2</h1>" > /var/www/html/index.html
 
 EOF
 }
