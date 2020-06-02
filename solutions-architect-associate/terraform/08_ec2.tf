@@ -1,14 +1,3 @@
-# TODO Move to VPC module
-# Main VPC
-data "aws_vpc" "main" {
-  id = "${var.vpc_id}"
-}
-
-data "aws_vpc" "main_replica" {
-  provider = aws.eu_west_1
-  id       = "${var.vpc_replica_id}"
-}
-
 # Security Group for EC2
 resource "aws_security_group" "ec2" {
   name        = "allow-web-ssh-nfs"
