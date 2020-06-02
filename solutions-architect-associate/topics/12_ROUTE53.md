@@ -82,7 +82,7 @@ marcelo.github.io -> marceloboeira.com
 * Weighted Routing - Split the traffic by resolving DNS (e.g.: 10% IP: 1, 90% IP: 2) (you can associate health-checa)
 * Latency-based Routing - Routes to the lowest latency to the client (user) (based on AWS regions)
 * Failover Routing - Active passive setup (e.g.: if A fails rollout to B)
-* Geolocation Routing -
+* Geolocation Routing - Different than latency since it is enforced by cleint IP and not based on a metric
 * Geoproximity Routing -
 * MultiValue Routing
 
@@ -94,7 +94,6 @@ marcelo.github.io -> marceloboeira.com
 1. Create Machines (into different regions if possible)
 1. Create an A record with simple distribution for the 2 machines
 1. Test the distribution with `nslookup ...`
-
 
 ### Weighted
 
@@ -110,3 +109,8 @@ marcelo.github.io -> marceloboeira.com
 
 1. Create another recordset for failover with a different distribution
 1. Test the recordset (turn off the primary) (`sudo apachectl stop` also works)
+
+### Geolocation
+
+1. Create another recordset for location (continent/country/state) with a different target server
+1. Test the recordset (you need a VPN) (PureVPN is free for such tests)

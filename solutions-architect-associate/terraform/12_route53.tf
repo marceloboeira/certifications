@@ -130,3 +130,32 @@ resource "aws_route53_health_check" "failover_secondary" {
     Name = "test"
   }
 }
+
+# Create a geolocation based routing
+resource "aws_route53_record" "geolocation_1" {
+  zone_id = aws_route53_zone.main_domain.zone_id
+  name    = "geolocation.${var.main_domain}"
+  type    = "A"
+  ttl     = "30"
+
+  set_identifier = "1"
+  geolocation_routing_policy {
+    country = "DE"
+  }
+
+  records = [aws_instance.web_server.public_ip]
+}
+
+resource "aws_route53_record" "geolocation_2" {
+  zone_id = aws_route53_zone.main_domain.zone_id
+  name    = "geolocation.${var.main_domain}"
+  type    = "A"
+  ttl     = "30"
+
+  set_identifier = "2"
+  geolocation_routing_policy {
+    country = "BR"
+  }
+
+  records = [aws_instance.web_server_replica.public_ip]
+}
