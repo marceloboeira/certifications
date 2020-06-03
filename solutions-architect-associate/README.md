@@ -65,7 +65,7 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
   * [12 - Route53](topics/12_ROUTE53.md)
   * [Record Types](topics/12_ROUTE53.md#records)
   * [Routing Policies](topics/12_ROUTE53.md#routing-policies)
-* [VPC](topics/13_VPC.md)
+* [13 - VPC](topics/13_VPC.md)
   * [Building a VPC](topics/13_VPC.md#building-a-vpc)
   * [FlowLog](topics/13_VPC.md#flowlog)
   * [Bastion](topics/13_VPC.md#bastion)
