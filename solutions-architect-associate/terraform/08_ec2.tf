@@ -240,10 +240,10 @@ EOF
 
 ####### VPC Related EC2s ########
 #
-# Security Group for EC2
+# Security Group for Public EC2
 resource "aws_security_group" "ec2_vpc" {
-  name        = "allow-web-ssh"
-  description = "allow-web-ssh"
+  name        = "allow-web-ssh-private"
+  description = "allow-web-ssh-private"
   vpc_id      = aws_vpc.custom.id
 
   ingress {
@@ -270,12 +270,59 @@ resource "aws_security_group" "ec2_vpc" {
   }
 }
 
+# Security Group for Private EC2
+resource "aws_security_group" "ec2_vpc_private" {
+  name        = "allow-db"
+  description = "allow-db"
+  vpc_id      = aws_vpc.custom.id
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.1.0/24"]
+  }
+
+  ingress {
+    description = "HTTP"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.1.0/24"]
+  }
+
+  ingress {
+    description = "MySQL"
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.1.0/24"]
+  }
+
+  ingress {
+    description = "ping"
+    # https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml
+    protocol    = "icmp"
+    from_port   = -1
+    to_port     = -1
+    cidr_blocks = ["10.0.1.0/24"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 # EC2 on Public VPC - Web Server
 resource "aws_instance" "public_web_server" {
   ami                     = data.aws_ami.aws_linux_2.id
   instance_type           = "t2.micro"
   disable_api_termination = false
-  security_groups         = [aws_security_group.ec2_vpc.id]
+  vpc_security_group_ids      = [aws_security_group.ec2_vpc.id]
   key_name                = aws_key_pair.ec2.key_name
   iam_instance_profile    = aws_iam_instance_profile.web_server_profile.name
   subnet_id               = aws_subnet.custom_a.id
@@ -303,8 +350,7 @@ resource "aws_instance" "private_web_server" {
   ami                     = data.aws_ami.aws_linux_2.id
   instance_type           = "t2.micro"
   disable_api_termination = false
-  # Using default SG
-  # security_groups         = [aws_security_group.ec2_vpc.name]
+  vpc_security_group_ids      = [aws_security_group.ec2_vpc_private.id]
   key_name             = aws_key_pair.ec2.key_name
   iam_instance_profile = aws_iam_instance_profile.web_server_profile.name
   subnet_id            = aws_subnet.custom_b.id

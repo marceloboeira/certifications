@@ -52,3 +52,9 @@ You have complete control over IP, network and internet access, security groups,
   1. 1 with a SG allowing HTTP/SSH
   1. Attached to the Public Subnet
   1. THe second with a private subnet and default SG
+  1. Create a Security Group that Allows HTTP/SSH from within the private range `10.0.1.0/24`
+  1. Attach to the Private EC2
+1. SSH Into the Public EC2
+1. Ping the Private EC2 (address can be found on the AWS Console)
+1. SSH into the Private (from the Public)
+  *  By copying the private key
