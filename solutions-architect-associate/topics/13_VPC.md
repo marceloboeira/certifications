@@ -40,4 +40,15 @@ You have complete control over IP, network and internet access, security groups,
     * 10.0.0.2 - DNS Server
     * 10.0.0.3 - Reserved for Future Use
     * 10.0.0.255 - Network broadcast
-1. Make the first AWS publicly accesible (`map_public_ip_on_launch` on terraform)
+1. Make the first subnet AWS publicly accesible (`map_public_ip_on_launch` on terraform)
+1. Create an Internet Gateway for access
+  * You can only have 1 attached to a VPC (they are cross region and internally replicated/designed for high-availability)
+1. Create a route table (public one)
+  * With routes to the internet gateway
+  * Select IPv4/v6
+  * Make it NOT the default one
+1. Associate the Subnet to the Public Route Table
+1. Create 2 EC2 Machines
+  1. 1 with a SG allowing HTTP/SSH
+  1. Attached to the Public Subnet
+  1. THe second with a private subnet and default SG

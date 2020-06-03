@@ -236,3 +236,93 @@ echo "<h1>Server 2 - eu-west-1 - Ireland </h1>" > /var/www/html/index.html
 
 EOF
 }
+
+
+####### VPC Related EC2s ########
+#
+# Security Group for EC2
+resource "aws_security_group" "ec2_vpc" {
+  name        = "allow-web-ssh"
+  description = "allow-web-ssh"
+  vpc_id      = aws_vpc.custom.id
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Web"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# EC2 on Public VPC - Web Server
+resource "aws_instance" "public_web_server" {
+  ami                     = data.aws_ami.aws_linux_2.id
+  instance_type           = "t2.micro"
+  disable_api_termination = false
+  security_groups         = [aws_security_group.ec2_vpc.id]
+  key_name                = aws_key_pair.ec2.key_name
+  iam_instance_profile    = aws_iam_instance_profile.web_server_profile.name
+  subnet_id               = aws_subnet.custom_a.id
+
+  tags = {
+    Name = "HelloVPC_Public"
+  }
+
+  # Startup Script
+  user_data = <<EOF
+#!/bin/bash
+
+yum update -y
+yum install httpd -y
+service httpd start
+checkconfig httpd on
+
+echo "<h1>VPC Server 1 - eu-central-1 - Frankfurt</h1>" > /var/www/html/index.html
+
+EOF
+}
+
+# EC2 on Public VPC - Web Server
+resource "aws_instance" "private_web_server" {
+  ami                     = data.aws_ami.aws_linux_2.id
+  instance_type           = "t2.micro"
+  disable_api_termination = false
+  # Using default SG
+  # security_groups         = [aws_security_group.ec2_vpc.name]
+  key_name             = aws_key_pair.ec2.key_name
+  iam_instance_profile = aws_iam_instance_profile.web_server_profile.name
+  subnet_id            = aws_subnet.custom_b.id
+
+  tags = {
+    Name = "HelloVPC_Private"
+  }
+
+  # Startup Script
+  user_data = <<EOF
+#!/bin/bash
+
+yum update -y
+yum install httpd -y
+service httpd start
+checkconfig httpd on
+
+echo "<h1>VPC Server 2 - eu-central-1 - Frankfurt</h1>" > /var/www/html/index.html
+
+EOF
+}
