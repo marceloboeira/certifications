@@ -58,3 +58,19 @@ You have complete control over IP, network and internet access, security groups,
 1. Ping the Private EC2 (address can be found on the AWS Console)
 1. SSH into the Private (from the Public)
   *  By copying the private key
+1. Allow NAT instances/gateways
+  * NAT instances are EC2 instances
+    * **important** I have not done the NAT instance step since it was quite outdated (no one, I hope, uses that on production...)
+    * Takeaway:
+      * You need to disable source/destination check
+      * Must be in a public subnet
+      * The amount of traffic depends on the route size
+  * NAT gateways are components from AWS
+    * Redundant inside the AZ
+    * Only 1 per AZ
+    * Start with 5Gbps up to 45Gbps
+    * No need to patch
+    * No need for SG
+    * Update your route tables
+    * No need to disable source/dest checks
+  * You you always have a NAT gateways per AZ to avoid SPOF (Single Point of Failure)

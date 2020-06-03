@@ -58,6 +58,15 @@ resource "aws_internet_gateway" "custom" {
 }
 
 ## Route Tables
+resource "aws_default_route_table" "custom_default" {
+  default_route_table_id = aws_vpc.custom.default_route_table_id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.custom.id
+  }
+}
+
 resource "aws_route_table" "custom_public" {
   vpc_id = aws_vpc.custom.id
 
@@ -79,8 +88,18 @@ resource "aws_route_table" "custom_public" {
   }
 }
 
-## Associate the Public Subnet to the Public Route Table
+## Associate Tables and Subnets
 resource "aws_route_table_association" "a" {
   subnet_id      = aws_subnet.custom_a.id
   route_table_id = aws_route_table.custom_public.id
+}
+
+## NAT Gateways
+resource "aws_nat_gateway" "custom" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = aws_subnet.custom_a.id
+}
+
+resource "aws_eip" "nat" {
+  vpc = true
 }

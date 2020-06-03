@@ -322,7 +322,7 @@ resource "aws_instance" "public_web_server" {
   ami                     = data.aws_ami.aws_linux_2.id
   instance_type           = "t2.micro"
   disable_api_termination = false
-  vpc_security_group_ids      = [aws_security_group.ec2_vpc.id]
+  vpc_security_group_ids  = [aws_security_group.ec2_vpc.id]
   key_name                = aws_key_pair.ec2.key_name
   iam_instance_profile    = aws_iam_instance_profile.web_server_profile.name
   subnet_id               = aws_subnet.custom_a.id
@@ -350,10 +350,10 @@ resource "aws_instance" "private_web_server" {
   ami                     = data.aws_ami.aws_linux_2.id
   instance_type           = "t2.micro"
   disable_api_termination = false
-  vpc_security_group_ids      = [aws_security_group.ec2_vpc_private.id]
-  key_name             = aws_key_pair.ec2.key_name
-  iam_instance_profile = aws_iam_instance_profile.web_server_profile.name
-  subnet_id            = aws_subnet.custom_b.id
+  vpc_security_group_ids  = [aws_security_group.ec2_vpc_private.id]
+  key_name                = aws_key_pair.ec2.key_name
+  iam_instance_profile    = aws_iam_instance_profile.web_server_profile.name
+  subnet_id               = aws_subnet.custom_b.id
 
   tags = {
     Name = "HelloVPC_Private"
