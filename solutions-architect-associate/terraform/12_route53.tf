@@ -11,7 +11,7 @@ resource "aws_route53_record" "www" {
   name    = "www.${var.main_domain}"
   type    = "A"
   ttl     = "30"
-  records = [aws_instance.web_server.public_ip, aws_instance.web_server_replica.public_ip]
+  records = length(aws_instance.web_server.public_ip) > 0 ? [aws_instance.web_server.public_ip, aws_instance.web_server_replica.public_ip] : ["8.8.8.8"]
 }
 
 # Create a weighted routing
@@ -26,7 +26,7 @@ resource "aws_route53_record" "weighted_1" {
   }
   set_identifier = "1"
 
-  records = [aws_instance.web_server_replica.public_ip]
+  records = length(aws_instance.web_server_replica.public_ip) > 0 ? [aws_instance.web_server_replica.public_ip] : ["8.8.8.8"]
 }
 
 resource "aws_route53_record" "weighted_2" {
@@ -40,7 +40,7 @@ resource "aws_route53_record" "weighted_2" {
   }
 
   set_identifier = "2"
-  records        = [aws_instance.web_server.public_ip]
+  records        = length(aws_instance.web_server.public_ip) > 0 ? [aws_instance.web_server.public_ip] : ["8.8.8.8"]
 }
 
 
@@ -56,7 +56,7 @@ resource "aws_route53_record" "latency_1" {
     region = "eu-central-1"
   }
 
-  records = [aws_instance.web_server.public_ip]
+  records = length(aws_instance.web_server.public_ip) > 0 ? [aws_instance.web_server.public_ip] : ["8.8.8.8"]
 }
 
 resource "aws_route53_record" "latency_2" {
@@ -70,7 +70,7 @@ resource "aws_route53_record" "latency_2" {
     region = "eu-west-1"
   }
 
-  records = [aws_instance.web_server_replica.public_ip]
+  records = length(aws_instance.web_server_replica.public_ip) > 0 ? [aws_instance.web_server_replica.public_ip] : ["8.8.8.8"]
 }
 
 # Create a failover based routing
@@ -85,7 +85,7 @@ resource "aws_route53_record" "failover_primary" {
     type = "PRIMARY"
   }
 
-  records = [aws_instance.web_server.public_ip]
+  records = length(aws_instance.web_server.public_ip) > 0 ? [aws_instance.web_server.public_ip] : ["8.8.8.8"]
 
   health_check_id = aws_route53_health_check.failover_primary.id
 }
@@ -101,12 +101,13 @@ resource "aws_route53_record" "failover_secondary" {
     type = "SECONDARY"
   }
 
-  records         = [aws_instance.web_server_replica.public_ip]
+  records = length(aws_instance.web_server_replica.public_ip) > 0 ? [aws_instance.web_server_replica.public_ip] : ["8.8.8.8"]
+
   health_check_id = aws_route53_health_check.failover_secondary.id
 }
 
 resource "aws_route53_health_check" "failover_primary" {
-  fqdn              = aws_instance.web_server.public_dns
+  fqdn              = length(aws_instance.web_server.public_dns) > 0 ? aws_instance.web_server.public_dns : "marceloboeira.com"
   port              = 80
   type              = "HTTP"
   resource_path     = "/"
@@ -119,7 +120,7 @@ resource "aws_route53_health_check" "failover_primary" {
 }
 
 resource "aws_route53_health_check" "failover_secondary" {
-  fqdn              = aws_instance.web_server_replica.public_dns
+  fqdn              = length(aws_instance.web_server_replica.public_dns) > 0 ? aws_instance.web_server_replica.public_dns : "marceloboeira.com"
   port              = 80
   type              = "HTTP"
   resource_path     = "/"
@@ -143,7 +144,7 @@ resource "aws_route53_record" "geolocation_1" {
     country = "DE"
   }
 
-  records = [aws_instance.web_server.public_ip]
+  records = length(aws_instance.web_server.public_ip) > 0 ? [aws_instance.web_server.public_ip] : ["8.8.8.8"]
 }
 
 resource "aws_route53_record" "geolocation_2" {
@@ -157,5 +158,5 @@ resource "aws_route53_record" "geolocation_2" {
     country = "BR"
   }
 
-  records = [aws_instance.web_server_replica.public_ip]
+  records = length(aws_instance.web_server_replica.public_ip) > 0 ? [aws_instance.web_server_replica.public_ip] : ["8.8.8.8"]
 }
