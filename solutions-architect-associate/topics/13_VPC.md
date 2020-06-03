@@ -74,3 +74,18 @@ You have complete control over IP, network and internet access, security groups,
     * Update your route tables
     * No need to disable source/dest checks
   * You you always have a NAT gateways per AZ to avoid SPOF (Single Point of Failure)
+1. Create a Network ACL
+  * Make sure the default ACL is not changed
+  * Set subnet-a/1 to that new ACL
+  * The webpage on the public server should not work (not the SSH)
+  * Update the new network to have specific ssh/http allow for port 80/22
+  * Add [ephemeral ports](https://en.wikipedia.org/wiki/Ephemeral_port)
+  * Test once more
+  * Now, remember:
+    * Rules work on chronological order, e.g.: if rule 100 allows port 80 and rule 101 blocks, it will be allowed.
+    * Network ACL is a level lower than Security Groups, e.g.: if you block port 80 on ACL and allow on Security Group won't work, since it won't even try to reach the SG, the connection gets blocked
+    * By default it allows everything (the default network ACL)
+    * When you create a new one it denies everything!
+    * Each subnet is automatically associated with the default ACL
+    * You can only associate 1 ACL to 1 Subnet
+1. You need at least 2 subnets for 1 ALB
