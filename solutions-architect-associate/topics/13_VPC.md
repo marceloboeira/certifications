@@ -89,3 +89,61 @@ You have complete control over IP, network and internet access, security groups,
     * Each subnet is automatically associated with the default ACL
     * You can only associate 1 ACL to 1 Subnet
 1. You need at least 2 subnets for 1 ALB
+
+## FlowLog
+
+Log of your network on the IP level.
+
+* Log in/out network logs
+* You can store them on cloudwatch or S3 bucket
+* 3 levels:
+  * VPC
+  * Subnet
+  * ENI - Network Interface
+* You can select the level (allowed/rejected/all)
+* You cannot enable flow logs for peered VPCs not on your account
+* You cannot change the configuration once created
+* You can add tags
+* Internal AWS traffic is not monitored (e.g.: DNS, metadata, windows activation)
+
+## Bastion
+
+A computer device on your network that is secure against attacks and serves as an entrypoint for access to other machines, isolated.
+
+* You can get bastion hosts AMI (images) from AWS network
+* Securely admin the rest of the instances
+* You only need to create a allow/public path to the bastion instance and the other instances should not require such insecure conneciton
+* Bastion should be well-secure to avoid attacks
+* You cannot use your NAT gateway as a bastion host
+
+## DirectConnect
+
+Cloud service to facilitate the connection of a dedicated network from your data-center or network to AWS datacenter.
+
+* You need to use AWS Cage or Partners cage
+* You connect the routers internally
+* It doesn't go "through the internet"
+* High throughput workloads
+* Highly secure applications
+* How to setup
+  * Create a public interface on DirectConnect Console
+  * Create a customer gateway
+  * Create a virtual private gateway
+  * Attach to the VPC
+  * Select the VPN and attach it
+  * Once the gatway is setup you need firewall setup
+  * TODO: [Review AWS Official Video](https://www.youtube.com/watch?v=dhpTTT6V1So&feature=youtu.be)
+
+## GlobalAccelerator
+
+Network-ISP bound shortcut to allow direct connection to AWS regions
+
+* Static IP Address - you can bring your own, but 2 IPs are provided
+* Accelerator - Directs traffic to AWS regions more precisely based on the source connection
+* DNS Name - You get a DNS name which point to the static IP addresses
+* NetworkZone - Similar to an AZ, it manages the Ip addresses for health-checking and such...
+* Listener - Processes inbound connections (TCP/UDP), regions and endpoint configurations are allowed
+* EndpointGroup - Associated with a AWS region, 1 or more endpoints, traffic % control...
+* Endpoint - ELBs, EC2 Instances, Network Load Balancers... (you can have weighted endpoints)
+* My Take
+  * Similar to CloudFront but focused on low-latency, high-throughput and different protocol applications...
