@@ -25,6 +25,7 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
 * `make format` - Formats the Terraform code.
 * `make plan` - Shows diff.
 * `make apply` - Applies changes to AWS/State.
+* `make import` - Import resources from AWS to Terraform. usage: `RESOURCE="<component> <id>" make import`
 
 ## Index
 
