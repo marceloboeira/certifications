@@ -80,3 +80,6 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
     * [Sticky Sessions](topics/14_LOAD_BALANCERS.md#sticky-sessions)
     * [Cross-zone Load Balancing](topics/14_LOAD_BALANCERS.md#cross-zone-load-balancing)
     * [Sticky Sessions](topics/14_LOAD_BALANCERS.md#sticky-sessions)
+  * [15 - AutoScaling](topics/15_AUTOSCALING.md)
+    * [Components](topics/15_AUTOSCALING.md#components)
+    * [Scaling Options](topics/15_AUTOSCALING.md#scaling-options)
