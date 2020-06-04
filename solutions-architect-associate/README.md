@@ -71,3 +71,4 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
   * [Bastion](topics/13_VPC.md#bastion)
   * [DirectConnect](topics/13_VPC.md#directconnect)
   * [GlobalAccelerator](topics/13_VPC.md#globalaccelerator)
+  * [VPC Endpoint](topics/13_VPC.md#vpc-endpoint)

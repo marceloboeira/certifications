@@ -61,10 +61,11 @@ resource "aws_internet_gateway" "custom" {
 resource "aws_default_route_table" "custom_default" {
   default_route_table_id = aws_vpc.custom.default_route_table_id
 
-  route {
-    cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.custom.id
-  }
+  # Remove the route to test the VPC Endpoint
+  # route {
+  #   cidr_block     = "0.0.0.0/0"
+  #   nat_gateway_id = aws_nat_gateway.custom.id
+  # }
 }
 
 resource "aws_route_table" "custom_public" {
@@ -107,7 +108,7 @@ resource "aws_eip" "nat" {
 ## Network ACL
 resource "aws_default_network_acl" "default" {
   default_network_acl_id = aws_vpc.custom.default_network_acl_id
-  subnet_ids             = [aws_subnet.custom_b.id]
+  subnet_ids             = [aws_subnet.custom_a.id, aws_subnet.custom_b.id]
 
   ingress {
     protocol   = -1
@@ -156,7 +157,7 @@ resource "aws_default_network_acl" "default" {
 
 resource "aws_network_acl" "custom" {
   vpc_id     = aws_vpc.custom.id
-  subnet_ids = [aws_subnet.custom_a.id]
+  subnet_ids = []
 
   ingress {
     protocol   = "tcp"
@@ -215,4 +216,15 @@ resource "aws_network_acl" "custom" {
   tags = {
     Name = "CustomACL"
   }
+}
+
+## VPC Endpoint
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id       = aws_vpc.custom.id
+  service_name = "com.amazonaws.eu-central-1.s3"
+}
+
+resource "aws_vpc_endpoint_route_table_association" "private_s3" {
+  vpc_endpoint_id = aws_vpc_endpoint.s3.id
+  route_table_id  = aws_default_route_table.custom_default.id
 }

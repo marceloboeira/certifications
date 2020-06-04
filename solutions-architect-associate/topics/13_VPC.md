@@ -147,3 +147,27 @@ Network-ISP bound shortcut to allow direct connection to AWS regions
 * Endpoint - ELBs, EC2 Instances, Network Load Balancers... (you can have weighted endpoints)
 * My Take
   * Similar to CloudFront but focused on low-latency, high-throughput and different protocol applications...
+
+## VPC Endpoint
+
+* A way to connect your instances directly to AWS Services
+* Create a VPC Endpoint gateway (rather than a NAT gateway) using PrivateLink
+* Have intances talking to internal aws endpoints
+* Interface and Gateway EndpointTypes
+  * Gateway Supports S3 and Dynamo Only
+
+## VPC Summary
+
+* VPCs are internal networks within AWS
+  * They are consisted of
+    * Gateway (for external access in/out)
+    * Route Tables - To control traffic connections (e.g.: connect subnets, gateways, ...)
+    * ACL - To allow/disallow connection / protocols (e.g.: allow TCP within a subnet)
+    * Subnet - Subgroups of individual smaller networks with distinct permissions, ACLs and Routes (e.g.: private/public subnets)
+      * 1 subnet per AZ
+    * Security Groups - Rules for the individual instances or the subnet focused on high-level protocol management.
+      *  [SG vs Network ACL](https://www.youtube.com/watch?v=4pDYLhfwauw)
+      *  e.g.: if you allow port 22 on a SG but not on an NACL then it won't wont unless it is explicitly allowed (by an specific rule OR a general allow all one)
+    * SG is stateful (inbound/outbout)
+    * ACL is statelesss (you need to open up inbound and outbout individually)
+  * No transitive peering
