@@ -114,11 +114,11 @@ resource "aws_route_table_association" "a" {
   route_table_id = aws_route_table.custom_public.id
 }
 
-## NAT Gateways
-resource "aws_nat_gateway" "custom" {
-  allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.custom_a.id
-}
+## NAT Gateways (Commented out for cost saving reasons)
+# resource "aws_nat_gateway" "custom" {
+#   allocation_id = aws_eip.nat.id
+#   subnet_id     = aws_subnet.custom_a.id
+# }
 
 resource "aws_eip" "nat" {
   vpc = true
