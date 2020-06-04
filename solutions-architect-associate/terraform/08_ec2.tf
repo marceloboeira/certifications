@@ -372,3 +372,59 @@ echo "<h1>VPC Server 2 - eu-central-1 - Frankfurt</h1>" > /var/www/html/index.ht
 
 EOF
 }
+
+####### ELB Related EC2s ########
+
+# EC2 Web Server 01
+resource "aws_instance" "elb_webserver_01" {
+  ami                     = data.aws_ami.aws_linux_2.id
+  instance_type           = "t2.micro"
+  disable_api_termination = false
+  vpc_security_group_ids  = [aws_security_group.ec2.id]
+  key_name                = aws_key_pair.ec2.key_name
+  iam_instance_profile    = aws_iam_instance_profile.web_server_profile.name
+  subnet_id               = data.aws_subnet.frankfurt_main_a.id
+
+  tags = {
+    Name = "ELB-Machine01"
+  }
+
+  # Startup Script
+  user_data = <<EOF
+#!/bin/bash
+
+yum update -y
+yum install httpd -y
+service httpd start
+checkconfig httpd on
+
+echo "<h1>Server 1 - eu-central-1a - Frankfurt</h1>" > /var/www/html/index.html
+EOF
+}
+
+# EC2 Web Server 02
+resource "aws_instance" "elb_webserver_02" {
+  ami                     = data.aws_ami.aws_linux_2.id
+  instance_type           = "t2.micro"
+  disable_api_termination = false
+  vpc_security_group_ids  = [aws_security_group.ec2.id]
+  key_name                = aws_key_pair.ec2.key_name
+  iam_instance_profile    = aws_iam_instance_profile.web_server_profile.name
+  subnet_id               = data.aws_subnet.frankfurt_main_b.id
+
+  tags = {
+    Name = "ELB-Machine02"
+  }
+
+  # Startup Script
+  user_data = <<EOF
+#!/bin/bash
+
+yum update -y
+yum install httpd -y
+service httpd start
+checkconfig httpd on
+
+echo "<h1>Server 2 - eu-central-1b - Frankfurt</h1>" > /var/www/html/index.html
+EOF
+}

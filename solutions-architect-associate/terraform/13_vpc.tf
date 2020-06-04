@@ -1,7 +1,26 @@
 # Default VPC Frankfurt
 data "aws_vpc" "main" {
-  id = "${var.vpc_id}"
+  id = var.vpc_id
 }
+
+data "aws_subnet" "frankfurt_main_a" {
+  vpc_id = data.aws_vpc.main.id
+
+  filter {
+    name   = "availability-zone"
+    values = ["eu-central-1a"]
+  }
+}
+
+data "aws_subnet" "frankfurt_main_b" {
+  vpc_id = data.aws_vpc.main.id
+
+  filter {
+    name   = "availability-zone"
+    values = ["eu-central-1b"]
+  }
+}
+
 
 # Default VPC Ireland - Replica
 data "aws_vpc" "main_replica" {
