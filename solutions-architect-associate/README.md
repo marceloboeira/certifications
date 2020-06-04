@@ -76,3 +76,7 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
 * High Availability
   * [14 - Load Balancers](topics/14_LOAD_BALANCERS.md)
     * [Theory](topics/14_LOAD_BALANCERS.md#theory)
+    * [Practice](topics/14_LOAD_BALANCERS.md#lab)
+    * [Sticky Sessions](topics/14_LOAD_BALANCERS.md#sticky-sessions)
+    * [Cross-zone Load Balancing](topics/14_LOAD_BALANCERS.md#cross-zone-load-balancing)
+    * [Sticky Sessions](topics/14_LOAD_BALANCERS.md#sticky-sessions)
