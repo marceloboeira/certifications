@@ -86,4 +86,11 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
     * [Components](topics/15_AUTOSCALING.md#components)
     * [Scaling Options](topics/15_AUTOSCALING.md#scaling-options)
 * Components
-  * [SQS](topics/16_SQS.md)
+  * [16 - SQS](topics/16_SQS.md)
+    * [Scripts](topics/16_SQS.md#lab)
+  * [17 - SWF](topics/17_SWF.md)
+  * [18 - SNS](topics/18_SNS.md)
+  * [19 - ElasticTranscoder](topics/19_ELASTIC_TRANSCODER.md)
+  * [20 - API Gateway](topics/20_API_GATEWAY.md)
+  * [21 - Kinesis](topics/21_KINESIS.md)
+  * [22 - Cognito](topics/22_COGNITO.md)
