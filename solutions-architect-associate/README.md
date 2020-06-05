@@ -25,7 +25,9 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
 * `make format` - Formats the Terraform code.
 * `make plan` - Shows diff.
 * `make apply` - Applies changes to AWS/State.
-* `make import` - Import resources from AWS to Terraform. usage: `RESOURCE="<component> <id>" make import`
+* `make import` - Import resources from AWS to Terraform. Usage: `RESOURCE="<component> <id>" make import`
+* `make sqs_producer` - Start producing messages to the configured queue. Requires: `jot`, `uuidgen`, `aws-cli`, `jq`.
+* `make sqs_consumer` - Start consuming messages from the configured queue. Requires: `jot`, `uuidgen`, `aws-cli`, `jq`.
 
 ## Index
 
@@ -83,3 +85,5 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
   * [15 - AutoScaling](topics/15_AUTOSCALING.md)
     * [Components](topics/15_AUTOSCALING.md#components)
     * [Scaling Options](topics/15_AUTOSCALING.md#scaling-options)
+* Components
+  * [SQS](topics/16_SQS.md)

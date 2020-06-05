@@ -21,3 +21,15 @@ import:
 .PHONY: apply
 apply:
 	@cd $(TF_PATH); $(TF_BIN) apply -var-file=$(TF_VAR_FILE)
+
+
+## Application Specifics
+SQS_QUEUE_URL="https://sqs.eu-central-1.amazonaws.com/436791802080/encoding-queue"
+
+.PHONY: sqs_producer
+sqs_producer:
+	@scripts/sqs_producer.sh $(SQS_QUEUE_URL)
+
+.PHONY: sqs_consumer
+sqs_consumer:
+	@scripts/sqs_consumer.sh $(SQS_QUEUE_URL)
