@@ -1,3 +1,5 @@
+#################################################################
+## Terraform
 TF_BIN = `which terraform`
 TF_PATH = `pwd`/terraform
 TF_VAR_FILE = `pwd`/secrets.tfvars
@@ -22,8 +24,8 @@ import:
 apply:
 	@cd $(TF_PATH); $(TF_BIN) apply -var-file=$(TF_VAR_FILE)
 
-
-## Application Specifics
+#################################################################
+## SQS Scripts
 SQS_QUEUE_URL="https://sqs.eu-central-1.amazonaws.com/436791802080/encoding-queue"
 
 .PHONY: sqs_producer
