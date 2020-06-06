@@ -94,3 +94,4 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
   * [20 - API Gateway](topics/20_API_GATEWAY.md)
   * [21 - Kinesis](topics/21_KINESIS.md)
   * [22 - Cognito](topics/22_COGNITO.md)
+  * [23 - Lambda](topics/23_LAMBDA.md)
