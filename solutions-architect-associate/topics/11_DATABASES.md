@@ -144,6 +144,7 @@ MySQL/Postgres Compatible Database that combines speed and availability of high-
   * Aurora replicas are only in the same region
   * MySQL there is possible cross-region replica
   * MySQL specified replication delay is possible
+  * Aurora Replica **physical replication** can only replicate to one secondary region
 * Backups
   * Automated backups always eneabled
   * Snapshots and Backups do not impact the performance of primary (write/read IOPS)
