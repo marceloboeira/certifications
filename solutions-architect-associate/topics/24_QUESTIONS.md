@@ -7,6 +7,20 @@ Some interesting questions worth mentioning it:
 1) When editing permissions (policies and ACLs), to whom does the concept of the "Owner" refer?
 > The "Owner" refers to the identity and email address used to create the AWS account.
 
+2) Which of these things is true about your AWS 'Root' account? (Choose 2)
+* [x] You should keep a copy of the MFA URL or QR code when you set up the Root account MFA.
+* [ ] There is no task that can only be done by the 'Root' account.
+* [ ] If you forget you Root account password there is no way to reset it. You must contact AWS support for an identity check and backend reset.
+* [x] The Root account cannot be denied access to resources by Policy.
+> There are tasks that can only be done as root (e.g.: changing support plan), You can reset your root-account password by email.
+
+3) You are deploying an application on to EC2 instances. The application must make AWS API calls. What is the most secure method to pass credentials to the application?
+* [ ] Embed the API credentials in the application.
+* [ ] Pass API credentials to the instance using userdata.
+* [ ] Store the API credentials as an object in S3.
+* [x] Assign an IAM role to the EC2 instances.
+> All other options are somehow sharing credentials, which is unsafe.
+
 ## EC2
 
 1) When using EC2 instances with Dedicated Hosting, which of the following modes are you able to transition between by stopping the instance and starting it again?
@@ -31,6 +45,28 @@ Some interesting questions worth mentioning it:
 * [ ] Note the Availability Zone for each instance before stopping it. Restart the instances in the same Availability Zones after the shutdown.
 > Source: [EC2 Hibernation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html).
 
+5) Select the most correct answer: The device name /dev/sda1 (within Amazon EC2 ) is:
+* [ ] Recommended for instance store volumes
+* [ ] Possible for EBS volumes
+* [ ] Recommended for EBS volumes
+* [x] Reserved for the root device
+> Source: [EC2 Device Naming](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html)
+
+6) You have developed a new web application in us-west-2 that requires six Amazon Elastic Compute Cloud (EC2) instances running at all times. You have three availability zones available in that region (us-west-2a, us-west-2b, and us-west-2c). You need 100 percent fault tolerance if any single Availability Zone in us-west-2 becomes unavailable. How would you do this, each answer has 2 answers, select the answer with BOTH correct answers.
+
+* [ ] Answer 1 - Us-west-2a with two EC2 instances, us-west-2b with two EC2 instances, and us-west-2c with two EC2 instances. Answer 2 - Us-west-2a with six EC2 instances, us-west-2b with six EC2 instances, and us-west-2c with no EC2 instances
+* [x] Answer 1 - Us-west-2a with six EC2 instances, us-west-2b with six EC2 instances, and us-west-2c with no EC2 instances. Answer 2 - Us-west-2a with three EC2 instances, us-west-2b with three EC2 instances, and us-west-2c with three EC2 instances.
+* [ ] Answer 1 - Us-west-2a with three EC2 instances, us-west-2b with three EC2 instances, and us-west-2c with no EC2 instances. Answer 2 - Us-west-2a with three EC2 instances, us-west-2b with three EC2 instances, and us-west-2c with three EC2 instances.
+* [ ] Answer 1 - Us-west-2a with three EC2 instances, us-west-2b with three EC2 instances, and us-west-2c with three EC2 instances. Answer 2 - Us-west-2a with four EC2 instances, us-west-2b with two EC2 instances, and us-west-2c with two EC2 instances.
+> The only option that makes sense is 6-6-0, 3-3-3 since all the others do not add up to 6 in the case of an AZ failure.
+
+7) When reviewing Auto Scaling events, it is noticed that an application is scaling up and down multiple times per hour. What design change could you make to optimize cost while preserving elasticity?
+* [ ] Change the Launch Configuration to use a larger instance type.
+* [ ] Add a Provisioned IOPS volume to the instance.
+* [ ] Increase the number of instances in the Auto Scaling group.
+* [x] Change the scale-down CloudWatch metric to a higher threshold.
+>
+
 ## Load Balancers
 
 1) You are working for a security-conscious organisation that is about to deploy their first application in the cloud. This web-based application will need a load balancer in front of it, and due to the nature of the security posture of the organisation will need to be always available on the same (static) IP Address. Which load balancer configuration will deliver this outcome?
@@ -48,6 +84,20 @@ Some interesting questions worth mentioning it:
 * [ ] The load balancer will automatically replace the failed instance.
 * [ ] The load balancer will return 504 Gateway Timeout errors until the instance is replaced.
 > All LoadBalancers have the possibility to configure health-checks that set each instance state to either receive or not receive traffic. Only healthy instances do!
+
+3) If you deploy an ELB-Classic as part of your VPC web app which is true (Choose 3)
+
+The inward facing interface supports IPv4 addressing
+
+AWS publishes a Dual-stack (both IPv4 and IPv6) DNS name on R53
+
+The outward facing interface supports IPv4 addressing
+
+The Listener can be set up to distribute 'Apache Derby Network Server'(1527) connections
+
+The inward facing interface supports IPv6 addressing
+
+The outward facing interface supports IPv6 addressing
 
 ### EBS
 
@@ -69,6 +119,59 @@ Some interesting questions worth mentioning it:
 * [ ] Deploy a NAT Gateway in 2 Regions
 > If you have resources in multiple Availability Zones and they share one NAT gateway, in the event that the NAT gateway’s Availability Zone is down, resources in the other Availability Zones lose internet access. To create an Availability Zone-independent architecture, create a NAT gateway in each Availability Zone and configure your routing to ensure that resources use the NAT gateway in the same Availability Zone.
 
+3) A Solution Architect is designing a three-tier web application. The Architect wants to restrict access to the database tier to accept traffic from the application servers only. However, these application servers are in an Auto Scaling group and may vary in quantity. How should the Architect configure the database servers to meet the requirements?
+* [ ] Configure the database subnet network ACL to deny all inbound non-database traffic from the application-tier subnet.
+* [ ] Configure the database subnet network ACL to allow inbound database traffic from the application-tier subnet.
+* [x] Configure the database security group to allow database traffic from the application server security group.
+* [ ] Configure the database security group to allow database traffic from the application server IP addresses.
+> ACL needs to open inbound and outbound traffic for specific subnets, IPs
+
+4) A Solutions Architect is designing a VPC. Instances in a private subnet must be able to establish IPv6 traffic to the Internet. The design must scale automatically and not incur any additional cost. This can be accomplished with:
+* [ ] a VPC endpoint
+* [ ] a custom NAT instance
+* [x] an egress-only internet gateway
+* [ ] a NAT gateway
+> Egress-only internet gateways are IPv6 whereas NAT devices do not support IPV6, only v4. [Source](https://medium.com/awesome-cloud/aws-vpc-egress-only-internet-gateway-overview-intro-getting-started-guide-2db86d43c7c7).
+
+5) A Solutions Architect has been given the following requirements for a company's VPC:
+The solution is a two-tiered application with a web tier and a database tier. All web traffic to the environment must be directed from the Internet to an Application Load Balancer. The web servers and the databases should not obtain public IP addresses or be directly accessible from the public Internet. Because of security requirements, databases may not share a route table or subnet with any other service. The environment must be highly available within the same VPC for all services. What is the minimum number of subnets that the Solutions Architect will need based on these requirements and best practices?
+* [ ] 3
+* [ ] 2
+* [x] 6
+* [ ] 4
+> You'll need at lest 2 subnets (one for the WS another for the DB) for each AZ, counting 3 AZs for high-availability then you have 6
+
+6) You have an EC2 Instance with an EIP allocated sitting in a Public subnet in your VPC. This instance is serving web content, and you want to make sure that users on the Internet can only access it via ports 80 and 443. Which of the below options lets you achieve this?
+* [ ] Create a security group with an ALLOW rule for ports 80 & 443, and a DENY Rule for all other ports. Attach it to the instance
+* [ ] Create an NACL with a default allow rule on incoming traffic. Create a security group with a DENY rule for all ports except 80 & 443 and attach it to the instance.
+* [ ] Create and NACL with a default deny rule on incoming traffic. Create a security group with an ALLOW rule for ports 80 & 443 and attach it to the instance.
+* [ ] Create a security group with an ALLOW rule for ports 80 & 443 and attach it to the instance
+> TODO
+
+7) Which of the following is an invalid VPC peering configuration?
+* [ ] You have peered three VPCs in a full-mesh configuration. The VPCs are in the same AWS account and do not overlapping CIDR blocks.
+* [ ] You have a VPC peering connection between VPCs A and B. They are in the same AWS account, and they do not have overlapping CIDR blocks.
+* [ ] VPC A has peering connections to VPCs B and C. All three VPCs are in the same AWS account, and there are no overlapping CIDR blocks.
+* [x] You have a VPC peering connection between VPC A and VPC B. VPC A also has a VPN connection to a corporate network. You use VPC A to extend the peering relationship to exist between VPC B and the corporate network so that traffic from the corporate network can directly access VPC B by using the VPN connection to VPC A.
+> TODO
+
+8) You have some EC2 instances in a private subnet that need access to an S3 bucket. There is a requirement that traffic does not traverse the Internet. Which of the following can be used to achieve this?
+* [ ] NAT Gateway
+* [ ] NAT Instance
+* [ ] Internet Gateway
+* [x] VPC Gateway Endpoint
+> TODO
+
+
+9) Which of the below a valid sources or destinations for a VPC Security Group?
+* [ ] An IAM Role
+* [x] A different security group
+* [x] A range of IPv4 Addresses
+* [x] The prefix list ID for an AWS service
+* [ ] An EC2 Instance
+* [ ] An S3 Bucket
+> TODO
+
 ## Databases
 
 ## RDS
@@ -86,6 +189,13 @@ Some interesting questions worth mentioning it:
 * [ ] The number of transaction requests
 * [ ] The number of users
 > TODO: Add Source
+
+3) In accordance with your company's overall business continuity plan, you are looking at implementing a resiliency & disaster recovery strategy for your production MariaDB database. This currently utilises 5 disbursed Read Replicas. You are considering the use of Amazon RDS Multi-AZ deployments in combination with the Read Replicas. Which of these statements regarding that are false?
+* [ ] If the source instance of a Multi-AZ deployment fails over to the secondary, any associated Read Replicas automatically switch to use the secondary (now primary) as their replication source.
+* [ ] RDS Read Replicas support Multi-AZ deployments for MariaDB with 5 Read Replicas
+* [ ] You cannot combine Read Replicas with Multi-AZ deployments for the MariaDB database engine. Only PostgreSQL, Aurora and Oracle database engines are supported.
+* [ ] With RDS for MariaDB, you can set the read replica as Multi-AZ, allowing you to use the read replica as a DR target. When you promote the read replica to be a standalone database, it will already be Multi-AZ enabled.
+> More info [MariaDB Read Replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_MariaDB.Replication.ReadReplicas.html).
 
 ## Aurora
 
@@ -121,6 +231,13 @@ Some interesting questions worth mentioning it:
 > Have the Lambda function perform a strongly consistent read from the database
 > Strongly consistent reads may have higher latency than eventually consistent reads, but they exist!
 > More info on [Dynamo Consistency](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadConsistency.html)
+
+4) How does AWS deliver high durability for DynamoDB?
+* [ ] Like S3, DynamoDB is a global service -- data is automatically replicated across multiple AWS Regions.
+* [ ] AWS maintains a schedule of incremental backups and log shipping.
+* [x] DynamoDB data is automatically replicated across multiple AZs.
+* [ ] DynamoDB supports user Snapshots to S3.
+> DynamoDB is not automatically replicated to other regions, yet within a region it is replicated to multiple AZs.
 
 ## KMS
 
@@ -179,6 +296,51 @@ Some interesting questions worth mentioning it:
 * [ ] Store the data in Amazon S3 Standard-Infrequent Access (S3 Standard-IA) storage and delete the objects after 5 years using a lifecycle rule
 > Glacier Deep Archive is the cheapest you can get - More info [S3 Storage Classes](https://aws.amazon.com/s3/storage-classes/).
 
+8) You have a requirement that all objects stored in a particular bucket be copied to another region. You have enabled Cross Region Replication from the source bucket to the target bucket, but objects are not appearing in the target bucket as expected. What are some possible reasons this could be happening? (Choose 3)
+* [ ] The objects created with server-side encryption using customer-provided (SSE-C) encryption keys.
+* [ ] The object tags in the source bucket have not been assigned.
+* [ ] The objects in the source bucket are replicas that were created by another cross-region replication.
+* [ ] The object does not have lifecycle configuration enabled.
+* [ ] The objects existed before you added the replication configuration to the source bucket.
+* [ ] The objects in the source bucket for which the bucket owner has permissions to read objects and ACLs.
+> More info [S3 Cross-Region Replication](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-troubleshoot.html).
+
+9) CRR replicates every object-level upload that you make directly to your source bucket. Which of the following also forms a part of that replication? (Choose 2)
+* [x] The object ACLs
+* [ ] The object's checksum encryption data
+* [ ] The object's SSL certificate
+* [x] The object metadata
+> ???
+
+10) When setting up the properties of an S3 bucket, which of the following options should you select to track storage cost?
+* [ ] Object-level logging
+* [ ] Server access logging
+* [ ] Versioning
+* [x] Tags
+> ____
+
+11) You work for a security company that stores highly sensitive documents on S3. One of your customers has had a security breach and, as a precaution, they have asked you to remove a sensitive PDF from their S3 bucket. You log in to the AWS console using your account and attempt to delete the object. You notice that versioning is turned on, and when you dig a little deeper you discover that you cannot delete the object. What may be the cause of this?
+* [x] You cannot delete the object because you are not the bucket owner.
+* [ ] S3 server-side encryption is preventing you from doing this.
+* [ ] You must be logged in as a Super User to delete objects.
+* [ ] You can never permanently delete an object on S3 after versioning is enabled.
+* [ ] Only the owner of an Amazon S3 bucket can permanently delete a version.
+> More info on [Deleting versioned objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/DeletingObjectsfromVersioningSuspendedBuckets.html). "Only the bucket owner can delete a specified object version.".
+
+12) When setting up the properties of an S3 bucket, which of the following options should you select to track storage cost?
+* [ ] Object-level logging
+* [ ] Server access logging
+* [ ] Versioning
+* [x] Tags
+> AWS uses tags to group and track cost on the reports
+
+13) Your application stores your customers' sensitive passport information in S3. You are required by law to encrypt all data at rest. Company policy states that you must maintain control of your encryption keys. For ease of management, however, you do not want to implement or maintain a client-side encryption library. Which S3 encryption option should you use to secure your data at rest?
+* [ ] Amazon S3 Encryption Client
+* [ ] SSE-KMS
+* [x] SSE-C
+* [ ] SSE-S3
+> If there is no intention to manage a client-side library then SSE-C is the way to go.
+
 ## CloudFront
 
 1) Your legal team has just identified a significant confidentiality breach in your web site and you have instructions to take all content down immediately. which of the following statements are correct. (Choose 2)
@@ -214,7 +376,16 @@ Some interesting questions worth mentioning it:
 * [x] Increase the receive message wait time for the queue.
 > The longer your consumer requests wait, the bigger is the change of getting a new message from the queue before another requests. Performing 10 requests in the same interval will only cost more.
 
-## Scalability
+2) Your image manipulation application allows users take a picture, upload it to your app, and request filters to be added to the image. You need to decouple the application so your users are not waiting for the image processing to take place. How would you go about doing this?
+* [ ] Use Amazon SQS to store the requests using metadata and JSON in the message, use S3 to store the image, and Auto Scaling to determine when to fire off more worker instances based on queue size.
+* [ ] Integrate with DynamoDB to allow messages to be sent back and forth between worker instances and EC2 instances.
+* [ ] Use S3 to store the images and EC2 to process the requests.
+* [ ] Use Lambda to process the images.
+> A
+
+## General
+
+### Scalability
 
 1) Which of the following characterize a scalable and reliable solution on AWS? (Choose 2)
 * [ ] A scalable solution applies elasticity at the expense of cost.
@@ -223,7 +394,16 @@ Some interesting questions worth mentioning it:
 * [x] A scalable solution will decrease in cost at scale.
 > Scalable has to take operational cost into account, otherwise everything is scalable. e.g.: if you double your traffic you should not have more than double the cost, it must be min. linearly, but it should decrease at scale.
 
-## Security
+### Availability
+
+A Multi-AZ RDS deployment will automatically fail-over as a result of which two of the following? (Choose 2)
+* [ ] A region-wide loss of service
+* [ ] Loss of availability in standby Availability Zone
+* [x] Loss of availability in primary Availability Zone
+* [x] Loss of network connectivity to the Primary
+> Only "primary" related events react with fail-over.
+
+### Security
 
 1) You are currently running an application in a production environment and you want to ensure that it is free of vulnerabilities. Which of the following AWS services would you use to accomplish this?
 * [ ] AWS Web Application Firewall (WAF)
@@ -231,3 +411,12 @@ Some interesting questions worth mentioning it:
 * [x] Amazon Inspector
 * [ ] AWS Shield
 > WAF is a firewall tool, shield is a DoS prevention tool and Truested is for compliance, not for vulnerability scanning.
+
+2) Which of the following layers of DDoS attacks does AWS automatically address? (Choose 2)
+* [ ] Layer 7
+* [x] Layer 4
+* [x] Layer 3
+* [ ] Layer 1
+> AWS automatically addresses DDoS attacks at the network and transport layers, which are Layer 3 and Layer 4, respectively.
+> The attacks are distinguished by "Application"(Layer 6,7) and "Network"(Layer 3,4)
+> More info [AWS Shield](https://aws.amazon.com/shield/ddos-attack-protection/). "Your AWS resources automatically have AWS Shield Standard and are protected from common, most frequently occurring network and transport layer DDoS attacks."
