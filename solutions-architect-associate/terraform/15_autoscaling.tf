@@ -27,8 +27,8 @@ EOF
 resource "aws_autoscaling_group" "main" {
   name                 = "autoscaling-group"
   launch_configuration = aws_launch_configuration.main.name
-  min_size             = 0 # Reduced to avoid costs
-  max_size             = 0 # Reduced to avoid costs
+  min_size             = 2
+  max_size             = 10
   vpc_zone_identifier = [
     data.aws_subnet.frankfurt_main_a.id,
     data.aws_subnet.frankfurt_main_b.id,

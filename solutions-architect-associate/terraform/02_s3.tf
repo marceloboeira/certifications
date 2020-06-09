@@ -83,11 +83,10 @@ EOF
 }
 
 # Encryption Key
-# Removed because of the price
-# resource "aws_kms_key" "s3_key" {
-#   description             = "Sample Key Test"
-#   deletion_window_in_days = 7
-# }
+resource "aws_kms_key" "s3_key" {
+  description             = "Sample Key Test"
+  deletion_window_in_days = 7
+}
 
 # Public File
 resource "aws_s3_bucket_object" "example_public" {
