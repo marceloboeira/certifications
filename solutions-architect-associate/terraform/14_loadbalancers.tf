@@ -1,6 +1,6 @@
 # Elastic Load Balancer
 resource "aws_elb" "classic" {
-  name               = "elb-classic"
+  name = "elb-classic"
   availability_zones = [
     "eu-central-1a",
     "eu-central-1b",
@@ -45,7 +45,7 @@ resource "aws_lb" "main" {
   name               = "alb-main"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [
+  security_groups = [
     aws_security_group.ec2.id,
   ]
 

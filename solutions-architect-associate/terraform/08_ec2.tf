@@ -66,11 +66,11 @@ resource "aws_ebs_volume" "web_server_root" {
 }
 
 # EBS Root Attachment
- resource "aws_volume_attachment" "web_server_root_attachment" {
-   device_name = "/dev/xvda"
-   volume_id   = aws_ebs_volume.web_server_root.id
-   instance_id = aws_instance.web_server.id
- }
+resource "aws_volume_attachment" "web_server_root_attachment" {
+  device_name = "/dev/xvda"
+  volume_id   = aws_ebs_volume.web_server_root.id
+  instance_id = aws_instance.web_server.id
+}
 
 ## EBS Extra Volume 1
 resource "aws_ebs_volume" "web_server_extra" {

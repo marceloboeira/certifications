@@ -43,9 +43,9 @@ resource "aws_db_instance" "web_server_mysql" {
 }
 
 
- data "aws_subnet_ids" "main" {
-   vpc_id = data.aws_vpc.main.id
- }
+data "aws_subnet_ids" "main" {
+  vpc_id = data.aws_vpc.main.id
+}
 
 module "aurora_read_replica" {
   source  = "terraform-aws-modules/rds-aurora/aws"

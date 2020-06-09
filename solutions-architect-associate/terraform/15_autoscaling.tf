@@ -42,8 +42,8 @@ resource "aws_autoscaling_group" "main" {
 resource "aws_autoscaling_policy" "main" {
   name                   = "autoscaling-policy"
   autoscaling_group_name = aws_autoscaling_group.main.name
-  adjustment_type    = "ChangeInCapacity"
-  policy_type = "TargetTrackingScaling"
+  adjustment_type        = "ChangeInCapacity"
+  policy_type            = "TargetTrackingScaling"
 
   target_tracking_configuration {
     predefined_metric_specification {
