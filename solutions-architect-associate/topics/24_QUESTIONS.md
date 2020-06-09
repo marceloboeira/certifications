@@ -18,12 +18,18 @@ Some interesting questions worth mentioning it:
 > More info on [EC2 Placement](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html)
 
 3) You purchased a reserved instance for hosting your website with a term of one year as this has significant cost savings compared to on-demand instances. What happens to this instance after one year?
-
 * [ ] The reserved instance will renew automatically if the auto-renew option is set to true.
 * [ ] The reserved instance will be shutdown automatically after one year and a 2 weeks of notice will be provided by AWS to either renew or terminate.
 * [ ] The reserved instance will be terminated automatically after one year, with a termination warning notice.
 * [x] The EC2 instance continues to run without interruption, but the instance is billed at the on-demand rate.
 > Source: https://aws.amazon.com/premiumsupport/knowledge-center/reserved-instances-expire/
+
+4) A solutions architect wants to design a solution to save costs for Amazon EC2 instances that do not need to run during a 2-week company shutdown. The applications running on the instances store data in instance memory (RAM) that must be present when the instances resume operation. Which approach should the solutions architect recommend to shut down and resume the instances?
+* [ ] Modify the application to store the data on instance store volumes. Reattach the volumes while restarting them.
+* [ ] Snapshot the instances before stopping them. Restore the snapshot after restarting the instances.
+* [x] Run the applications on instances enabled for hibernation. Hibernate the instances before the shutdown.
+* [ ] Note the Availability Zone for each instance before stopping it. Restart the instances in the same Availability Zones after the shutdown.
+> Source: [EC2 Hibernation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html).
 
 ## Load Balancers
 
@@ -140,7 +146,8 @@ Some interesting questions worth mentioning it:
 * [ ] Server-Side Encryption
 * [ ] Server-Side Encryption with Customer-Provided Keys (SSE-C)
 * [ ] Server-Side Encryption with Amazon S3-Managed Keys (SSE-S3)
-* [ ] Server-Side Encryption with AWS Key Management Service (SSE-KMS)
+* [x] Server-Side Encryption with AWS Key Management Service (SSE-KMS)
+> Generally speaking, SSE is actually correct. However, the question is asking for a specific type of server-side encryption. SSE-S3 is another possible answer, since it encrypts the objects in the S3 buckets and Amazon S3 manages the encryption keys. However, the CMK and audit trail attributes are missing from this choice. With SSE-KMS, you get the CMK addition for added protection, as well as the audit trail, which is why SSE-KMS is the right answer. SSE-C is not the right choice because you, rather than Amazon, would manage the keys. TLDR - if you need audit, KMS is the way to go. More info on [S3 SSE](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html).
 
 4) You've enabled website hosting on a bucket called 'aspiring-guru' in the us-west-2 Region. Which of the following is the URL that will be assigned to your website?
 * [x] aspiring-guru.s3-website-us-west-2.amazonaws.com
@@ -164,6 +171,13 @@ Some interesting questions worth mentioning it:
 * [ ] CloudFront Multipart Upload
 * [ ] CloudFront Transfer Acceleration
 > TODO: Source
+
+7) A company needs to maintain access logs for a minimum of 5 years due to regulatory requirements. The data is rarely accessed once stored, but must be accessible with one day’s notice if it is needed. What is the MOST cost-effective data storage solution that meets these requirements?
+* [x] Store the data in Amazon S3 Glacier Deep Archive storage and delete the objects after 5 years using a lifecycle rule.
+* [ ] Store the data in Amazon S3 Standard storage and transition to Amazon S3 Glacier after 30 days using a lifecycle rule.
+* [ ] Store the data in logs using Amazon CloudWatch Logs and set the retention period to 5 years.
+* [ ] Store the data in Amazon S3 Standard-Infrequent Access (S3 Standard-IA) storage and delete the objects after 5 years using a lifecycle rule
+> Glacier Deep Archive is the cheapest you can get - More info [S3 Storage Classes](https://aws.amazon.com/s3/storage-classes/).
 
 ## CloudFront
 
