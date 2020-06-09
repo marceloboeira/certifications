@@ -53,7 +53,6 @@ Some interesting questions worth mentioning it:
 > Source: [EC2 Device Naming](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html)
 
 6) You have developed a new web application in us-west-2 that requires six Amazon Elastic Compute Cloud (EC2) instances running at all times. You have three availability zones available in that region (us-west-2a, us-west-2b, and us-west-2c). You need 100 percent fault tolerance if any single Availability Zone in us-west-2 becomes unavailable. How would you do this, each answer has 2 answers, select the answer with BOTH correct answers.
-
 * [ ] Answer 1 - Us-west-2a with two EC2 instances, us-west-2b with two EC2 instances, and us-west-2c with two EC2 instances. Answer 2 - Us-west-2a with six EC2 instances, us-west-2b with six EC2 instances, and us-west-2c with no EC2 instances
 * [x] Answer 1 - Us-west-2a with six EC2 instances, us-west-2b with six EC2 instances, and us-west-2c with no EC2 instances. Answer 2 - Us-west-2a with three EC2 instances, us-west-2b with three EC2 instances, and us-west-2c with three EC2 instances.
 * [ ] Answer 1 - Us-west-2a with three EC2 instances, us-west-2b with three EC2 instances, and us-west-2c with no EC2 instances. Answer 2 - Us-west-2a with three EC2 instances, us-west-2b with three EC2 instances, and us-west-2c with three EC2 instances.
@@ -65,7 +64,7 @@ Some interesting questions worth mentioning it:
 * [ ] Add a Provisioned IOPS volume to the instance.
 * [ ] Increase the number of instances in the Auto Scaling group.
 * [x] Change the scale-down CloudWatch metric to a higher threshold.
->
+> TODO
 
 ## Load Balancers
 
@@ -86,18 +85,14 @@ Some interesting questions worth mentioning it:
 > All LoadBalancers have the possibility to configure health-checks that set each instance state to either receive or not receive traffic. Only healthy instances do!
 
 3) If you deploy an ELB-Classic as part of your VPC web app which is true (Choose 3)
-
-The inward facing interface supports IPv4 addressing
-
-AWS publishes a Dual-stack (both IPv4 and IPv6) DNS name on R53
-
-The outward facing interface supports IPv4 addressing
-
-The Listener can be set up to distribute 'Apache Derby Network Server'(1527) connections
-
-The inward facing interface supports IPv6 addressing
-
-The outward facing interface supports IPv6 addressing
+* [x] The inward facing interface supports IPv4 addressing
+* [ ] AWS publishes a Dual-stack (both IPv4 and IPv6) DNS name on R53
+* [x] The outward facing interface supports IPv4 addressing
+* [x] The Listener can be set up to distribute 'Apache Derby Network Server'(1527) connections
+* [ ] The inward facing interface supports IPv6 addressing
+* [ ] The outward facing interface supports IPv6 addressing
+> An ELB-Classic Load Balancer in an EC2-Classic (Legacy, nonVPC) environment it can have an associated IPv4, IPv6, and dual-stack (both IPv4 and IPv6) DNS name, and supports IPv6 on the External/public interface. However inside a VPC IPv6 is not supported on the external or internal interface(s).
+>  Internet-facing Classic Load Balancers (formerly Elastic Load Balancer (ELB)) is IPv4-only when used in a VPC. Classic Load Balancers can use IPv6, depending on the DNS name you use, but only if they are used in EC2-Classic mode (rare these days). https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-internet-facing-load-balancers.html
 
 ### EBS
 
@@ -145,23 +140,22 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] Create a security group with an ALLOW rule for ports 80 & 443, and a DENY Rule for all other ports. Attach it to the instance
 * [ ] Create an NACL with a default allow rule on incoming traffic. Create a security group with a DENY rule for all ports except 80 & 443 and attach it to the instance.
 * [ ] Create and NACL with a default deny rule on incoming traffic. Create a security group with an ALLOW rule for ports 80 & 443 and attach it to the instance.
-* [ ] Create a security group with an ALLOW rule for ports 80 & 443 and attach it to the instance
-> TODO
+* [x] Create a security group with an ALLOW rule for ports 80 & 443 and attach it to the instance
+> Security groups are in/outbound, NACL only incoming is not enough
 
 7) Which of the following is an invalid VPC peering configuration?
 * [ ] You have peered three VPCs in a full-mesh configuration. The VPCs are in the same AWS account and do not overlapping CIDR blocks.
 * [ ] You have a VPC peering connection between VPCs A and B. They are in the same AWS account, and they do not have overlapping CIDR blocks.
 * [ ] VPC A has peering connections to VPCs B and C. All three VPCs are in the same AWS account, and there are no overlapping CIDR blocks.
 * [x] You have a VPC peering connection between VPC A and VPC B. VPC A also has a VPN connection to a corporate network. You use VPC A to extend the peering relationship to exist between VPC B and the corporate network so that traffic from the corporate network can directly access VPC B by using the VPN connection to VPC A.
-> TODO
+> VPC on AWS does not support transitive Peering
 
 8) You have some EC2 instances in a private subnet that need access to an S3 bucket. There is a requirement that traffic does not traverse the Internet. Which of the following can be used to achieve this?
 * [ ] NAT Gateway
 * [ ] NAT Instance
 * [ ] Internet Gateway
 * [x] VPC Gateway Endpoint
-> TODO
-
+> Gateway Endpoint gives you access to internal URLs for S3 and similar services, resolving directly to AWS internal network (not reaching out to the internet).
 
 9) Which of the below a valid sources or destinations for a VPC Security Group?
 * [ ] An IAM Role
@@ -170,7 +164,7 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [x] The prefix list ID for an AWS service
 * [ ] An EC2 Instance
 * [ ] An S3 Bucket
-> TODO
+> Source [Security Group List](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html).
 
 ## Databases
 
