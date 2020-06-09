@@ -33,8 +33,15 @@ Some interesting questions worth mentioning it:
 * [ ] An Application Load Balancer, with "UseEIP" set to "true" and an EIP assigned
 * [x] A Network Load Balancer in a public subnet
 * [ ] None - all load balancer IP will change over time - DNS needs to be used to find the IP
-> TODO - Source
+> [NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/network-load-balancers.html) - "These Elastic IP addresses provide your load balancer with static IP addresses that will not change during the life of the load balancer"
 > By default, any Application Load Balancer’s IP may change over time due to changes in AWS’s infrastructure. It is recommended to always use DNS to find the public IP. For this reason, an ALB alone is not suitable in this scenario. An NLB’s IP address on the other hand will not change and is, therefore, a better choice to meet this specific requirement. “UseEIP” is not a valid setting in either Load Balancer
+
+2) A customer relationship management (CRM) application runs on Amazon EC2 instances in multiple Availability Zones behind an Application Load Balancer. If one of these instances fails, what occurs?
+* [x] The load balancer will stop sending requests to the failed instance.
+* [ ] The load balancer will terminate the failed instance.
+* [ ] The load balancer will automatically replace the failed instance.
+* [ ] The load balancer will return 504 Gateway Timeout errors until the instance is replaced.
+> All LoadBalancers have the possibility to configure health-checks that set each instance state to either receive or not receive traffic. Only healthy instances do!
 
 ### EBS
 
@@ -77,8 +84,8 @@ Some interesting questions worth mentioning it:
 ## Aurora
 
 1) A financial market dashboard needs to update asset values almost instantaneously for customers across the United States. Updates will be written to the primary application instance which resides in the AWS us-east-1 region. Which database architecture will provide the best performance for consumers of the dashboard's information?
-> [] Implement Amazon Aurora MySQL with Aurora Replicas using cross-region physical replication. Create the replicas in the AWS us-east-2 and us-west-2 regions.
-> [ ]Deploy Amazon Aurora MySQL with Aurora Replicas using cross-region logical replication. Create the replicas in the AWS us-east-2 and us-west-2 regions.
+* [ ] Implement Amazon Aurora MySQL with Aurora Replicas using cross-region physical replication. Create the replicas in the AWS us-east-2 and us-west-2 regions.
+* [ ] Deploy Amazon Aurora MySQL with Aurora Replicas using cross-region logical replication. Create the replicas in the AWS us-east-2 and us-west-2 regions.
 > Aurora Replica **physical replication can only replicate to one secondary region**
 > More info on [Aurora Docs](https://aws.amazon.com/rds/aurora/faqs/)
 
@@ -166,16 +173,32 @@ Some interesting questions worth mentioning it:
 * [ ] Invalidation are effective immediately on request.
 * [ ] Invalidation requests can be cancelled if you issue the cancellation instruction in time.
 * [ ] You cannot invalidate more that 3000 files in CloudFront at a time.
-
 > Invalidation doesn't take effect immediately, cannot be cancelled and it doesn't have a limitation on number of files.
 
 ## Storage Gateway
 
 1) Your on-premise servers are running low on disk storage space, but your company is not yet ready for a complete move to the public cloud. You've been tasked with finding an interim storage solution that also offers backup and archiving capabilities. Which AWS service would you recommend to meet this immediate need?
-* [ ] Storage Gateway with Gateway-Cached Volumes
+* [x] Storage Gateway with Gateway-Cached Volumes
 * [ ] Storage Gateway with Gateway-Stored Volumes.
 * [ ] Snowball
 * [ ] DirectConnect
+> More Info on [Storage Gateway UserGuide](https://docs.aws.amazon.com/storagegateway/latest/userguide/StorageGatewayConcepts.html)
+
+2) A company currently stores data for on-premises applications on local drives. The chief technology officer wants to reduce hardware costs by storing the data in Amazon S3 but does not want to make modifications to the applications. To minimize latency, frequently accessed data should be available locally. What is a reliable and durable solution for a solutions architect to implement that will reduce the cost of local storage?
+* [ ] Deploy an SFTP client on a local server and transfer data to Amazon S3 using AWS Transfer for SFTP.
+* [x] Deploy an AWS Storage Gateway volume gateway configured in cached volume mode.
+* [ ] Deploy an AWS DataSync agent on a local server and configure an S3 bucket as the destination.
+* [ ] Deploy an AWS Storage Gateway volume gateway configured in stored volume mode.
+> Storage Gateway volume gateway connects on on-premises software application with cloud-backed storage volumes. In cached volumes mode, all the data is stored in Amazon S3 and a copy of frequently accessed data is stored locally. More info on [What Is Storage Gateway](https://docs.aws.amazon.com/storagegateway/latest/userguide/WhatIsStorageGateway.html).
+
+## SQS
+
+1) A company needs to perform asynchronous processing, and has Amazon SQS as part of a decoupled architecture. The company wants to ensure that the number of empty responses from polling requests are kept to a minimum. What should a solutions architect do to ensure that empty responses are reduced?
+* [ ] Increase the maximum message retention period for the queue.
+* [ ] Increase the maximum receives for the redrive policy for the queue.
+* [ ] Increase the default visibility timeout for the queue.
+* [x] Increase the receive message wait time for the queue.
+> The longer your consumer requests wait, the bigger is the change of getting a new message from the queue before another requests. Performing 10 requests in the same interval will only cost more.
 
 ## Scalability
 
@@ -184,6 +207,7 @@ Some interesting questions worth mentioning it:
 * [x] A scalable application will be resilient and operationally efficient
 * [ ] A scalable solution applies elasticity, but is cost-agnostic.
 * [x] A scalable solution will decrease in cost at scale.
+> Scalable has to take operational cost into account, otherwise everything is scalable. e.g.: if you double your traffic you should not have more than double the cost, it must be min. linearly, but it should decrease at scale.
 
 ## Security
 

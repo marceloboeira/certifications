@@ -5,6 +5,7 @@
 
 * [A Cloud Guru - Course](https://acloud.guru/learn/aws-certified-solutions-architect-associate) - The one I have used to study 💰 📼
 * [SAA-C02](https://aws.amazon.com/certification/certified-solutions-architect-associate/)
+  * [PDF](https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate-Exam-Guide_v1.1_2019_08_27_FINAL.pdf) Exam Guide
 
 ## Getting Started
 
