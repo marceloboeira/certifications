@@ -73,6 +73,39 @@ Some interesting questions worth mentioning it:
 * [ ] Physical Virtual Machine (PVM)
 > The two different types of virtualization available are Hardware Virtual Machine (HVM) & Paravirtual Machine (PVM)
 
+9) You are about to delete the second snapshot of an EBS volume which had 10 GiB of data at the time when the very first snapshot was taken. 6 GiB of that data has changed before the second snapshot was created. An additional 2 GiB of data have been added before the third and final snapshot was taken. Which of the following statements about that is correct?
+* [ ] After deletion, the total storage required for the two remaining snapshots is 12 GiB; 10 GiB for the first and 2 GiB for the last snapshot.
+* [x] Before deletion, the total storage required for the three snapshots was 18 GiB of which the second one had 6 GiB of data. After the deletion of that second snapshot, you are still charged for storing 18 GiB of data - 10 GiB from the very first snapshot and 8 GiB (6 + 2) of data from the last snapshot.
+* [ ] Each EBS volume snapshot is a full backup of the complete data and independent of other snapshots. You can go ahead and delete the second snapshot to save costs. After that, you are charged for only 22 GiB of data for the two remaining snapshots.
+* [ ] Snapshots are incremental backups, which means that only the blocks on the device that have changed after your most recent snapshot are saved. Therefore, you can only delete them in reverse chronological order, i.e. starting with the third snapshot and then the second one.
+> Textbook, more info on [EBSSnapshots](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html).
+> When you delete a snapshot, only the data unique to that snapshot is removed. Each snapshot contains or references all of the information needed to restore your data (from the moment when the snapshot was taken) to a new EBS volume.
+
+10) An organization is looking to re-use an existing unused EC2 instance, load it with required application components and hibernate it, so that an application can be made available quickly whenever required. Can hibernation be enabled on an existing instance?
+* [ ] A running instance can be made standby by enabling hibernation in the instance details properties pane
+* [ ] The running instance should be stopped before enabling hibernation
+* [ ] Hibernation is part of EC2 auto-scaling and cannot be enabled at instance level
+* [x] Hibernation can be enabled only at instance launch and cannot be enabled on an existing instance (running or stopped)
+> "You can enable and use hibernation on **freshly launched instances** of the types that I listed above." [EC2 Hibernate Release Post](https://aws.amazon.com/blogs/aws/new-hibernate-your-ec2-instances/).
+
+11) You have a application that is running in an EC2 instance that performs some heavy processing on sales data stored in S3. This sales data is first loaded into memory and numerous operations are performed on it before it is written back to S3. During the processing phase, a large amount of temporary data is created which is not needed once processing completes. This data needs to be stored on as low-latency storage as possible - which of the below storage types should you use?
+* [ ] S3 Intelligent Tiering
+* [x] Instance Store
+* [ ] Provisioned IOPS SSD
+* [ ] EBS
+> All options work well, but for the lower latency Instance Store is the way to go.
+> [Instance Store Page](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) - "This is a good option when you need storage with very low latency, but you don't need the data to persist when the instance terminates or you can take advantage of fault-tolerant architectures".
+
+12) Which of the following is true with regards to a private IP address of an EC2 instance?
+* [x] A secondary private IPv4 address can be reassigned from the primary network interface to another network interface
+* [ ] A secondary private IPv4 address cannot be detached or reassigned from the primary network interface to another network interface
+* [x] Private IP address remains associated with the Network Interface when the instance is stopped and restarted, and is released when the instance is terminated
+* [ ] Private IP address remains associated with the Network Interface when the instance is restarted, and is released when the instance is stopped or terminated
+> Multiple IP addresses (IPv4 or IPv6) can be specified for an Instance depending upon Instance Types. Multiple IP addresses can be assigned and unassigned to network interfaces attached to running or stopped instances. An instance receives a static private IPv4 address from the address range within a VPC. Private IP address remains associated with the Network Interface when the instance is stopped and restarted, and is released when the instance is terminated. A secondary private IPv4 address can be assigned to any network interface. The network interface need not be attached to the instance. A secondary private IPv4 address that is assigned to a network interface can be reassigned to another one if you explicitly allow it. Although the primary network interface cannot be detached from an instance, the secondary private IPv4 address of the primary network interface can be reassigned to another network interface.
+
+13) What is the minimum size of an General Purpose SSD EBS Volume?
+> 1GiB
+
 ## Load Balancers
 
 1) You are working for a security-conscious organisation that is about to deploy their first application in the cloud. This web-based application will need a load balancer in front of it, and due to the nature of the security posture of the organisation will need to be always available on the same (static) IP Address. Which load balancer configuration will deliver this outcome?
@@ -100,11 +133,6 @@ Some interesting questions worth mentioning it:
 * [ ] The outward facing interface supports IPv6 addressing
 > An ELB-Classic Load Balancer in an EC2-Classic (Legacy, nonVPC) environment it can have an associated IPv4, IPv6, and dual-stack (both IPv4 and IPv6) DNS name, and supports IPv6 on the External/public interface. However inside a VPC IPv6 is not supported on the external or internal interface(s).
 >  Internet-facing Classic Load Balancers (formerly Elastic Load Balancer (ELB)) is IPv4-only when used in a VPC. Classic Load Balancers can use IPv6, depending on the DNS name you use, but only if they are used in EC2-Classic mode (rare these days). https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-internet-facing-load-balancers.html
-
-### EBS
-
-1) What is the minimum size of an General Purpose SSD EBS Volume?
-> 1GiB
 
 ## VPC
 
@@ -180,6 +208,42 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] You have not configured a routable IP address in the host OS of the fourth instance.
 > Of these choices, the absence of the Elastic IP is the only one that could prevent internet access. More info on [ElasticIPs](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html).
 
+11) A large jewelry distributor has installed their new inventory application in a development environment on AWS. After completing their testing, they're ready to deploy the application into its production environment. They've been using VPN connections for the development phase, but they need to upgrade to a higher resiliency network connection scheme to communicate back and forth from other on-premises business applications that are mirrored across two data centers. Testing results indicate that some transactions may require more than a 1.25 Gbps connection to ensure a quality customer experience. Which network architecture will provide the appropriate resiliency for this inventory application?
+* [ ] Configure two AWS Direct Connect connections to an AWS Direct Connect location from two different network devices in one data center.
+* [ ] Implement an AWS Direct Connect connection from one data center to an AWS Direct Connect location. Establish a VPN connection from the other data center as a backup.
+* [ ] Install two AWS Direct Connect connections to an AWS Direct Connect location from two different network devices in one data center. Create another two AWS Direct Connect connections to a different AWS Direct Connect location from two different network devices in the other data center.
+* [x] Create an AWS Direct Connect connection from one data center to an AWS Direct Connect location. Install another AWS Direct Connect connection from the other data center to a different AWS Direct Connect location.
+> For critical production workloads like an inventory application that require high resiliency, it is recommended to have one connection at multiple locations. Such a topology ensures resilience to connectivity failure due to a fiber cut or a device failure as well as a complete location failure. Use of a Direct Connect Gateway will provide access to any AWS Region from any Direct Connect location. Installing separate connections terminating on separate devices in more than one location gives another layer of resiliency, but that configuration, along with its added costs, is not necessary for this use case. Creating separate connections to only a single Direct Connect location from a single data center does not mitigate the risk of full facility outages. AWS doesn't recommend using a VPN as a backup for connections that require speeds greater than 1 Gbps.
+
+12) You work for a famous bakery who are deploying a hybrid cloud approach. Their legacy IBM AS400 servers will remain on premise within their own data center. However, they will need to be able to communicate to the AWS environment over a site-to-site VPN connection. What do you need to do to establish the VPN connection?
+* [x] Assign a public IP address to your Amazon Virtual Private Gateway.
+* [ ] Update your route table to add a route for the NAT to 0.0.0.0/0.
+* [ ] Connect to the environment using AWS Direct Connect.
+* [ ] Create a dedicated NAT and deploy this to the public subnet.
+> A virtual private gateway is the VPN concentrator on the Amazon side of the VPN connection. You create a virtual private gateway and attach it to the VPC from which you want to create the VPN connection.
+
+13) To establish a successful site-to-site VPN connection from your on-premise network to an AWS Virtual Private Cloud, which of the following must be configured?
+* [ ] A private subnet in your VPC
+* [ ] A NAT instance
+* [x] A Virtual Private Gateway
+* [x] A VPC with Hardware VPN Access
+* [x] An on-premise Customer Gateway
+> You must have a VPC with Hardware VPN Access, an on-premise Customer Gateway, and a Virtual Private Gateway to make the VPN connection work.
+
+14) You have a multi-tier application with each tier in a separate subnet. The application server is in Subnet1 which needs to connect with a MySQL RDS DB instance in Subnet2. Each subnet has its own NACL: NACL1 (Subnet1), NACL2 (Subnet2). How should these NACLs be configured to allow communication between your app servers and the back-end database in the most secure fashion?
+* [x] NACL1 - Inbound: Allow Ephemeral Ports 1024 - 65535 From Subnet2 CIDR NACL1 - Outbound: Allow MySQL Port 3306 To Subnet2 CIDR NACL2 - Inbound: Allow MySQL Port 3306 From Subnet1 CIDR NACL2 - Outbound: Allow Ephemeral Ports 1024 - 65535 To Subnet1 CIDR
+* [ ] NACL1 - Inbound: Allow MySQL Port 3306 From Subnet2 CIDR NACL1 - Outbound: Allow Ephemeral Ports 1024 - 65535 To Subnet2 CIDR NACL2 - Inbound: Allow Ephemeral Ports 1024 - 65535 From Subnet1 CIDR NACL2 - Outbound: Allow MySQL Port 3306 To Subnet1 CIDR
+* [ ] NACL1 - Inbound: Allow MySQL Port 3306 From Subnet2 CIDR NACL2 - Outbound: Allow MySQL Port 3306 To Subnet1 CIDR
+* [ ] NACL1 - Outbound: Allow MySQL Port 3306 To Subnet2 CIDR NACL2 - Inbound: Allow MySQL Port 3306 From Subnet1 CIDR
+> Since NACLs are stateless, you need to define the connectivity rules for both Inbound and Outbound traffic. Since the EC2 Application server initiates the connection to the DB server an Outbound rule is required on MySQL Port to Subnet2, and an Inbound rule is required on the ephemeral ports (1024 - 65535) to accommodate the response traffic. The reverse settings are then required for the NACL assigned to the DB subnet. Entries that do not have inbound and outbound rules defined in each NACL are incorrect and the other answer would fail as it assumes the connection is established by the DB instance.
+
+14) Which of the following are TRUE statements when considering VPC Peering? (Choose 2)
+* [x] If VPC A is peered to VPC B, and VPC B is peered to VPC C, VPC A will NOT be able to communicate to VPC C through VPC B
+* [x] IP Addresses in peered VPCs cannot overlap
+* [ ] IP Addresses in peered VPCs can overlap with a NAT Instance used in the middle
+* [ ] If VPC A is peered to VPC B, and VPC B is peered to VPC C, VPC A will be able to communicate to VPC C through VPC B
+> IP addresses in peered VPCs cannot overlap as this would cause many issues due to potential duplicates and routing confusion. Transitive peering, where traffic passes through one VPC on its way to a destination VPC is also not supported
+
 ## Databases
 
 ## RDS
@@ -205,11 +269,27 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] With RDS for MariaDB, you can set the read replica as Multi-AZ, allowing you to use the read replica as a DR target. When you promote the read replica to be a standalone database, it will already be Multi-AZ enabled.
 > More info [MariaDB Read Replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_MariaDB.Replication.ReadReplicas.html).
 
+4) A developer accidentally deleted a couple of PostgreSQL database tables in the staging environment. Since you are using AWS RDS, you are planning to restore it using the most recent backup of the database. Select the invalid statement.
+* [ ] Amazon RDS provides two different methods for backing up and restoring your DB instance(s) - automated backups and database snapshots. DB Snapshots are user-initiated and enable you to back up your DB instance in a known state as frequently as you wish, and then restore to that specific state at any time.
+* [ ] Your Amazon RDS backup storage for each region is composed of the automated backups and manual DB snapshots for that region. Your backup storage is equivalent to the sum of the database storage for all instances in that region.
+* [x] Automated backups occur daily during the preferred backup window. If the backup requires more time than allotted to the backup window, the backup stops and you will be notified.
+* [ ] You can set the backup retention period to between 0 and 35 days. Setting the backup retention period to 0 disables automated backups. The default backup retention period is seven days if you create the DB instance using the console.
+> If the backup requires more time than allotted to the backup window, the backup continues after the window ends, until it finishes.
+
+5) Which of the following RDS database types support RDS Read Replicas?
+* [ ] Microsoft SQL
+* [x] Oracle
+* [x] PostgreSQL
+* [x] Aurora
+* [x] MariaDB
+* [x] MySQL
+> IMPORTANT: For 2020 SQL Server is supported, but at the time the old exam was created it wasn't.
+> More info [SQL Server Read Replicas Releaase](https://aws.amazon.com/blogs/database/using-in-region-read-replicas-in-amazon-rds-for-sql-server/).
 ## Aurora
 
 1) A financial market dashboard needs to update asset values almost instantaneously for customers across the United States. Updates will be written to the primary application instance which resides in the AWS us-east-1 region. Which database architecture will provide the best performance for consumers of the dashboard's information?
 * [ ] Implement Amazon Aurora MySQL with Aurora Replicas using cross-region physical replication. Create the replicas in the AWS us-east-2 and us-west-2 regions.
-* [ ] Deploy Amazon Aurora MySQL with Aurora Replicas using cross-region logical replication. Create the replicas in the AWS us-east-2 and us-west-2 regions.
+* [x] Deploy Amazon Aurora MySQL with Aurora Replicas using cross-region logical replication. Create the replicas in the AWS us-east-2 and us-west-2 regions.
 > Aurora Replica **physical replication can only replicate to one secondary region**
 > More info on [Aurora Docs](https://aws.amazon.com/rds/aurora/faqs/)
 
@@ -219,6 +299,13 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [x] Amazon Aurora
 * [ ] MariaDB
 > Six-way replication is only available for Aurora
+
+3) You company runs a website that is presenting content that is stored in a back-end Aurora cluster. Content that makes up this website is created and managed from a handful of EC2 instances in your VPC, and this content is then accessed by a different set of EC2 instances acting a web servers in a public subnet. Which Aurora Endpoint should be used by the EC2 instances involved in the creation and management of the content?
+* [ ] The Writer Endpoint
+* [ ] The Management Endpoint
+* [x] The Cluster Endpoint
+* [ ] The Instance Endpoint
+> The Cluster Endpoint is most appropriate for this scenario. There is no such thing as a Writer Endpoint or Management Endpoint, and this is not an appropriate use of the Instance Endpoint.
 
 ## DynamoDB
 
@@ -312,11 +399,11 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 > Glacier Deep Archive is the cheapest you can get - More info [S3 Storage Classes](https://aws.amazon.com/s3/storage-classes/).
 
 8) You have a requirement that all objects stored in a particular bucket be copied to another region. You have enabled Cross Region Replication from the source bucket to the target bucket, but objects are not appearing in the target bucket as expected. What are some possible reasons this could be happening? (Choose 3)
-* [ ] The objects created with server-side encryption using customer-provided (SSE-C) encryption keys.
+* [x] The objects created with server-side encryption using customer-provided (SSE-C) encryption keys.
 * [ ] The object tags in the source bucket have not been assigned.
-* [ ] The objects in the source bucket are replicas that were created by another cross-region replication.
+* [x] The objects in the source bucket are replicas that were created by another cross-region replication.
 * [ ] The object does not have lifecycle configuration enabled.
-* [ ] The objects existed before you added the replication configuration to the source bucket.
+* [x] The objects existed before you added the replication configuration to the source bucket.
 * [ ] The objects in the source bucket for which the bucket owner has permissions to read objects and ACLs.
 > More info [S3 Cross-Region Replication](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-troubleshoot.html).
 
@@ -355,6 +442,24 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] 0 Bytes
 * [ ] 1 Byte
 > The minimum object size is 0 bytes, however you will be billed for 128 KB. Objects smaller that 128 can still be stored, but will be billed as if they are 128KB.
+
+14) The company you work for has been acquired and you have been tasked with the redirection of all its website traffic to the new company's website. The old one is hosted on S3 as a static website while the target is a self-hosted website. Which of the following options describes the best approach to achieve that as quickly as possible?
+* [ ] In the Amazon S3 console, set the website redirect location in the metadata of each object in the relevant public bucket. You can do so by specifying the new domain as the value of the 'Website-Redirect-Location' key within the 'Metadata' section under the Properties tab.
+* [x] In the Amazon S3 console, configure a redirect to the new domain in the 'Redirect requests: Target bucket or domain' box within the 'Static website hosting' section under the Properties tab of the relevant bucket.
+* [ ] Amazon S3 does not support website redirects. You will need to contact your domain registrar and ask them to update the target URL to point to the self-hosted website.
+* [ ] Amazon S3 static website hosting supports only redirects to other AWS S3 buckets but not to external URLs. Therefore, you should set up a redirect to a new bucket with a single HTML file in it that uses client-side scripting (window.location.ref and a 'refresh' http-equiv meta tag) for the redirect to the new domain.
+> First option for 1 specific object, second for the whole bucket.
+>
+> [More Info](https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html).
+
+15) When coding a routine to upload to S3, you have the option of using either single part upload or multipart upload. Identify all the possible reasons below to use Multipart upload. (Choose 4)
+* [x] Multipart upload delivers the ability to pause and resume object uploads.
+* [x] Multipart upload delivers improved throughput.
+* [x] Multipart upload delivers the ability to begin an upload before you know the final object size.
+* [ ] Multipart upload delivers improved security in transit.
+* [ ] Multipart upload delivers the ability to append data into an open data file.
+* [x] Multipart upload delivers quick recovery from network issues.
+> Almost textbook, except for the ability to append-data into an open data-file, which "cannot be done". [More info](https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html).
 
 ## CloudFront
 
@@ -398,7 +503,36 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] Use Lambda to process the images.
 > Dynamo does not send messages, and it is not (by default at least) fully consistent to do such, the system using EC2 does not solve the decoupling and lambda still needs to process from somewhere.
 
+## Kinesis
+
+1) You want to create a video stream and then send the video to it using your smartphone. In addition, you want to retain the data of this stream for 24 hours. Which of the following configurations will accomplish this? (Choose 2)
+* [ ] Amazon Kinesis Firehose stream with a custom retention period of 1 day
+* [ ] Amazon Kinesis Firehose stream with a default retention period
+* [x] Amazon Kinesis video stream with a default retention period
+* [x] Amazon Kinesis video stream with a custom retention period of 1 day
+> To stream video from your smartphone, you have to use an Amazon Kinesis video stream. At the 'Create video stream' page, you can either set a retention period for the stream with the default configuration, which is 1 day, or specify the 24-hour period with the custom configuration by choosing the '1 day(s)' option. Kinesis Firehose is for preparing and loading real-time data streams into data stores and analytics tools so is not the correct service.
+
+## Route53
+
+1) The media company Starbright Entertainment owns the domain name starbright.net. They want to provide an online customer portal which will be addressed via the starbright.net domain. They create an ELB Classic Load Balancer in front of the portalÕs web servers which gets assigned the host name clb1-1234.us-west-2.elb.amazonaws.com. Which type of Route 53 hosted zone record will they use to point to the load balancer?
+* [x] Alias Record (Alias)
+* [ ] Canonical Name Record (CNAME)
+* [ ] Service Locator (SRV)
+* [ ] Pointer Record (PTR)
+> An Amazon Route 53 Alias Record is an extension to DNS functionality. It provides the ability to map a domain name to select AWS services, including ELB load balancers. DNS PTR records are used for reverse DNS lookups. CNAME records map aliases to true or other canonical names, but a Route 53 Alias record is better for this use case because it will point to the load balancer even if its IP address changes. An SRV record is used for specifying data in a DNS system.
+> Route 53 alias records are mapped internally to the DNS name of alias targets such as AWS resources. Route 53 monitors the IP address associated with an alias target's DNS name for scaling actions and software updates. The authoritative response from Route 53 name servers contains an A record (for IPv4 addresses) or AAAA record (for IPv6 addresses) with the IP address of the alias target.
+> More info on [AWS Route53 Documentaion](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html).
+
 ## General
+
+### Support Plans
+
+1) You want to contact AWS Technical Support regarding ensuring enough capacity to autoscale for busy periods. You remember that you have a Basic Support plan. Which of the following case types can you open with this support plan?
+* [x] Service Limit Increase
+* [ ] Customer Service
+* [ ] Technical Support
+* [x] Account and Billing Support
+> There are three types of AWS Support cases you can open; they are Account and Billing Support, Service Limit Increase, and Technical Support. Customer Service does not exist as a case type, which eliminates 'Customer Service'. With the Basic plan, you can open either an Account and Billing Support or a Service Limit Increase case. To open a Technical Support case, you will need to get a Developer, Business, or Enterprise plan. So, 'Technical Support' is the wrong response; 'Account and Billing Support' and 'Service Limit Increase' are correct.
 
 ### Scalability
 
@@ -435,3 +569,12 @@ A Multi-AZ RDS deployment will automatically fail-over as a result of which two 
 > AWS automatically addresses DDoS attacks at the network and transport layers, which are Layer 3 and Layer 4, respectively.
 > The attacks are distinguished by "Application"(Layer 6,7) and "Network"(Layer 3,4)
 > More info [AWS Shield](https://aws.amazon.com/shield/ddos-attack-protection/). "Your AWS resources automatically have AWS Shield Standard and are protected from common, most frequently occurring network and transport layer DDoS attacks."
+
+### License
+
+1) You are speaking with a former colleague who asks you about cloud migrations. The place she is working for runs a large fleet of on-premise Microsoft servers and they are concerned about licensing costs. Which of the following statements is invalid?
+* [ ] AWS License Manager includes features to help your organization manage licenses across AWS and on-premises. With AWS License Manager, you can define licensing rules, track license usage, and enforce controls on license use to reduce the risk of license overages. You can also set usage limits to control licensing costs. There is no additional charge for AWS License Manager.
+* [ ] EC2 Bare Metal instances give the customer full control of the configuration of instances just as they have on-premise: The customer has the ability to install a hypervisor directly on the hardware and therefore define and configure their own instance configurations of RAM, disk and vCPU which can minimize additional licensing costs.
+* [ ] License Mobility allows customers to move eligible Microsoft software to third-party cloud providers such as AWS for use on EC2 instances with default tenancy.
+* [x] If I bring my own licenses into EC2 Dedicated Hosts or EC2 Dedicated Instances, then - subject to Microsoftâ€™s terms - Software Assurance is required.
+> If you are bringing your own licenses into EC2 Dedicated Hosts or EC2 Dedicated Instances then Software Assurance is not required subject to Microsoft's terms.
