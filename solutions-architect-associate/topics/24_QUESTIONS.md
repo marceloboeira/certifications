@@ -64,7 +64,14 @@ Some interesting questions worth mentioning it:
 * [ ] Add a Provisioned IOPS volume to the instance.
 * [ ] Increase the number of instances in the Auto Scaling group.
 * [x] Change the scale-down CloudWatch metric to a higher threshold.
-> TODO
+> Modifying your scaling threshold is preferable to altering your number of instances manually.
+
+8) Which of the following are types of virtualization available on AWS?
+* [x] Hardware Virtual Machine (HVM)
+* [x] Paravirtual Machine (PV)
+* [ ] Cloud Virtual Machine (CVM)
+* [ ] Physical Virtual Machine (PVM)
+> The two different types of virtualization available are Hardware Virtual Machine (HVM) & Paravirtual Machine (PVM)
 
 ## Load Balancers
 
@@ -148,7 +155,7 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] You have a VPC peering connection between VPCs A and B. They are in the same AWS account, and they do not have overlapping CIDR blocks.
 * [ ] VPC A has peering connections to VPCs B and C. All three VPCs are in the same AWS account, and there are no overlapping CIDR blocks.
 * [x] You have a VPC peering connection between VPC A and VPC B. VPC A also has a VPN connection to a corporate network. You use VPC A to extend the peering relationship to exist between VPC B and the corporate network so that traffic from the corporate network can directly access VPC B by using the VPN connection to VPC A.
-> VPC on AWS does not support transitive Peering
+> Edge-to-edge routing is not allowed through a VPN connection.
 
 8) You have some EC2 instances in a private subnet that need access to an S3 bucket. There is a requirement that traffic does not traverse the Internet. Which of the following can be used to achieve this?
 * [ ] NAT Gateway
@@ -166,6 +173,13 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] An S3 Bucket
 > Source [Security Group List](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html).
 
+10) You work for a construction company that has their production environment in AWS. The production environment consists of 3 identical web servers that are launched from a standard Amazon Linux AMI using Auto Scaling. The web servers are launched in to the same public subnet and belong to the same security group. They also sit behind the same ELB. You decide to do some testing: you launch a 4th EC2 instance into the same subnet and same security group. Annoyingly, your 4th instance does not appear to have internet connectivity. What could be the cause of this?
+* [ ] You have not configured a NAT in the public subnet.
+* [x] You have not assigned an elastic IP address to this instance.
+* [ ] You need to update your route table so as to provide a route out for this instance.
+* [ ] You have not configured a routable IP address in the host OS of the fourth instance.
+> Of these choices, the absence of the Elastic IP is the only one that could prevent internet access. More info on [ElasticIPs](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html).
+
 ## Databases
 
 ## RDS
@@ -182,7 +196,7 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [x] Memory available for use
 * [ ] The number of transaction requests
 * [ ] The number of users
-> TODO: Add Source
+> More info on [RDS Monitoring Overview](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MonitoringOverview.html).
 
 3) In accordance with your company's overall business continuity plan, you are looking at implementing a resiliency & disaster recovery strategy for your production MariaDB database. This currently utilises 5 disbursed Read Replicas. You are considering the use of Amazon RDS Multi-AZ deployments in combination with the Read Replicas. Which of these statements regarding that are false?
 * [ ] If the source instance of a Multi-AZ deployment fails over to the secondary, any associated Read Replicas automatically switch to use the secondary (now primary) as their replication source.
@@ -233,6 +247,13 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] DynamoDB supports user Snapshots to S3.
 > DynamoDB is not automatically replicated to other regions, yet within a region it is replicated to multiple AZs.
 
+5) An SEO company collects data based on disparate search engine optimization metrics and stores it in a DynamoDB database. The company wants to create an extra copy of the database tables as a form of disaster recovery. Which of the following AWS services can do that?
+* [ ] Amazon Elastic Compute Cloud (EC2)
+* [ ] Amazon Relational Database Service (RDS)
+* [x] AWS Backup
+* [ ] Amazon Simple Storage Service (S3)
+> AWS Backup allows you to connect DynamoDB to other services, like S3. More info [AWS Backup](https://aws.amazon.com/backup/).
+
 ## KMS
 
 1) The marketing department at your company wants to run a Hadoop cluster on Amazon EMR to perform data mining on a 2 TB dataset. Your information security group requires that all data be encrypted in transit and at rest, both on-premises and in the cloud at all times. Encryption keys must be stored in the on-premises key management solution. You've decided to transmit the data to Amazon S3 using TLS. How will you protect the data at rest for processing by the EMR cluster?
@@ -274,14 +295,14 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] While objects in the STANDARD storage class are available for millisecond access, accessing STANDARD_IA objects is slightly slower.
 > Similar to the STANDARD storage class, STANDARD_IA objects are available for millisecond access.
 > ONEZONE_IA is durable as STANDARD_IA but less available and resilient (in case of a AZ failure)
-> TODO: Add source
+> More info on [S3 Classes](https://aws.amazon.com/s3/storage-classes/).
 
 6) You have an application that allows people in very remote locations to store their files safely and securely. You need to leverage CloudFront's globally distributed Edge Locations, so that as data arrives at an Edge Location the data is routed to your Amazon S3 bucket over an optimized network path. Which of the following services should you use?
 * [ ] S3 Multipart Upload
 * [x] S3 Transfer Acceleration
 * [ ] CloudFront Multipart Upload
 * [ ] CloudFront Transfer Acceleration
-> TODO: Source
+> More info on [TransferAccelation](https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html).
 
 7) A company needs to maintain access logs for a minimum of 5 years due to regulatory requirements. The data is rarely accessed once stored, but must be accessible with one day’s notice if it is needed. What is the MOST cost-effective data storage solution that meets these requirements?
 * [x] Store the data in Amazon S3 Glacier Deep Archive storage and delete the objects after 5 years using a lifecycle rule.
@@ -304,16 +325,9 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] The object's checksum encryption data
 * [ ] The object's SSL certificate
 * [x] The object metadata
-> ???
+> "... copy the objects over the top of themselves, preserving tags, access control lists (ACLs), metadata, and encryption keys" - [Cross Region Replication](https://aws.amazon.com/blogs/big-data/trigger-cross-region-replication-of-pre-existing-objects-using-amazon-s3-inventory-amazon-emr-and-amazon-athena/).
 
-10) When setting up the properties of an S3 bucket, which of the following options should you select to track storage cost?
-* [ ] Object-level logging
-* [ ] Server access logging
-* [ ] Versioning
-* [x] Tags
-> ____
-
-11) You work for a security company that stores highly sensitive documents on S3. One of your customers has had a security breach and, as a precaution, they have asked you to remove a sensitive PDF from their S3 bucket. You log in to the AWS console using your account and attempt to delete the object. You notice that versioning is turned on, and when you dig a little deeper you discover that you cannot delete the object. What may be the cause of this?
+10) You work for a security company that stores highly sensitive documents on S3. One of your customers has had a security breach and, as a precaution, they have asked you to remove a sensitive PDF from their S3 bucket. You log in to the AWS console using your account and attempt to delete the object. You notice that versioning is turned on, and when you dig a little deeper you discover that you cannot delete the object. What may be the cause of this?
 * [x] You cannot delete the object because you are not the bucket owner.
 * [ ] S3 server-side encryption is preventing you from doing this.
 * [ ] You must be logged in as a Super User to delete objects.
@@ -321,19 +335,26 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] Only the owner of an Amazon S3 bucket can permanently delete a version.
 > More info on [Deleting versioned objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/DeletingObjectsfromVersioningSuspendedBuckets.html). "Only the bucket owner can delete a specified object version.".
 
-12) When setting up the properties of an S3 bucket, which of the following options should you select to track storage cost?
+11) When setting up the properties of an S3 bucket, which of the following options should you select to track storage cost?
 * [ ] Object-level logging
 * [ ] Server access logging
 * [ ] Versioning
 * [x] Tags
 > AWS uses tags to group and track cost on the reports
 
-13) Your application stores your customers' sensitive passport information in S3. You are required by law to encrypt all data at rest. Company policy states that you must maintain control of your encryption keys. For ease of management, however, you do not want to implement or maintain a client-side encryption library. Which S3 encryption option should you use to secure your data at rest?
+12) Your application stores your customers' sensitive passport information in S3. You are required by law to encrypt all data at rest. Company policy states that you must maintain control of your encryption keys. For ease of management, however, you do not want to implement or maintain a client-side encryption library. Which S3 encryption option should you use to secure your data at rest?
 * [ ] Amazon S3 Encryption Client
 * [ ] SSE-KMS
 * [x] SSE-C
 * [ ] SSE-S3
 > If there is no intention to manage a client-side library then SSE-C is the way to go.
+
+13) What is the minimum billable object size for S3 - IA?
+* [x] 128 KB
+* [ ] 1 KB
+* [ ] 0 Bytes
+* [ ] 1 Byte
+> The minimum object size is 0 bytes, however you will be billed for 128 KB. Objects smaller that 128 can still be stored, but will be billed as if they are 128KB.
 
 ## CloudFront
 
@@ -371,11 +392,11 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 > The longer your consumer requests wait, the bigger is the change of getting a new message from the queue before another requests. Performing 10 requests in the same interval will only cost more.
 
 2) Your image manipulation application allows users take a picture, upload it to your app, and request filters to be added to the image. You need to decouple the application so your users are not waiting for the image processing to take place. How would you go about doing this?
-* [ ] Use Amazon SQS to store the requests using metadata and JSON in the message, use S3 to store the image, and Auto Scaling to determine when to fire off more worker instances based on queue size.
+* [x] Use Amazon SQS to store the requests using metadata and JSON in the message, use S3 to store the image, and Auto Scaling to determine when to fire off more worker instances based on queue size.
 * [ ] Integrate with DynamoDB to allow messages to be sent back and forth between worker instances and EC2 instances.
 * [ ] Use S3 to store the images and EC2 to process the requests.
 * [ ] Use Lambda to process the images.
-> A
+> Dynamo does not send messages, and it is not (by default at least) fully consistent to do such, the system using EC2 does not solve the decoupling and lambda still needs to process from somewhere.
 
 ## General
 
