@@ -106,7 +106,22 @@ Some interesting questions worth mentioning it:
 13) What is the minimum size of an General Purpose SSD EBS Volume?
 > 1GiB
 
-## Load Balancers
+14) An Amazon EC2 instance is part of an Amazon EC2 Auto Scaling group. You want to reboot an instance without Amazon EC2 Auto Scaling terminating it due to a health check failure. What are the suitable options available to reboot an instance in an Auto Scaling group in such circumstances? (Choose 3)
+* [x] Suspend the health check process temporarily and after reboot resume the suspended process
+* [ ] Detach the instance from the group, reboot the instance and reattach the instance to the Auto Scaling group
+* [ ] Delete the Auto Scaling Groups and then restart the instances as they are not part of any Auto Scaling group
+* [ ] Delete the CloudWatch Logs from where the health check status is collected
+* [ ] Put the instance into the Standby state, reboot the instance and return the instance to service in the Auto Scaling group
+> Source [Rebooting Scaling Group Instance](https://aws.amazon.com/premiumsupport/knowledge-center/reboot-autoscaling-group-instance/).
+
+15) Your three AWS accounts (A, B and C) share data. In an attempt to maximize performance between the accounts, you place all the instances for these accounts in 'eu-west-1b'. During testing, you find almost no transfer latency between accounts A and B, but significant latency between accounts B and C, and accounts C and A. Which of the following possibilities is the most likely explanation of the problem?
+* [ ] You have incorrectly configured the cross-account authentication policies in account C, which contributes to the latency between those instances.
+* [ ] Account C has been allocated to an older section of the data center with slower networking.
+* [ ] The instances for account C are on an overloaded host. Stop all the Account C instances and then start them together so that they run an a new host.
+* [x] Availability Zones consist of one or more discrete data centers; as such, 'eu-west-1b' is not necessarily the same physical location for all three accounts. This explains the latency.
+> As the option says, AZ-ids resolve to different zones on each account - More info on [AZ IDs](https://docs.aws.amazon.com/ram/latest/userguide/working-with-az-ids.html).
+
+## ELB
 
 1) You are working for a security-conscious organisation that is about to deploy their first application in the cloud. This web-based application will need a load balancer in front of it, and due to the nature of the security posture of the organisation will need to be always available on the same (static) IP Address. Which load balancer configuration will deliver this outcome?
 * [ ] A Network Load Balancer, with "UseEIP" set to "true" and an EIP assigned
@@ -115,7 +130,7 @@ Some interesting questions worth mentioning it:
 * [x] A Network Load Balancer in a public subnet
 * [ ] None - all load balancer IP will change over time - DNS needs to be used to find the IP
 > [NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/network-load-balancers.html) - "These Elastic IP addresses provide your load balancer with static IP addresses that will not change during the life of the load balancer"
-> By default, any Application Load Balancer’s IP may change over time due to changes in AWS’s infrastructure. It is recommended to always use DNS to find the public IP. For this reason, an ALB alone is not suitable in this scenario. An NLB’s IP address on the other hand will not change and is, therefore, a better choice to meet this specific requirement. “UseEIP” is not a valid setting in either Load Balancer
+> By default, any Application Load Balancerss IP may change over time due to changes in AWS's infrastructure. It is recommended to always use DNS to find the public IP. For this reason, an ALB alone is not suitable in this scenario. An NLB's IP address on the other hand will not change and is, therefore, a better choice to meet this specific requirement. UseEIP is not a valid setting in either Load Balancer
 
 2) A customer relationship management (CRM) application runs on Amazon EC2 instances in multiple Availability Zones behind an Application Load Balancer. If one of these instances fails, what occurs?
 * [x] The load balancer will stop sending requests to the failed instance.
@@ -137,9 +152,8 @@ Some interesting questions worth mentioning it:
 ## VPC
 
 1) You have provisioned a custom VPC with a subnet that has a CIDR block of 10.0.3.0/28 address range. Inside this subnet, you have 2 web servers, 2 application servers, 2 database servers, and a NAT. You have configured an Autoscaling group on the two web servers to automatically scale when the CPU utilization goes above 90%. Several days later you notice that autoscaling is no longer deploying new instances into the subnet, despite the CPU utilization of all web servers being at 100%. Which of the following answers may offer an explanation?
-* 10.0.3.0/28 gives you normally 16 addresses, but AWS reserves the first 4 and the last address, so you have 11 free. 7 are already in use, if the ASG needs to provision a couple machines it will run out of IP addresses. So:
-* AWS reserves both the first four and the last IP address in each subnet's CIDR block.
-* Your Autoscaling Group (ASG) has provisioned too many EC2 instances and has exhausted the number of internal IP addresses available in the subnet.
+* [x] Your Autoscaling Group (ASG) has provisioned too many EC2 instances and has exhausted the number of internal IP addresses available in the subnet.
+> 10.0.3.0/28 gives you normally 16 addresses, but AWS reserves the first 4 and the last address, so you have 11 free. 7 are already in use, if the ASG needs to provision a couple machines it will run out of IP addresses. So: AWS reserves both the first four and the last IP address in each subnet's CIDR block.
 > More info on [AWS Subnet Create](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-subnet.html)
 
 2) You are hosting a web application that runs on a number of Web Servers in public subnets and Database Servers in private subnets. A NAT Instance is being used for connectivity to the internet for the Private Subnets. The NAT Instance is now becoming a bottleneck, and you are looking to replace it with NAT Gateway. Which of the following would ensure high availability for the NAT Gateway?
@@ -147,7 +161,7 @@ Some interesting questions worth mentioning it:
 * [x] Deploy a NAT Gateway in 2 Availability Zones
 * [ ] Deploy a NAT Gateway along with the NAT Instance
 * [ ] Deploy a NAT Gateway in 2 Regions
-> If you have resources in multiple Availability Zones and they share one NAT gateway, in the event that the NAT gateway’s Availability Zone is down, resources in the other Availability Zones lose internet access. To create an Availability Zone-independent architecture, create a NAT gateway in each Availability Zone and configure your routing to ensure that resources use the NAT gateway in the same Availability Zone.
+> If you have resources in multiple Availability Zones and they share one NAT gateway, in the event that the NAT gateway's Availability Zone is down, resources in the other Availability Zones lose internet access. To create an Availability Zone-independent architecture, create a NAT gateway in each Availability Zone and configure your routing to ensure that resources use the NAT gateway in the same Availability Zone.
 
 3) A Solution Architect is designing a three-tier web application. The Architect wants to restrict access to the database tier to accept traffic from the application servers only. However, these application servers are in an Auto Scaling group and may vary in quantity. How should the Architect configure the database servers to meet the requirements?
 * [ ] Configure the database subnet network ACL to deny all inbound non-database traffic from the application-tier subnet.
@@ -244,9 +258,23 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] If VPC A is peered to VPC B, and VPC B is peered to VPC C, VPC A will be able to communicate to VPC C through VPC B
 > IP addresses in peered VPCs cannot overlap as this would cause many issues due to potential duplicates and routing confusion. Transitive peering, where traffic passes through one VPC on its way to a destination VPC is also not supported
 
+15) You have an EC2 instance with a Security Group attached. This security group is configured to only allow inbound traffic from 192.168.0.0/24. A collegue has also configured a NACL on the subnet that the instance resides on, and this NACL is configured to block all traffic, except where the source or destination is in 192.168.0.0/24. What will happen when an instance with an IP of 192.168.1.12 tries to connect to your instance on port 80?
+* [ ] The traffic will be blocked simultaneously by the Security Group and NACL
+* [ ] The traffic will be allowed as it is still within a private range
+* [ ] The security group will block the traffic before it is evaluated by the NACL
+* [x] The NACL will block the traffic before it is evaluated by the security group
+> [NACL vs Security Group](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Security.html#VPC_Security_Comparison).
+
+16) You are trying to establish a VPC peering connection with another VPC, and you discover that there seem to be a lot of limitations and rules when it comes to VPC peering. Which of the following is NOT a VPC peering limitation or rule? (Choose 2)
+* [x] You cannot create a VPC peering connection between VPCs in different regions.
+* [x] A cluster placement group cannot span peered VPCs.
+* [ ] You cannot have more than one VPC peering connection between the same VPCs at the same time.
+* [ ] You cannot create a VPC peering connection between VPCs with matching or overlapping CIDR blocks.
+> CIDS blocks must be different, Transitive Peering is not supported, Infos on [VPC Peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html).
+
 ## Databases
 
-## RDS
+### RDS
 
 1) You are auditing your RDS estate and you discover an RDS production database that is not encrypted at rest. This violates company policy and you need to rectify this immediately. What should you do to encrypt the database as quickly and as easy as possible.
 * [ ] Use AWS Database Migration Service
@@ -285,7 +313,15 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [x] MySQL
 > IMPORTANT: For 2020 SQL Server is supported, but at the time the old exam was created it wasn't.
 > More info [SQL Server Read Replicas Releaase](https://aws.amazon.com/blogs/database/using-in-region-read-replicas-in-amazon-rds-for-sql-server/).
-## Aurora
+
+6) You are investigating a performance issue on a MYSQL RDS database and discover that there is only a single DB instance in a single Availability Zone for this database. This goes against your organisation's availability requirements, which specify that the application must automatically remain available during AZ outages and with minimal interruption. This needs to be addressed, along with the performance issue. How would you go about resolving this, while keeping cost to a minimum?
+* [x] Modify the database to be Multi-AZ to address the availability requirement, and deploy a read replica to improve performance
+* [ ] Modify the database to be Multi-AZ to address the availability requirement. This will also address the performance issue as there will now be 2 instances for reads and writes.
+* [ ] Deploy a Read Replica for the database into a different AZ to address the availability requirement. Create another read replica in primary zone to improve performance.
+* [ ] Deploy a Read Replica for the database into a different AZ. This will address the performance issue, and can be used in case of a AZ outage
+> As this scenario requires that there is minimal interruption to service in case of a AZ outage, any answer using the Read Replica for availability can be discounted. This leaves using a Multi-AZ configuration with a Read Replica as the only valid option.
+
+### Aurora
 
 1) A financial market dashboard needs to update asset values almost instantaneously for customers across the United States. Updates will be written to the primary application instance which resides in the AWS us-east-1 region. Which database architecture will provide the best performance for consumers of the dashboard's information?
 * [ ] Implement Amazon Aurora MySQL with Aurora Replicas using cross-region physical replication. Create the replicas in the AWS us-east-2 and us-west-2 regions.
@@ -307,7 +343,7 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] The Instance Endpoint
 > The Cluster Endpoint is most appropriate for this scenario. There is no such thing as a Writer Endpoint or Management Endpoint, and this is not an appropriate use of the Instance Endpoint.
 
-## DynamoDB
+### DynamoDB
 
 1) Which of the following strategies does AWS use to deliver the promised levels of DynamoDB performance?
 > Data is partitioned in nodes, data is stored on SSD (faster random access)
@@ -353,13 +389,13 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 > SSE-KMS, SSE-C, SSE-S3, Client Library on S3 Encryption Client
 > [S3 Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html)
 
-2) You’re researching third-party backup solutions to backup 10 TB of data nightly to Amazon S3. File restores won’t be needed often, but when they are, they’ll need to be available in under five minutes. Your analysis shows that you will exceed your budget for backup storage and you need to find a way to reduce the estimated monthly costs. How should you modify the solution to achieve the cost reduction needed?
+2) You're researching third-party backup solutions to backup 10 TB of data nightly to Amazon S3. File restores won't be needed often, but when they are, they'll need to be available in under five minutes. Your analysis shows that you will exceed your budget for backup storage and you need to find a way to reduce the estimated monthly costs. How should you modify the solution to achieve the cost reduction needed?
 * [ ] Create an S3 lifecycle rule to move the data immediately to Amazon S3 Glacier
 * [x] Choose a third-party backup solution that writes directly to the Amazon S3 Glacier API
 * [ ] Choose a third-party backup solution that leverages AWS Storage Gateway to write data to Amazon S3 Glacier
 * [ ] Write the data directly to the S3 Standard-Infrequent Access Storage ClassSELECTED
 > Source: Q: What are Expedited retrievals?
-> Expedited retrievals allow you to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250MB+), data accessed using Expedited retrievals are typically made available within 1 – 5 minutes. There are two types of Expedited retrievals: On-Demand and Provisioned. On-Demand requests are fulfilled when we are able to complete the retrieval within 1 – 5 minutes. Provisioned requests ensure that retrieval capacity for Expedited retrievals is available when you need them.
+> Expedited retrievals allow you to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250MB+), data accessed using Expedited retrievals are typically made available within 1 to 5 minutes. There are two types of Expedited retrievals: On-Demand and Provisioned. On-Demand requests are fulfilled when we are able to complete the retrieval within 1 to 5 minutes. Provisioned requests ensure that retrieval capacity for Expedited retrievals is available when you need them.
 
 3) You are about to encrypt the data in your S3 buckets, and you need a solution to enable the use of a customer master key (CMK) as an added layer of protection against unauthorized access. In addition, this solution must provide you with an audit trail that shows you when and who used the CMK. Which of the following choices denote this type of encryption?
 * [ ] Server-Side Encryption
@@ -391,7 +427,7 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] CloudFront Transfer Acceleration
 > More info on [TransferAccelation](https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html).
 
-7) A company needs to maintain access logs for a minimum of 5 years due to regulatory requirements. The data is rarely accessed once stored, but must be accessible with one day’s notice if it is needed. What is the MOST cost-effective data storage solution that meets these requirements?
+7) A company needs to maintain access logs for a minimum of 5 years due to regulatory requirements. The data is rarely accessed once stored, but must be accessible with one day's notice if it is needed. What is the MOST cost-effective data storage solution that meets these requirements?
 * [x] Store the data in Amazon S3 Glacier Deep Archive storage and delete the objects after 5 years using a lifecycle rule.
 * [ ] Store the data in Amazon S3 Standard storage and transition to Amazon S3 Glacier after 30 days using a lifecycle rule.
 * [ ] Store the data in logs using Amazon CloudWatch Logs and set the retention period to 5 years.
@@ -461,6 +497,13 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [x] Multipart upload delivers quick recovery from network issues.
 > Almost textbook, except for the ability to append-data into an open data-file, which "cannot be done". [More info](https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html).
 
+16) You are working on a research project for a healthcare insurer and your first task is to ingest 6 months of trial data collected by about 30 participating physicians around the country. Each data set is about 15 GB in size and contains protected health information. You are proposing to use S3 Transfer Acceleration for the data upload to an S3 bucket but a colleague raises some concerns about that. Which of the following statements are valid?
+* [ ] It will take a long time because S3 Transfer Acceleration does not support all bucket level features including multipart uploads.
+* [x] The name of your bucket used for Transfer Acceleration must be DNS-compliant and must not contain periods ('.').
+* [ ] Because S3 Transfer Acceleration is not a HIPAA eligible service, you can't use it to transfer protected health information between the physicians and your Amazon S3 bucket.
+* [ ] Most physicians have only about 40 to 50Mbps of available bandwidth. S3 Transfer Acceleration is therefore not a good option.
+> More info: [S3 Transfer Acceleration](https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html).
+
 ## CloudFront
 
 1) Your legal team has just identified a significant confidentiality breach in your web site and you have instructions to take all content down immediately. which of the following statements are correct. (Choose 2)
@@ -503,6 +546,20 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] Use Lambda to process the images.
 > Dynamo does not send messages, and it is not (by default at least) fully consistent to do such, the system using EC2 does not solve the decoupling and lambda still needs to process from somewhere.
 
+3) An EC2 instance retrieves a message from an SQS queue, begins processing the message, then crashes. What happens to the message?
+* [ ] To prevent corruption, the message is deleted.
+* [ ] It remains in the queue in a locked state until the EC2 instance comes back online.
+* [x] When the message visibility timeout expires, the message becomes available for processing by other EC2 instances.
+* [ ] When the message timeout expires, the message is duplicated, the original message is archived, and the duplicate becomes available for processing.
+> The message goes "back" to the queue once it is not processed within the timeout
+
+4) Your development team have created a cloud specific application which is decoupled from other services. You have been tasked with choosing an AWS service to use as message queue in this service. The developers have specified that the chosen service must cope with at least 5000 transactions per second, guarantee delivery of each message but allows for the message being sent a number of times.
+* [ ] SNS
+* [ ] SQS FIFO
+* [ ] Amazon MQ
+* [x] SQS Standard
+> No need for order guarantee and the number of transactions is pretty big
+
 ## Kinesis
 
 1) You want to create a video stream and then send the video to it using your smartphone. In addition, you want to retain the data of this stream for 24 hours. Which of the following configurations will accomplish this? (Choose 2)
@@ -514,7 +571,7 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 
 ## Route53
 
-1) The media company Starbright Entertainment owns the domain name starbright.net. They want to provide an online customer portal which will be addressed via the starbright.net domain. They create an ELB Classic Load Balancer in front of the portal�s web servers which gets assigned the host name clb1-1234.us-west-2.elb.amazonaws.com. Which type of Route 53 hosted zone record will they use to point to the load balancer?
+1) The media company Starbright Entertainment owns the domain name starbright.net. They want to provide an online customer portal which will be addressed via the starbright.net domain. They create an ELB Classic Load Balancer in front of the portal's web servers which gets assigned the host name clb1-1234.us-west-2.elb.amazonaws.com. Which type of Route 53 hosted zone record will they use to point to the load balancer?
 * [x] Alias Record (Alias)
 * [ ] Canonical Name Record (CNAME)
 * [ ] Service Locator (SRV)
@@ -522,6 +579,13 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 > An Amazon Route 53 Alias Record is an extension to DNS functionality. It provides the ability to map a domain name to select AWS services, including ELB load balancers. DNS PTR records are used for reverse DNS lookups. CNAME records map aliases to true or other canonical names, but a Route 53 Alias record is better for this use case because it will point to the load balancer even if its IP address changes. An SRV record is used for specifying data in a DNS system.
 > Route 53 alias records are mapped internally to the DNS name of alias targets such as AWS resources. Route 53 monitors the IP address associated with an alias target's DNS name for scaling actions and software updates. The authoritative response from Route 53 name servers contains an A record (for IPv4 addresses) or AAAA record (for IPv6 addresses) with the IP address of the alias target.
 > More info on [AWS Route53 Documentaion](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html).
+
+2) Which of the following DNS record types does Route 53 not support?
+* [ ] AAAA
+* [ ] SPF
+* [x] DNSKEY
+* [ ] CNAME
+> DNSKEY is not a supported [More info](https://aws.amazon.com/route53/faqs/).
 
 ## General
 
@@ -576,5 +640,5 @@ A Multi-AZ RDS deployment will automatically fail-over as a result of which two 
 * [ ] AWS License Manager includes features to help your organization manage licenses across AWS and on-premises. With AWS License Manager, you can define licensing rules, track license usage, and enforce controls on license use to reduce the risk of license overages. You can also set usage limits to control licensing costs. There is no additional charge for AWS License Manager.
 * [ ] EC2 Bare Metal instances give the customer full control of the configuration of instances just as they have on-premise: The customer has the ability to install a hypervisor directly on the hardware and therefore define and configure their own instance configurations of RAM, disk and vCPU which can minimize additional licensing costs.
 * [ ] License Mobility allows customers to move eligible Microsoft software to third-party cloud providers such as AWS for use on EC2 instances with default tenancy.
-* [x] If I bring my own licenses into EC2 Dedicated Hosts or EC2 Dedicated Instances, then - subject to Microsoft’s terms - Software Assurance is required.
+* [x] If I bring my own licenses into EC2 Dedicated Hosts or EC2 Dedicated Instances, then - subject to Microsoft's terms - Software Assurance is required.
 > If you are bringing your own licenses into EC2 Dedicated Hosts or EC2 Dedicated Instances then Software Assurance is not required subject to Microsoft's terms.
