@@ -31,4 +31,6 @@ This is the first recommended certification, it is a high-level overview of the 
 More info:
   * [AWS Official - SAA-C02](https://aws.amazon.com/certification/certified-solutions-architect-associate/) - Official material from AWS 🆓 📖
   * [A Cloud Guru - Course](https://acloud.guru/learn/aws-certified-solutions-architect-associate) - The one I have used to study 💰 📼
+  * [Alternative Free SAA-C02 Youtube Course](https://www.youtube.com/watch?v=Ia-UEYYR44s&feature=youtu.be) - 10 hours of free content to help you pass the exam 🆓 📼
+  * [800 Exam Questions](https://www.youtube.com/watch?v=pPCru6sKsZU&feature=youtu.be) - 800 SAA-C02 Exam Questions to Study 🆓 📼
   * [My Notes](solutions-architect-associate/) - All labs with Terraform for better understanding and practice 🆓 📝
