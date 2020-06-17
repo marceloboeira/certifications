@@ -96,4 +96,5 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
   * [21 - Kinesis](topics/21_KINESIS.md)
   * [22 - Cognito](topics/22_COGNITO.md)
   * [23 - Lambda](topics/23_LAMBDA.md)
-* [24 - Questions](topics/24_QUESTIONS.md)
+* [24 - Migratin](topics/24_MIGRATION.md)
+* [30 - Questions](topics/30_QUESTIONS.md)
