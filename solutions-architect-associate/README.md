@@ -96,5 +96,7 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
   * [21 - Kinesis](topics/21_KINESIS.md)
   * [22 - Cognito](topics/22_COGNITO.md)
   * [23 - Lambda](topics/23_LAMBDA.md)
-* [24 - Migratin](topics/24_MIGRATION.md)
+* [24 - Migration](topics/24_MIGRATION.md)
+* [25 - Cloud Best Practices](topics/25_CLOUD_BEST_PRACTICES.md)
+* [26 - Well Architected Framework](topics/26_WELL_ARCHITECTED_FRAMWORK.md)
 * [30 - Questions](topics/30_QUESTIONS.md)
