@@ -121,6 +121,27 @@ Some interesting questions worth mentioning it:
 * [x] Availability Zones consist of one or more discrete data centers; as such, 'eu-west-1b' is not necessarily the same physical location for all three accounts. This explains the latency.
 > As the option says, AZ-ids resolve to different zones on each account - More info on [AZ IDs](https://docs.aws.amazon.com/ram/latest/userguide/working-with-az-ids.html).
 
+16) You are designing infrastructure for a data analysis application. One of the volumes will host a small temporary data base and require high IOPS. What storage should you suggest?
+* [ ] S3
+* [ ] EFS
+* [ ] EBS Volume
+* [x] Instance Store
+> Instance Store is great for ephemeral storage or temporary storage and can handle performance over 80,000 IOPs
+
+17) You have created a GP2 EBS volume in AWS. It is 1 TiB in size. What level of sustained IOPS should it deliver?
+* [ ] 300
+* [ ] 10,000
+* [x] 3,000
+* [ ] 1,000
+> GP2 delivers 3 IOPS per GiB - volume of 1 TiB (1,000 GiB) would deliver 3,000 IOPS - [More info](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
+
+18) You have launched 5 EC2 instances of the same size into a cluster placement group. You attempt to launch 5 more and get an error. What are you seeing this error and how can you resolve this issue?
+* [ ] Make sure you are launching your instances into different AZs
+* [x] Terminate these instances and relaunch 10 at the same time into the same placement group
+* [x] Use the same type and same size of instances
+* [ ] Try launching 12 instances instead
+> The instances must be the same size and launched at the same time. If you try to add more instances to the placement group later, or if you try to launch more than one instance type in the placement group, you increase your chances of getting an insufficient capacity error. [More info](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html).
+
 ## ELB
 
 1) You are working for a security-conscious organisation that is about to deploy their first application in the cloud. This web-based application will need a load balancer in front of it, and due to the nature of the security posture of the organisation will need to be always available on the same (static) IP Address. Which load balancer configuration will deliver this outcome?
@@ -148,6 +169,13 @@ Some interesting questions worth mentioning it:
 * [ ] The outward facing interface supports IPv6 addressing
 > An ELB-Classic Load Balancer in an EC2-Classic (Legacy, nonVPC) environment it can have an associated IPv4, IPv6, and dual-stack (both IPv4 and IPv6) DNS name, and supports IPv6 on the External/public interface. However inside a VPC IPv6 is not supported on the external or internal interface(s).
 >  Internet-facing Classic Load Balancers (formerly Elastic Load Balancer (ELB)) is IPv4-only when used in a VPC. Classic Load Balancers can use IPv6, depending on the DNS name you use, but only if they are used in EC2-Classic mode (rare these days). https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-internet-facing-load-balancers.html
+
+4) You have a fleet of 10 EC2 instances split across two availability zones, provisioned by an auto-scaling-group and using an application load balancer. The instances ALB is using EC2 status checks and all instances are currently passing 2/2 checks - but some are showing application failures and the instances are not being re-provisioned. What could the problem be?
+* [x] ELB health checks are not being used by the Auto Scaling Group
+* [ ] You forgot to enable Detailed Monitoring
+* [ ] Your security group does not have the correct allow rule
+* [ ] Some of your instances are not in the same AZ
+> EC2 health checks should be shared with your ASG, so that way your ASG will know the status of your EC2 instances.
 
 ## VPC
 
@@ -272,6 +300,31 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [ ] You cannot create a VPC peering connection between VPCs with matching or overlapping CIDR blocks.
 > CIDS blocks must be different, Transitive Peering is not supported, Infos on [VPC Peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html).
 
+17) You have been asked to implement a private connection between a client's premises and the AWS VPC they are using. The connection must be active within three weeks. The customer has a router that supports BGP, IPSec, and IPv4.
+Which option should you suggest?
+* [ ] OpenVPN
+* [ ] VPC peer
+* [ ] AWS Direct Connect
+* [x] Hardware VPN connection
+> Direct Connect is a physical connection between AWS and another (non-AWS) location. The installation timeframe can be measured in months, especially if physical backhaul is required.
+> A hardware VPN connection is based on IPSec and can be configured and operational within minutes with the companies existing hardware. This is the preferred option given the customer's restrictions. More info [VPC-VPN](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html).
+
+18) You have 6 VPC’s and need to configure AWS to allow communications between all 6 VPC. Which option below will allow communication between the VPCs with little admin overhead.
+* [ ] 6 Transit Gateways
+* [ ] 6 Peering Connections
+* [x] 1 Transit Gateway
+* [ ] 1 VPC Peering Connection
+> VPC Transit Gateway is able to create the communcation among all 6 VPCs - [More info](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-transit-gateways.html).
+
+19) You are running a web application in your on-premises data center. The application currently has three web servers that receive traffic using round-robin DNS. As part of the move to AWS, you have been asked to design a solution that uses a load balancer to accept traffic and distribute it to web servers that are not accessible from the internet. Additionally, any database instances should only be accessible from the web servers. The database instances should not be in the same subnets as the web servers. You have been asked to make the solution highly available using three AZs. How many subnets will you require?
+* [ ] Three
+* [ ] One
+* [x] Nine
+* [ ] Six
+> Choosing six would suggest you either think the load balancer and web servers are in the same tier or that the web servers and databases are. Each needs its own tier. The load balancers need to be publicly accessible — the web servers don't. The database servers also need to be private but in different subnets.
+> Three tiers are required: load balancer, web servers, and database servers.
+> Each AZ needs its own subnet for that tier: 3 x 3 = 9.
+
 ## Databases
 
 ### RDS
@@ -376,6 +429,34 @@ The solution is a two-tiered application with a web tier and a database tier. Al
 * [x] AWS Backup
 * [ ] Amazon Simple Storage Service (S3)
 > AWS Backup allows you to connect DynamoDB to other services, like S3. More info [AWS Backup](https://aws.amazon.com/backup/).
+
+6) Which of the following suggestions could help reduce DynamoDB running costs?
+* [x] Utilize indexes
+* [ ] Filter the attributes read from a table
+* [ ] Use Scan rather than Query operations
+* [ ] Increase RCU
+> Indexes allow you to define alternative partition and/or sort keys, which can allow you to use Query rather than Scan operations. Additionally, you can choose which attributes are projected into the indexes, meaning you will read less data for each ITEM retrieved. More info: [LSI](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LSI.html) & [GSI](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.html).
+
+7) You have a collection of several million JSON documents. You want to store their data within AWS. The data needs to be searchable based on a unique ID in the JSON, and the searches need to be available from a public endpoint. The data is important, so it needs to be able to survive an AZ failure in AWS, and the data latency needs to be in the low milliseconds. What service should you suggest?
+* [ ] S3
+* [ ] EC2 and EBS
+* [x] DynamoDB
+* [ ] EFS
+> The latency demands and requirement to query the data make another option a more viable solution. S3 meets the resilience requirements.
+> DynamoDB is the ideal solution. It offers low latency, can store data for querying, and replicates data across AZs in the region the table is created in.
+
+8) Your application needs to perform 100 eventually consistent reads per second from DynamoDB. Each read is 7 KB in size. What is the minimum number of RCUs required to meet this demand?
+* [ ] 700
+* [ ] 350
+* [x] 100
+* [ ] 200
+> Here it is asking for EVENTUALLY consistent reads, not strongly consistent.
+> For items up to 4 KB in size, one RCU can perform TWO eventually consistent read requests per second, meaning that 7 KB rounds up to 8 KB and then to perform 100 consistent reads per second: 2 RCU (because of the record) -> each RCU accepts two READS per second, so for eventually consistency: ((4KB * 2 reads) * 100 reads per second)/2 reads per second = 100 RCU
+> For strongly consistency, then 200 would be required.
+> Formulas:
+>   strongly consistent: round(<ITEM_SIZE>/4) * <NUMBER_OF_ITEMS>
+>   eventually: <strong_formula>/2
+> [More info](https://linuxacademy.com/guide/20310-how-to-calculate-read-and-write-capacity-for-dynamodb/)
 
 ## KMS
 
