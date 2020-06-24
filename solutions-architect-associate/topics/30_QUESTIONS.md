@@ -2,7 +2,7 @@
 
 Some interesting questions worth mentioning it:
 
-## IAM
+## IAM / Organizations
 
 1) When editing permissions (policies and ACLs), to whom does the concept of the "Owner" refer?
 > The "Owner" refers to the identity and email address used to create the AWS account.
@@ -20,6 +20,61 @@ Some interesting questions worth mentioning it:
 * [ ] Store the API credentials as an object in S3.
 * [x] Assign an IAM role to the EC2 instances.
 > All other options are somehow sharing credentials, which is unsafe.
+
+4) What is the maximum amount of IAM users allowable per account?
+* [ ] 2,000
+* [ ] 4,000
+* [x] 5,000
+* [ ] 3,000
+> TODO
+
+5) Which option explains the difference between the two types of policies in an IAM Role?
+* [ ] The trust policy allows identities to assume roles, while the permission policy defines the permissions provided.
+* [ ] The trust policy establishes the permissions, while the permissions policy sets the eligible identities.
+* [ ] Trust and permission policies provide access to IAM users.
+* [ ] None of these answers provide the difference in the two types of policies in an IAM role.
+> TODO
+
+6) What is the max limit of access keys an IAM User may possess at a time?
+* [ ] 4
+* [ ] 6
+* [ ] 1
+* [x] 2
+> TODO
+
+7) What is the syntax for ARNs?
+* [x] `arn:partition:service:region:account-id:`
+* [ ] `arn:account-id:service:region:partition:`
+* [ ] `arn:service:partition:region:account-id:`
+* [ ] `arn:service:region:partition:account-id:`
+> TODO
+> PSRA
+> AccountID and RegionID are omitted in some services:
+> arn:aws:s3:::my_corporate_bucket/*
+> https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
+
+8) Which service control policy allows access to all AWS services within an attached member account?
+* [ ] AccountOrganizationAccessRole
+* [ ] OrganizationAccountAccessRole
+* [ ] AWSFullAccess
+* [x] FullAWSAccess
+> TODO
+
+9) Which steps are needed for attaching a Service Control Policy (SCP) to an account within an Organizational Unit? (select all that apply)
+* [x] Log in to the master account and create the SCP
+* [x] Attach the SCP to the member account within the Organizational Unit
+* [x] Enable the SCP for the Organizational Unit
+* [x] Select the Organizational Unit
+* [ ] All of these answers are correct
+* [ ] Logging into the member account
+> TODO
+
+10) Which are benefits of using AWS Organizations?
+* [ ] Two master accounts can control member accounts.
+* [x] Reserved purchases can be used by member accounts.
+* [x] Consolidated billing
+* [x] Reduced admin overhead
+> [More info](https://aws.amazon.com/organizations/).
 
 ## EC2
 
@@ -688,14 +743,22 @@ Which option should you suggest?
 * [x] A scalable solution will decrease in cost at scale.
 > Scalable has to take operational cost into account, otherwise everything is scalable. e.g.: if you double your traffic you should not have more than double the cost, it must be min. linearly, but it should decrease at scale.
 
-### Availability
+### Availability/Fault-Tolerance
 
-A Multi-AZ RDS deployment will automatically fail-over as a result of which two of the following? (Choose 2)
+1) A Multi-AZ RDS deployment will automatically fail-over as a result of which two of the following? (Choose 2)
 * [ ] A region-wide loss of service
 * [ ] Loss of availability in standby Availability Zone
 * [x] Loss of availability in primary Availability Zone
 * [x] Loss of network connectivity to the Primary
 > Only "primary" related events react with fail-over.
+
+2) Four servers are used in order to optimally run an application under normal and heavy operations. What architecture layout ensures high availability and cost efficiency if an Availability Zone has a failure?
+* [ ] Deploy eight servers evenly across two Availability Zones
+* [ ] Deploy eight servers to a single Availability Zone
+* [x] Deploy four servers evenly across two Availability Zone
+* [ ] Deploy four servers to a single Availability Zone
+> 8 Servers across 2 AZs - This would not be cost-efficient because it is not necessary to have this much computing power. Remember, high availability means that a system is available but might have performance degradation.
+> 4 servers across 2 AZs - If one AZ has a failure, then there are still two servers that can respond to requests. This would be cost-efficient because you are not spending on more compute than necessary. It would be highly available because the application can still function but with performance degradation.
 
 ### Security
 
