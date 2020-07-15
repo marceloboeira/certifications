@@ -26,7 +26,7 @@ Some interesting questions worth mentioning it:
 * [ ] 4,000
 * [x] 5,000
 * [ ] 3,000
-> TODO
+> [Source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html)
 
 5) Which option explains the difference between the two types of policies in an IAM Role?
 * [ ] The trust policy allows identities to assume roles, while the permission policy defines the permissions provided.
@@ -40,25 +40,23 @@ Some interesting questions worth mentioning it:
 * [ ] 6
 * [ ] 1
 * [x] 2
-> TODO
+> [Source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html)
 
 7) What is the syntax for ARNs?
 * [x] `arn:partition:service:region:account-id:`
 * [ ] `arn:account-id:service:region:partition:`
 * [ ] `arn:service:partition:region:account-id:`
 * [ ] `arn:service:region:partition:account-id:`
-> TODO
-> PSRA
-> AccountID and RegionID are omitted in some services:
-> arn:aws:s3:::my_corporate_bucket/*
-> https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
+> PSRA - Partition Service Region Account
+> PS: AccountID and RegionID are omitted in some services, e.g.: arn:aws:s3:::my_corporate_bucket/*
+> [More info](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
 
 8) Which service control policy allows access to all AWS services within an attached member account?
 * [ ] AccountOrganizationAccessRole
 * [ ] OrganizationAccountAccessRole
 * [ ] AWSFullAccess
 * [x] FullAWSAccess
-> TODO
+> [Source](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_example-scps.html)
 
 9) Which steps are needed for attaching a Service Control Policy (SCP) to an account within an Organizational Unit? (select all that apply)
 * [x] Log in to the master account and create the SCP
@@ -91,7 +89,7 @@ Some interesting questions worth mentioning it:
 * [ ] The reserved instance will be shutdown automatically after one year and a 2 weeks of notice will be provided by AWS to either renew or terminate.
 * [ ] The reserved instance will be terminated automatically after one year, with a termination warning notice.
 * [x] The EC2 instance continues to run without interruption, but the instance is billed at the on-demand rate.
-> Source: https://aws.amazon.com/premiumsupport/knowledge-center/reserved-instances-expire/
+> [Source](https://aws.amazon.com/premiumsupport/knowledge-center/reserved-instances-expire/)
 
 4) A solutions architect wants to design a solution to save costs for Amazon EC2 instances that do not need to run during a 2-week company shutdown. The applications running on the instances store data in instance memory (RAM) that must be present when the instances resume operation. Which approach should the solutions architect recommend to shut down and resume the instances?
 * [ ] Modify the application to store the data on instance store volumes. Reattach the volumes while restarting them.
