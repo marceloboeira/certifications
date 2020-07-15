@@ -195,6 +195,15 @@ Some interesting questions worth mentioning it:
 * [ ] Try launching 12 instances instead
 > The instances must be the same size and launched at the same time. If you try to add more instances to the placement group later, or if you try to launch more than one instance type in the placement group, you increase your chances of getting an insufficient capacity error. [More info](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html).
 
+19) You have been asked to design modifications to an existing application deployed into EC2 using an Auto Scaling group. Your client needs to make sure data can be obtained from EC2 instances for compliance reasons. They need CPU usage, network data transfer levels, and memory available. What should you tell them?
+
+* [ ] Data can be accessed using CloudWatch, but for memory available usage, CloudWatch Logs should be used.
+* [ ] The data is accessible by default using CloudWatch.
+* [x] The data is accessible using CloudWatch if the agent is installed.
+* [ ] The data is accessible using CloudWatch, but detailed monitoring needs to be enabled
+> Detailed monitoring doesn't add metrics — it just increases the level of detail for existing metrics. To capture the process memory available usage, the agent is required. [Source](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/metrics-collected-by-CloudWatch-agent.html).
+>  By default CloudWatch doens't have access to memory usage for privacy reasons. However, with the CloudWatch agent allows for many more internal metrics to be gathered and is required in this case for the memory available usage. [Source]( https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/metrics-collected-by-CloudWatch-agent.html).
+
 ## ELB
 
 1) You are working for a security-conscious organisation that is about to deploy their first application in the cloud. This web-based application will need a load balancer in front of it, and due to the nature of the security posture of the organisation will need to be always available on the same (static) IP Address. Which load balancer configuration will deliver this outcome?
@@ -229,6 +238,14 @@ Some interesting questions worth mentioning it:
 * [ ] Your security group does not have the correct allow rule
 * [ ] Some of your instances are not in the same AZ
 > EC2 health checks should be shared with your ASG, so that way your ASG will know the status of your EC2 instances.
+
+5) You are consulting for a web hosting company that runs hundreds of WordPress deployments. Each WordPress deployment generally runs on one EC2 instance and is part of an Auto Scaling group with min 1, max 1, and desired 1. Each environment is using a Classic Load Balancer to provide self-healing capability. SSL certificates are also used. The business has asked you to suggest improvements that could reduce costs.  What should you suggest?
+* [ ] Use Network Load Balancers instead of Classic Load Balancers.
+* [ ] Migrate all SSL certificates onto a single Classic Load Balancer using SNI.
+* [ ] Snapshot the EC2 instances and migrate each to an Elastic Beanstalk application.
+* [x] Migrate the Classic Load Balancers to Application Load Balancers.
+> Classic ELB doesn't support SNI, so migrating to ALB (with SNI) will help. The catch is that SNI is the solution but the last option doesn't mention it explicitly.
+> [More info](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-https-load-balancers.html).
 
 ## VPC
 
@@ -377,6 +394,32 @@ Which option should you suggest?
 > Choosing six would suggest you either think the load balancer and web servers are in the same tier or that the web servers and databases are. Each needs its own tier. The load balancers need to be publicly accessible — the web servers don't. The database servers also need to be private but in different subnets.
 > Three tiers are required: load balancer, web servers, and database servers.
 > Each AZ needs its own subnet for that tier: 3 x 3 = 9.
+
+20) You have been asked to advise a junior colleague how to explicitly deny traffic from an EC2 instance to a specific remote internet FQDN. What advice would you give?
+* [ ] Use a security group attached to the instance, and explicitly deny traffic to the FQDN.
+* [ ] Use a security group attached to the VPC, and explicitly deny traffic to the FQDN.
+* [ ] Use a NACL on the subnet that the EC2 instance is on, and deny traffic from the EC2 instance to the FQDN.
+* [x] Implement a proxy service in the VPC, adjust route tables, and use the proxy server to deny access to the remote hostname.
+> AWS has no NATIVE products capable of handling this type of denying traffic to an FQDN. (You can use partner solutions to do it so).
+
+21) You need to design a VPC that is resilient to AZ failure from an internet access perspective. The VPC is in a four-AZ region. How many internet gateways are required to ensure multiple AZ failures won't disrupt internet connectivity?
+* [ ] Zero - internet access is provided by a NAT gateway
+* [ ] Four
+* [x] One
+* [ ] Two
+> A InternetGateway is redundant by itself, however, a NAT gateway is not! (you need one per subnet for full HA).
+> An IGW is resilient by design, and only one needs to be attached to a VPC in order to provide all subnets in all AZs with resilient internet connectivity. You cannot assign more than one IGW to a VPC.
+
+22) You are reviewing an existing VPN between a data center and an AWS VPC. Your client has asked you to suggest any HA improvements; the system must be able to tolerate the failure of an AWS AZ and a customer internet connection or router. Currently, the system includes:
+> One VPC
+> One business location with two internet connections — each with a router
+> One VPN connection using one virtual private gateway and two IPSec tunnels to one of the customer routers
+Which option below is the most appropriate and correct?
+* [ ] Add an additional virtual private gateway to the VPC.
+* [ ] Move one of the IPSec tunnels to the other customer router.
+* [x] Add another VPN connection to the second CGW.
+* [ ] Take no action — the system meets the HA requirements with no changes.
+> TODO
 
 ## Databases
 
