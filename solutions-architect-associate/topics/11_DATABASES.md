@@ -91,6 +91,53 @@ Two different types of backup for RDS:
   * Eventual Consistency Reads - After a write, it might take a couple ms to read
   * Strongly Consistent Reads - After a write, it is already available for read
 
+#### Indexing
+
+* LSI - Local Secondary Index
+  * Only creatable at table creation
+  * Strongly consistent
+* GSI - Global Secondary Index
+  * Create it at any time
+  * Only eventually consistent
+
+#### Operations
+
+* Write
+  * Normal write
+  * Atomic Counters - Guarantees consistency
+  * Conditional Writes - Writes given conditions acceptance (e.g.: write if the price is lower than 100, write if the item is not locked)
+* Read
+  * GetItem - efficient read from a single item, having its primary key (simple or complex)
+  * BatchGetItem - Same as before, batched into 100s, from 1 or more tables. Costs the same in regards of RCU, 100 items of 1KB cost 100 RCU.
+  * Query - Read item(s) with the same partition key value, you can also use the sort key to have sorted results. Rounded up based on total size, not individual item size. 100 items of 1KB cost 25 RCU
+  * Scan - Reads all items on a table.
+  * Important:
+    * All read operations have a limit of 1MB response, you can continue to iterate through the response using the `LastEvaluatedKey`.
+
+#### Dynamo Provisioned Capacity
+
+* RCU - Read Capacity Unit (GetItem/Batch/Query/Scan)
+  * Strongly Consistent Reads - Guarantees the most recent data
+    * 1 RCU allows you to read 1 item of up to 4KB per second (consistently)
+    * e.g.: a table need to read 10 items of 13KB per second of strongly consistent reads
+      * item size is (13KB each / 4KB) = 3.25 rounded to 4
+      * 10 items * (4 size units) = 40 RCU
+  * Eventually Consistent Reads - Cached content, not guaranteed the most recent data
+    * Require half the RCU capacity, 1 eventually consistent RCU allows you to read 2 items of up to 4 4KB per second (or 1 item of up to 8KB)
+    * e.g.: same example as before would require half of the capacity, 20 RCU
+* WCU - Write Capacity Unit (Create/Update/Delete)
+  * 1 WCU allows you to write 1 item of up to 1KB per second
+  * e.g.: a table that requires 120 writes per minute of 2.5KB
+    * 120 writes in 1 minute = 2 writes per second
+    * 2.5 KB -> rounds to 3 KB = 3 capacity units
+    * 2 items per second * 3 KB = 6 WCU
+
+#### Encryption
+
+#### Costs
+
+#### DAX
+
 ### Redshift
 
 * AWS managed, fully operational fast and scalable pentabyte data-warehouse
