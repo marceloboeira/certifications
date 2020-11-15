@@ -204,6 +204,14 @@ Some interesting questions worth mentioning it:
 > Detailed monitoring doesn't add metrics — it just increases the level of detail for existing metrics. To capture the process memory available usage, the agent is required. [Source](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/metrics-collected-by-CloudWatch-agent.html).
 >  By default CloudWatch doens't have access to memory usage for privacy reasons. However, with the CloudWatch agent allows for many more internal metrics to be gathered and is required in this case for the memory available usage. [Source]( https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/metrics-collected-by-CloudWatch-agent.html).
 
+20) Promotional Campaign Starting in 2 weeks, management wants to ensure no problems to scale traffic. What should be done to AutoScaling to fulfill this requirement?
+
+* [ ] Configure Step scaling for the ASG
+* [x] Configure Dynamic Scaling and use Target Tracking Scaling Policy
+* [ ] Configure Scheduled Scaling for the ASG
+* [ ] Configure Static scaling for the ASG
+> Dynamic Scaling and Target Tracking Scaling Policy are the way to go, since a scheduled scaling might be limited to an expected amount of traffic only.
+
 ## ELB
 
 1) You are working for a security-conscious organisation that is about to deploy their first application in the cloud. This web-based application will need a load balancer in front of it, and due to the nature of the security posture of the organisation will need to be always available on the same (static) IP Address. Which load balancer configuration will deliver this outcome?
@@ -421,6 +429,22 @@ Which option below is the most appropriate and correct?
 * [ ] Take no action — the system meets the HA requirements with no changes.
 > TODO
 
+23) A company hosts a Redshift Cluster in AWS. For security, they want to ensure all traffic from/to the cluster doesn't go through the internet. Which features can be used to fulfill this requirement efficiently?
+
+* [x] Enable Redshift Enhanced VPC Routing
+* [ ] Create a NAT Gateway
+* [ ] Create a NAT Instance
+* [ ] Create a VPN Connection to ensure traffic doesn't flow through the Internet
+> You can use Amazon Redshift's Enhanced VPC Routing to force all of your COPY and UNLOAD traffic to go through your Amazon Virtual Private Cloud (VPC). Enhanced VPC Routing supports the use of standard VPC features such as VPC Endpoints, security groups, network ACLs, managed NAT and internet gateways, enabling you to tightly manage the flow of data between your Amazon Redshift cluster and all of your data sources. In particular, when your Amazon Redshift cluster is on a private subnet and you enable Enhanced VPC Routing, all the COPY and UNLOAD traffic between your cluster and Amazon S3 will be restricted to your VPC. You can also add a policy to your VPC endpoint to restrict unloading data only to a specific S3 bucket in your account, and monitor all COPY and UNLOAD traffic using VPC flow logs. [More Info](https://aws.amazon.com/about-aws/whats-new/2016/09/amazon-redshift-now-supports-enhanced-vpc-routing/)
+
+34) You company wants to run an application that requires a max processing of 500MiB/s. Which is the most cots-efficient solution?
+* [ ] EBS IOPS
+* [ ] EBS SSD
+* [x] EBS Throughput Optimized
+* [ ] EBS Cold Storage
+> Throughput Optmized is good enough. [More Info](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html).
+
+
 ## Databases
 
 ### RDS
@@ -469,6 +493,14 @@ Which option below is the most appropriate and correct?
 * [ ] Deploy a Read Replica for the database into a different AZ to address the availability requirement. Create another read replica in primary zone to improve performance.
 * [ ] Deploy a Read Replica for the database into a different AZ. This will address the performance issue, and can be used in case of a AZ outage
 > As this scenario requires that there is minimal interruption to service in case of a AZ outage, any answer using the Read Replica for availability can be discounted. This leaves using a Multi-AZ configuration with a Read Replica as the only valid option.
+
+7) You are researching if a setup with MySQL RDS having both MultiAZ and a ReadReplica could impact the performance of transactions on the master write replica. What is true?:
+
+* [ ] Performance is impacted if you enable Synchronous Replication
+* [ ] Performance is impacted if you enable Asynchronous Replication
+* [ ] Performance is impacted
+* [x] Performance is NOT impacted
+> RDS is performing async replication, so there is no performance impact on the master, only replication lag to the read
 
 ### Aurora
 
@@ -818,6 +850,14 @@ Which option below is the most appropriate and correct?
 > AWS automatically addresses DDoS attacks at the network and transport layers, which are Layer 3 and Layer 4, respectively.
 > The attacks are distinguished by "Application"(Layer 6,7) and "Network"(Layer 3,4)
 > More info [AWS Shield](https://aws.amazon.com/shield/ddos-attack-protection/). "Your AWS resources automatically have AWS Shield Standard and are protected from common, most frequently occurring network and transport layer DDoS attacks."
+
+3) You company wants to ensure CloudWatch logs are encrypted, they should:
+
+* [ ] Enable Server-Side Encryption for S3
+* [ ] Enable Server-Side Encryption for CloudTrail
+* [x] Do nothing, it is enabled by default
+* [ ] Enable SSL for CloudTrail Logs
+> [More Info](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/how-cloudtrail-works.html)
 
 ### License
 

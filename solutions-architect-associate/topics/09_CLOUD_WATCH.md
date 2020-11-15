@@ -32,3 +32,4 @@ CloudTrail records actions and API calls, you can trace-back users/and actions, 
 * Alarms - Setup alarms from metrics
 * Events - Hook your applications to events within AWS platform, e.g.: "all EC2 instances are 80% CPU"
 * Logs - Store logs of your applications/aws components
+* Encrypted by default

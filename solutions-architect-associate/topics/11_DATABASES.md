@@ -96,7 +96,9 @@ Two different types of backup for RDS:
 * LSI - Local Secondary Index
   * Only creatable at table creation
   * Strongly consistent
+  * PM must be composite
 * GSI - Global Secondary Index
+  * PM can be single or composite
   * Create it at any time
   * Only eventually consistent
 
