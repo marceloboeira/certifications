@@ -100,4 +100,6 @@ Within `terraform/` all terraform info is stored, the source, and the state. Not
 * [24 - Migration](topics/24_MIGRATION.md)
 * [25 - Cloud Best Practices](topics/25_CLOUD_BEST_PRACTICES.md)
 * [26 - Well Architected Framework](topics/26_WELL_ARCHITECTED_FRAMWORK.md)
+* [27 - Config](topics/27_CONFIG.md)
+* [28 - SSO](topics/28_SSO.md)
 * [30 - Questions](topics/30_QUESTIONS.md)
