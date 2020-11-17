@@ -37,7 +37,7 @@ This is the first recommended certification for technical roles, it is a high-le
 ## Courses
 
 * [A Cloud Guru - Course](https://acloud.guru/learn/aws-certified-solutions-architect-associate) - The first one I have used to study 💰 📼 - Personal opinion: good place to start but limited on technical details required for the test.
-* [Linux Academy - Course](http://https://github.com/linuxacademy/content-aws-csa2019) 💰 📼 - Second one used to study - Much deeper and technical specified (not sure if it is suitable for SAA-C02).
+* [Linux Academy - Course](http://github.com/linuxacademy/content-aws-csa2019) 💰 📼 - Second one used to study - Much deeper and technical specified (not sure if it is suitable for SAA-C02).
   * [Linux Academy - Code](https://github.com/linuxacademy/content-aws-csa2019) - 🆓 💻
 * [Alternative Free SAA-C02 Youtube Course](https://www.youtube.com/watch?v=Ia-UEYYR44s&feature=youtu.be) - 10 hours of free content to help you pass the exam 🆓 📼
 
