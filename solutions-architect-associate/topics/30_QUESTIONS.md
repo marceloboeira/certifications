@@ -713,6 +713,14 @@ Which option below is the most appropriate and correct?
 * [ ] Most physicians have only about 40 to 50Mbps of available bandwidth. S3 Transfer Acceleration is therefore not a good option.
 > More info: [S3 Transfer Acceleration](https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html).
 
+17) Your company wants to setup S3 ensuring the data in there can survive an entire region failover. What do you have to do?
+
+* [ ] Copy S3 to an EBS volume on another region
+* [ ] AWS S3 is already fault tolerant by design, no need to do anything
+* [x] Enable Cross-Region Replication for the Bucket
+* [ ] Enable Versioning
+> [More info](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html)
+
 ## CloudFront
 
 1) Your legal team has just identified a significant confidentiality breach in your web site and you have instructions to take all content down immediately. which of the following statements are correct. (Choose 2)

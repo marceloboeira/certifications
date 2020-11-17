@@ -45,3 +45,7 @@ The ability to bind a specific user (session) to a specific EC2 machine. Imagine
   * e.g.:
     * `amazon.com/prime` -> goes to instance-x on region-y
     * `amazon.com/search?q=alexa` -> goes to another instance/region...
+
+#### Tips
+
+* Load Balancers do not accept custom security policy
