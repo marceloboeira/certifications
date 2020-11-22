@@ -156,6 +156,19 @@ Network-ISP bound shortcut to allow direct connection to AWS regions
 * Interface and Gateway EndpointTypes
   * Gateway Supports S3 and Dynamo Only
 
+## VPN
+
+* Customer Gateway (Network Device)
+* Two IPSEC Tunnels (Different AZs for Availability)
+* Virtual Private Gateway
+
+## Transit Gateway
+
+* Distributed Managed Routing Service
+* Deployed into a Region
+* Connectivity Between Gateways can be done across regions
+* Connect and Attach VPCs (Transitive)
+
 ## VPC Summary
 
 * VPCs are internal networks within AWS
