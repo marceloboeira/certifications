@@ -12,6 +12,12 @@
 
 # Getting Started
 
+* [A Cloud Guru - AWS Technical Essentials](https://acloud.guru/learn/aws-technical-essentials) 🆓 📼 - AWS History, Semanthics and bird's-eye view of all the ecosystem. If you are completely new to AWS, or just want to start from the basics.
+
+## AWS/[Solutions Architect Associate](solutions-architect-associate/)
+
+This is the first recommended certification for technical roles, it is a high-level overview of the core-components of AWS and its main-features.
+
 ### Structure
 
 Each certification is composed of:
@@ -23,25 +29,38 @@ Each certification is composed of:
 
 If you want to use the Terraform module, make sure to install terraform and create a new AWS account.
 
-* [A Cloud Guru - AWS Technical Essentials](https://acloud.guru/learn/aws-technical-essentials) - 🆓  📼 - AWS History, Semanthics and bird's-eye view of all the ecosystem. If you are completely new to AWS, or just want to start from the basics.
 
-## AWS/[Solutions Architect Associate](solutions-architect-associate/)
-
-This is the first recommended certification for technical roles, it is a high-level overview of the core-components of AWS and its main-features.
-
-## Official Links
+### Official Links
 
 * [AWS Official - SAA-C02](https://aws.amazon.com/certification/certified-solutions-architect-associate/) 🆓 📖 - Official material from AWS
 * [Well Architect Framework](https://aws.amazon.com/architecture/well-architected/) 🆓  📖 - Official framework to help guide decisions or answers depending on situations.
 
-## Courses
+### Courses
 
-* [A Cloud Guru - Course](https://acloud.guru/learn/aws-certified-solutions-architect-associate) - The first one I have used to study 💰 📼 - Personal opinion: good place to start but limited on technical details required for the test.
-* [Linux Academy - Course](http://github.com/linuxacademy/content-aws-csa2019) 💰 📼 - Second one used to study - Much deeper and technical specified (not sure if it is suitable for SAA-C02).
-  * [Linux Academy - Code](https://github.com/linuxacademy/content-aws-csa2019) - 🆓 💻
-* [Alternative Free SAA-C02 Youtube Course](https://www.youtube.com/watch?v=Ia-UEYYR44s&feature=youtu.be) - 10 hours of free content to help you pass the exam 🆓 📼
+* [A Cloud Guru - Course](https://acloud.guru/learn/aws-certified-solutions-architect-associate) 💰 📼 - The first one I have used to study - Personal opinion: good place to start but limited on technical details required for the test.
+* [Linux Academy - Course](http://github.com/linuxacademy/content-aws-csa2019) 💰 📼 - Second one used to study - Much deeper and technically specified.
+  * [Linux Academy - Code](https://github.com/linuxacademy/content-aws-csa2019) 🆓 💻 - Code
+* [Alternative Free SAA-C02 Youtube Course](https://www.youtube.com/watch?v=Ia-UEYYR44s&feature=youtu.be) 🆓 📼 - 10 hours of free content to help you pass the exam
 
-## Exam Simulations
+### Exam Simulations
 
-* [800 Exam Questions](https://www.youtube.com/watch?v=pPCru6sKsZU&feature=youtu.be) - 800 SAA-C02 Exam Questions to Study 🆓 📼
-* [My Notes](solutions-architect-associate/) - All labs with Terraform for better understanding and practice 🆓 📝 💻
+* [800 Exam Questions](https://www.youtube.com/watch?v=pPCru6sKsZU&feature=youtu.be) 🆓 📼 - 800 SAA-C02 Exam Questions to Study
+* [My Notes](solutions-architect-associate/) 🆓 📝 💻 - All labs with Terraform for better understanding and practice
+
+## AWS/[Data Analytics - Specialty](data-analytics-specialty/)
+
+This is the first recommended certification for technical roles, it is a high-level overview of the core-components of AWS and its main-features.
+
+### Official Links
+
+* [AWS Official Exam Guide - DAS-C01](https://d1.awsstatic.com/training-and-certification/docs-data-analytics-specialty/AWS-Certified-Data-Analytics-Specialty_Exam-Guide.pdf) 🆓 📖 - Official material from AWS
+* [AWS Official Sample Questions - DAS-C01](https://d1.awsstatic.com/training-and-certification/docs-data-analytics-specialty/AWS-Certified-Data-Analytics-Specialty_Sample-Questions.pdf) 🆓 📖 - Official question samples from AWS
+
+### Courses
+
+* [A Cloud Guru - Course](https://learn.acloud.guru/course/aws-certified-big-data-specialty/dashboard) 💰 📼 - The first one I have used to study
+* [Linux Academy - Course](http://github.com/linuxacademy/content-aws-csa2019) 💰 📼 - Second one used to study - Much deeper and technically specified
+
+### Exam Simulations
+
+* [My Notes](data-analytics-specialty/) - 🆓 📝 💻
