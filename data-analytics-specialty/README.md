@@ -8,9 +8,11 @@ The exam is designed for professionals who work with data in a data-analytics fo
 
 ## Sections
 
-1. Collection
-  1. Introduction to Data Collection Systems
-  1.
-1. Collection
-1. Collection
-1. Collection
+1. [Collection](topics/1_collection)
+    1. [Introduction to Data Collection Systems](topics/1_collection/01_theory.md)
+    2. [Introduction to Data Collection Systems](topics/1_collection/01_theory.md)
+2. Storage
+    1. [Introduction to Data Collection Systems](topics/1_collection/01_theory.md)
+3. Processing
+    1. [Introduction to Data Collection Systems](topics/1_collection/01_theory.md)
+4. Visualization
