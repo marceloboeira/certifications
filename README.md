@@ -58,8 +58,8 @@ This is the first recommended certification for technical roles, it is a high-le
 
 ### Courses
 
-* [A Cloud Guru - Course](https://learn.acloud.guru/course/aws-certified-big-data-specialty/dashboard) 💰 📼 - The first one I have used to study
-* [Linux Academy - Course](http://github.com/linuxacademy/content-aws-csa2019) 💰 📼 - Second one used to study - Much deeper and technically specified
+* [A Cloud Guru - Course](https://acloud.guru/overview/312375cd-c136-4f1c-81dc-dbdcfff2d06b) 💰 📼 - The first one I have used to study
+* [Whizlabs - Course](https://www.whizlabs.com/learn/course/aws-certified-data-analytics-specialty) 💰 📼 - Second one used to study - Much deeper and technically specified
 
 ### Exam Simulations
 
