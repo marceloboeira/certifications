@@ -13,6 +13,19 @@
 
 ### Stages of Data Collection
 
+* Streaming operational components
+  * Kinesis
+    * Data Streams
+    * Firehose
+    * Analytics
+  * Lambda for Processing
+  * Fault tolerance - Capacity of tolerating failure on one or more records without compromising the entire data ingestion
+  * Data Persistence - Which type of delivery and persistence is needed for the usecase
+    * Firehose vs Data Streams
+      * Firehose does not persist/hold data
+    * Firehose can process data with lambda before delivery
+      * Kinesis Producer/Consumer and Data Streams
+* Kinesis Producer Library vs Kinesis API vs Kinesis Agent
 * Select a colleciton system that handles the frequency, volume and source of data
   * Batch, streaming and transictional data
     * AWS Glue
@@ -25,22 +38,6 @@
   * Order and duplication
   * Transform, aggregate and filter
 
-### 1. Determine Operational Characteristics Of The Collection System
+### Data Loses Value Over Time
 
-* Streaming operational components
-  * Kinesis
-    * Data Streams
-    * Firehose
-    * Analytics
-  * Lambda for Processing
-* Fault tolerance - Capacity of tolerating failure on one or more records without compromising the entire data ingestion
-* Data Persistence - Which type of delivery and persistence is needed for the usecase
-  * Firehose vs Data Streams
-    * Firehose does not persist/hold data
-  * Firehose can process data with lambda before delivery
-    * Kinesis Producer/Consumer and Data Streams
-* Kinesis Producer Library vs Kinesis API vs Kinesis Agent
-
-### 2. Select A Collection System (frequency, volume, source)
-
-### 3.
+* 

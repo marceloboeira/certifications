@@ -1,12 +1,23 @@
 # Solutions Architect Associate
 > The first recommended certification
 
-# Official Links
+## Official Links
 
-* [A Cloud Guru - Course](https://acloud.guru/learn/aws-certified-solutions-architect-associate) - The one I have used to study 💰 📼
-* [Whizlabs](https://www.whizlabs.com/aws-solutions-architect-associate/) - For more real-world like simulated tests (and updated content) 💰 📼
-* [SAA-C02](https://aws.amazon.com/certification/certified-solutions-architect-associate/)
-  * [PDF](https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate-Exam-Guide_v1.1_2019_08_27_FINAL.pdf) Exam Guide
+* [AWS Official - SAA-C02](https://aws.amazon.com/certification/certified-solutions-architect-associate/) 🆓 📖 - Official material from AWS
+* [Well Architect Framework](https://aws.amazon.com/architecture/well-architected/) 🆓  📖 - Official framework to help guide decisions or answers depending on situations.
+
+## Courses
+
+* [A Cloud Guru - Course](https://acloud.guru/learn/aws-certified-solutions-architect-associate) 💰 📼 - The first one I have used to study - Personal opinion: good place to start but limited on technical details required for the test.
+* [Linux Academy - Course](http://github.com/linuxacademy/content-aws-csa2019) 💰 📼 - Second one used to study - Much deeper and technically specified.
+  * [Linux Academy - Code](https://github.com/linuxacademy/content-aws-csa2019) 🆓 💻 - Code
+* [Alternative Free SAA-C02 Youtube Course](https://www.youtube.com/watch?v=Ia-UEYYR44s&feature=youtu.be) 🆓 📼 - 10 hours of free content to help you pass the exam
+
+## Exam Simulations
+
+* [800 Exam Questions](https://www.youtube.com/watch?v=pPCru6sKsZU&feature=youtu.be) 🆓 📼 - 800 SAA-C02 Exam Questions to Study
+* [My Notes](solutions-architect-associate/) 🆓 📝 💻 - All labs with Terraform for better understanding and practice
+
 
 ## Getting Started
 
