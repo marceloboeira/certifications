@@ -10,8 +10,7 @@ The exam is designed for professionals who work with data in a data-analytics fo
 
 1. Collection
   1. Introduction to Data Collection Systems
-  1. 
+  1.
 1. Collection
 1. Collection
 1. Collection
-

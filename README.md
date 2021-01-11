@@ -49,7 +49,7 @@ If you want to use the Terraform module, make sure to install terraform and crea
 
 ## AWS/[Data Analytics - Specialty](data-analytics-specialty/)
 
-This is the first recommended certification for technical roles, it is a high-level overview of the core-components of AWS and its main-features.
+The Data Analytics Specialty certifies
 
 ### Official Links
 
