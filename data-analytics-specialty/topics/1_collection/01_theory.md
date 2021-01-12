@@ -27,7 +27,22 @@
   * Order and duplication
   * Transform, aggregate and filter
 
-## The Four Ingestion Services
+## Data Ingestion
+
+* Batch data
+  * Application logs, video files, audio files
+  * Larger payloads, hourly/daily/monthly...
+  * Aggregated data, "colder" than streamin
+* Streaming
+  * Continuous flow of data, IoT Sensors, stock market, click-stream, live-video...
+  * Live Event / Real-time
+  * Small payloads, large throughput
+  * "Hottest" of the 3, considering its real-timeness and low-latency (ms)
+* Transactional
+  * Initial load and continuous updates from data-stores
+  * Similar to batch data but with a continuous flow
+
+## Ingestion Services
 
 1. [Kinesis Data Streams](02_kinesis.md#datastreams) - Real-time data ingestion
     1. [MSK](03_msk.md)
