@@ -16,8 +16,6 @@
 ## Exam Simulations
 
 * [800 Exam Questions](https://www.youtube.com/watch?v=pPCru6sKsZU&feature=youtu.be) 🆓 📼 - 800 SAA-C02 Exam Questions to Study
-* [My Notes](solutions-architect-associate/) 🆓 📝 💻 - All labs with Terraform for better understanding and practice
-
 
 ## Getting Started
 

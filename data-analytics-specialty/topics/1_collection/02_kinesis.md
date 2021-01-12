@@ -39,7 +39,6 @@ Collect and process large streams of data records in real-time
     * EMS
     * Firehose
 
-
 ## Firehose
 
 Deliver streaming data to various data sources (S3, Redshift, ES, Splunk...)
@@ -73,9 +72,30 @@ Buffering ends when either size or interval is achieved
 
 Process and analyse streaming data using SQL Queries.
 
+* Input Stream
+  * Data Streams or Firehose
+  * S3 can be used to hydrate/join data
+* Analytics Application
+  * Data can be transformed before the query
+  * Query
+* Output Stream
+  * Data Streams, Firehose or Lambda
+  * Both results and errors can be streamed
+
 ## Video Streams
 
-Stream video from devices to AWS cloud.
+Stream video from devices to AWS Cloud.
+
+* Producers
+  * Uses Kinesis Video Stream Libs
+  * Installed on-device for securely connecting to Kinesis
+  * Manages Media-Sources and the Stream life-cycle as data flows
+  * Real-time vs Buffered
+* Consumer
+  * Analyse
+    * Real-time - e.g.: EC2, Rekognition (Object Detection)
+    * Batch-oriented - e.g.: EC2, Rekognition
+  * Store
 
 ---------------
 
@@ -101,9 +121,3 @@ Stream video from devices to AWS cloud.
   * PutRecord/Records
   * Stream creation/resharding/put/get are manually handled
   * No delays in processing
-
-TODO Prepare DEMO producer
-TODO Prepare DEMO consumer
-
-TODO Use Firehose to deliver project into a destination (s3?)
-TODO Use a transformation lambda function
