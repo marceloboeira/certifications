@@ -99,7 +99,9 @@ Process and analyse streaming data using SQL Queries.
 
 ### Pricing
 
-TODO
+* Per KPU (Kinesis Unit Process) Per Hour (e.g.: 0.11/h)
+* Running Application Storage, Per GB-month (e.g.: 0.10/GB/month)
+* Durable Application Backups, Per GB-month (e.g.: 0.023/GB/month)
 
 ## Video Streams
 

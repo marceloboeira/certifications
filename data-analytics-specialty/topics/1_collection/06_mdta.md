@@ -14,7 +14,6 @@
 * Continuous migrations (not stale)
 * Low-latency access
 
-
 ## Online Data Transfer
 > Group of services to transfer data to AWS online
 
@@ -25,3 +24,12 @@
 * S3 Transfer Acceleration
 * Kinesis Data Firehose
 * Snowcone (Integrates with DataSync)
+
+
+## SnowFamily
+
+* Snowcone - Load that through WiFi or Wired and send to AWS. 10GbE
+* Snowball - Petabyte-scale data-transport to AWS with import/export to S3
+  * Edge - Runs lambda/EC2 AWS IoT Greengrass (for places with no connectivity)
+* Snowmobile - Exabyte-scale data transport that uses a secure semi 40-foot shipping container to transfer data to AWS
+

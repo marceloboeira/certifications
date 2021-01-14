@@ -2,7 +2,13 @@
 
 AWS Database Migration Service helps you migrate databases to AWS quickly and securely. The source database remains fully operational during the migration, minimizing downtime to applications that rely on the database. The AWS Database Migration Service can migrate your data to and from most widely used commercial and open-source databases.
 
-It takes data from a Source and pushes to a Target.
+It takes data from a Source and pushes to a Target, supporting both Homogeneous, same engine, as much as Heterogenous, different engines.
+
+### Usecases
+
+* Migration
+* Database Upgrade
+* Long-running replication (cross-region/offloading)
 
 ### Workflow
 
@@ -14,7 +20,6 @@ It takes data from a Source and pushes to a Target.
 * Target
   * Receives schema, initial data migration and continuous data migration (CDC)
   * CDC - Change data capture
-
 
 ### Limits
 
