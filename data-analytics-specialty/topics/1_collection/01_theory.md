@@ -32,15 +32,18 @@
 * Batch data
   * Application logs, video files, audio files
   * Larger payloads, hourly/daily/monthly...
-  * Aggregated data, "colder" than streamin
+  * Aggregated data, "colder" than streaming
+  * Services like Glue
 * Streaming
   * Continuous flow of data, IoT Sensors, stock market, click-stream, live-video...
   * Live Event / Real-time
   * Small payloads, large throughput
   * "Hottest" of the 3, considering its real-timeness and low-latency (ms)
+  * Services like Kinesis Data Streams/Firehose
 * Transactional
   * Initial load and continuous updates from data-stores
   * Similar to batch data but with a continuous flow
+  * Services like DMS
 
 ## Ingestion Services
 
@@ -48,5 +51,5 @@
     1. [MSK](03_msk.md)
 1. [Kinesis Firehose](02_kinesis.md#firehose) - Piping data to different sins with a latency of 60 seconds of mor
 1. [AWS Database Migration Service](04_dms.md) - For one-time migration and/or continuous database replication to AWS
+    1. [Moving Data to AWS](06_mdta.md) - Moving large datasets to AWS
 1. [AWS Glue](05_glue.md) - Use-cases needing ETL batch-oriented jobs
-  1. [Moving Data to AWS](06_mdta.md) - Moving large datasets to AWS
