@@ -1,0 +1,21 @@
+Topics:
+Study different formats
+  * Apache Parquet
+  * Apache ORC
+Apache Flink
+Analytics Schema Registry
+Kafka (MSK) and Lambda
+Glue
+
+Labs
+
+TODO Prepare DEMO producer
+TODO Prepare DEMO consumer
+
+TODO Run a query to filter specifics and push to firehose
+
+TODO Use Firehose to deliver project into a destination (s3?)
+TODO Use a transformation lambda function
+
+TODO Glue Lab
+TODO DMS Depth
