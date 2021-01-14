@@ -14,6 +14,9 @@ The exam is designed for professionals who work with data in a data-analytics fo
 * [A Cloud Guru - Course](https://acloud.guru/overview/312375cd-c136-4f1c-81dc-dbdcfff2d06b) 💰 📼 - The first one I have used to study
 * [Whizlabs - Course](https://www.whizlabs.com/learn/course/aws-certified-data-analytics-specialty) 💰 📼 - Second one used to study - Much deeper and technically specified
 
+### Labs
+* [Amazon MSK Workshop](https://amazonmsk-labs.workshop.aws/en/overview.html) 🆓 💻 - Coding samples for running, operating and integrating with MSK
+
 ## Sections
 
 1. [Collection](topics/1_collection)

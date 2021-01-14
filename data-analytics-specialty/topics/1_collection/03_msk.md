@@ -17,3 +17,7 @@
   * Seamless Scaling
   * Retention of 7 days
   * Deep AWS Integration
+
+### Pricing
+
+TODO

@@ -8,6 +8,8 @@ Collect and process large streams of data records in real-time
 * Replicates your data synchronously accross 3 AZs in 1 region
 * Not suitable for long-term protracted
 
+### Workflow
+
 * Producer - Application creating data for the stream
   * Example producers:
     * Application log files
@@ -39,11 +41,17 @@ Collect and process large streams of data records in real-time
     * EMS
     * Firehose
 
+### Pricing
+
+* Shard/Hour cost - 1 shard = 1000 records/s or 1MB/s (whatever comes first)
+* PUT payload unit (25KB)
+* Extended window incur additional costs
+
 ## Firehose
 
 Deliver streaming data to various data sources (S3, Redshift, ES, Splunk...)
 
-Important:
+### Important
 * It does not persist data
 * It is able to pre-process data before pushing downstream
 
@@ -53,7 +61,7 @@ Important:
 * Transform
   * Using Lambda
 
-Destinations:
+### Destinations:
 * S3 (Compression and Encryption are possible)
 * Redshift
   * Data is sent to S3 First, then a COPY command is issued by Firehose
@@ -61,12 +69,19 @@ Destinations:
 * Elasticsearch
 * Splunk
 
-Buffering:
+### Buffering:
 
 * Buffer Size - Maximal size data can be buffered before being pushed (from 1MB to 128MB for S3)
 * Buffer Interval - Max time data is hold before being pushed (60 seconds to 900 seconds)
 
 Buffering ends when either size or interval is achieved
+
+### Pricing
+
+* Per GB of Data Ingested -  e.g.: first 500GB 0.029/GB/month
+* Per GB of Data Format Conversion - $0.018
+* Per GB processed to VPC - $0.01
+* Per Hour, Per AZ delivered to VPC - $0.01
 
 ## Analytics
 
@@ -81,6 +96,10 @@ Process and analyse streaming data using SQL Queries.
 * Output Stream
   * Data Streams, Firehose or Lambda
   * Both results and errors can be streamed
+
+### Pricing
+
+TODO
 
 ## Video Streams
 

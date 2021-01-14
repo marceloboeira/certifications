@@ -4,6 +4,8 @@ AWS Database Migration Service helps you migrate databases to AWS quickly and se
 
 It takes data from a Source and pushes to a Target.
 
+### Workflow
+
 * Source
   * Remains fully functional
   * Supports: MySQL, Postgres, Oracle, SQL Server ...
@@ -12,3 +14,14 @@ It takes data from a Source and pushes to a Target.
 * Target
   * Receives schema, initial data migration and continuous data migration (CDC)
   * CDC - Change data capture
+
+
+### Limits
+
+Mainly, the size of source, replication and target database/instances
+
+### Pricing
+
+* On-Demand Instances (EC2 Instances)
+* Log-Storage
+* Data-Transfer Fees

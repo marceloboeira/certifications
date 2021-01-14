@@ -45,6 +45,45 @@
   * Similar to batch data but with a continuous flow
   * Services like DMS
 
+### Delivery
+
+* Guaranteed Ordering
+  * Kinesis Data Streams
+  * Dynano DB Streams
+* Delivery & Deduplication
+  * At-least-once - Your consumer get the data minimally once
+      * Kinesis Data Streams
+      * Kinesis Firehose (needs Glue for Dedup - FindMatches Transform)
+  * At-most-once - Your consumer will get a maximum of 1 delivery (but it might never get it)
+  * Exactly-once - Your consumer should get it only once
+    * DynamoDB is the only service
+
+### Format & Compression
+
+* Kinesis Data Streams
+  * Lambda
+  * KCL
+* Firehose
+  * Format conversion feature if data in JSON
+  * Lambda
+  * S3 Compression (GZIP/Snappy/ZIP)
+
+### Transforming
+
+When ingesting, transforming data can be used to:
+
+* Process data before ingesting
+* Mutate date between different formats
+* Normalizing your data produced from variable sources
+* Augmenting data
+* Filter data
+
+Service Strategies:
+
+* Firehose -> Buffers and pushes to Lambda before sending to the target (Batch/Encrypt/Compress)
+* DMS -> Table and Schema Transformation
+* Glue -> ELT jobs themselves
+
 ## Ingestion Services
 
 1. [Kinesis Data Streams](02_kinesis.md#datastreams) - Real-time data ingestion

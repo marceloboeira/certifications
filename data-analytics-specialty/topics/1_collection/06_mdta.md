@@ -1,6 +1,7 @@
 # Moving Data To AWS
+> Options and Trade-offs
 
-3 Factors:
+### The 3 Factors
 
 * Network connection - 10Mbps or more
 * Amount of data - 500 GB or more
