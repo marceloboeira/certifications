@@ -30,3 +30,5 @@ Mainly, the size of source, replication and target database/instances
 * On-Demand Instances (EC2 Instances)
 * Log-Storage
 * Data-Transfer Fees
+  * IN: Free
+  * Out: Depends on the region

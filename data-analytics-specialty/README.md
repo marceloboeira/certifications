@@ -27,6 +27,7 @@ The exam is designed for professionals who work with data in a data-analytics fo
     1. [AWS Database Migration Service](topics/1_collection/04_dms.md)
     1. [AWS Glue](topics/1_collection/05_glue.md)
       1. [Moving Data to AWS](topics/1_collection/06_mdta.md)
+    1. [AWS Data Pipeline](topics/1_collection/07_data_pipeline.md)
 2. [Storage](topics/2_storage)
     1. [Introduction to Data Collection Systems](topics/1_collection/01_theory.md)
 3. [Processing](topics/3_processing)

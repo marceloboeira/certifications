@@ -24,6 +24,14 @@
 * Massive amounts of data
 * Continuous migrations (not stale)
 * Low-latency access
+* [Pricing](https://aws.amazon.com/directconnect/pricing/)
+  * Port-hours: how much time do you need the connection? at which speed?
+    * 1G = $0.30/hour
+    * 10GB = $2.25/hour
+    * Varying according to the AWS region
+* Data Transfer Fee
+  *  IN: $0.00/GB
+  *  OUT:  Depends on speed/region -> 0.02/GB
 
 ## Online Data Transfer
 > Group of services to transfer data to AWS online
@@ -35,7 +43,6 @@
 * S3 Transfer Acceleration
 * Kinesis Data Firehose
 * Snowcone (Integrates with DataSync)
-
 
 ## SnowFamily
 
