@@ -1,11 +1,22 @@
 # Moving Data To AWS
 > Options and Trade-offs
 
+### The 4 Ws 1H of migration
+
+* Why are we migrating? performance? resiliency? availability? cost?
+* What are you migrating? data-lake? hot-data? transactional data?
+* Where to? RDS? Redshift? S3?
+* When does it need to be done?
+* How much? How much data/network? That helps to understand the trade-offs
+
+![data-migration-times](https://github.com/marceloboeira/aws-certifications/blob/master/data-analytics-specialty/topics/1_collection/data-transfer-chart.png?raw=true)
+
 ### The 3 Factors
 
 * Network connection - 10Mbps or more
 * Amount of data - 500 GB or more
 * Method - Managed vs Not Managed
+
 
 ## Direct Connect
 
@@ -32,4 +43,3 @@
 * Snowball - Petabyte-scale data-transport to AWS with import/export to S3
   * Edge - Runs lambda/EC2 AWS IoT Greengrass (for places with no connectivity)
 * Snowmobile - Exabyte-scale data transport that uses a secure semi 40-foot shipping container to transfer data to AWS
-
