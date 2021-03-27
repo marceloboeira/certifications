@@ -142,11 +142,17 @@ DWH
 * Schema on write - schema is predefined, making it faster to retrieve later
 * Operational reporting
 * Usually, tied to keeping a cluster up & running (which infer on high-costs if not used)
+* Storage cost: Large data volumes could become costly
+* Changing data-schema can be complex
+* Redshift, Teradata, Snowflake, Cloudera, Oracle
 
 DataLake
 * Relational and Non-Relational Data
 * Schema on Read - Schema is not defined during write, the querying defines where to look for data (making it more flexible but generally slower)
 * Optimal for Big-data Analysis (from multiple dirty unstructured sources), ML, ...
+* Storage cost: Low-cost object storage
+* Schema and structure can be changed more easily
+* S3, EMR / Hadoop (For processing)
 
 # Layout, schema structure and format
 # Lifecycle, usage patterns and business requirements

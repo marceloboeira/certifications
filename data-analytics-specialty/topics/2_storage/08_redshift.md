@@ -24,6 +24,34 @@ Fork of Postgres, made into columnar store which allows massive parallel process
      * Used to process queries in parallel
      * Leader sends commands directly to slices
 
+* Data is rebalanced when nodes are added or removed from the cluster
+* Data is mirrored across nodes to make data more durable
+
+#### Distribution Modes
+
+* Key - All entries with the same key are on the same node
+* All - One copy of all the data on each node
+* Even - Round robin row-by-row distribution of the data across
+
+### NodeTypes
+
+* Define CPU/Memory/Storage Capacity
+* RA3
+  * Compute and Storage are independent
+  * Managed Storage
+  * SSD for faster access and S3 for long-term
+  * Offloads data to S3 once local SSDs are being filled-up with operational data
+  * Independent scaling of Compute & Storage
+  * High-bandwidth networking
+  * Size cluster based on performance needs, growing-quickly data
+* DC2
+  * Compute-intensive node with local SSD included
+  * Compute and Storage bound into node size and number of nodes
+  * High-performance
+  * Recommended for under 1TB & Best Price-performance
+* DS2
+  * HDD legacy data type
+
 ## Usecase
 
 * Data-science

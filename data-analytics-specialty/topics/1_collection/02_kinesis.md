@@ -5,7 +5,7 @@
 Collect and process large streams of data records in real-time
 
 * Persists data from 24 hours up to 7 days
-* Replicates your data synchronously accross 3 AZs in 1 region
+* Replicates your data synchronously across 3 AZs in 1 region
 * Not suitable for long-term protracted
 
 ### Workflow
