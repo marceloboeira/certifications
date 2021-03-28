@@ -60,6 +60,16 @@ Amazon DocumentDB is a fully managed proprietary NoSQL database service that sup
     * 1 WCU = 1 write per seconds for up to 1 KB
     * AutoScaling
 
+### Partition Keys
+
+* Burst Capacity
+  * The total capacity of a table (WCU/RCU) is divided among partitions, if a partition is not using it, it will shift for later use for ocasional burst or spike usage
+  * Automatically enabled
+  * It retains capacity for 5min
+* Adaptive Capacity
+  * Automatically enabled
+  * Run imbalaced workloads continuosly - Dynamo provisions only the capacity each partition needs, "hot" partitions receive more read or writes
+
 ## Cost vs Performance
 
 ## DAX
