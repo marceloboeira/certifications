@@ -29,9 +29,13 @@ Fork of Postgres, made into columnar store which allows massive parallel process
 
 #### Distribution Modes
 
-* Key - All entries with the same key are on the same node
+* Distribution Key - All entries with the same key are on the same node (the entire row of that specified hashed key)
+  * Most efficient if a distribution key is available and it is possible to use
 * All - One copy of all the data on each node
+  * Better for tables that aren't updated frequently or extensively
 * Even - Round robin row-by-row distribution of the data across
+  * Table doesn't participate joins or no clear choice for key
+  * When you do a join data is moved around, which is expensive
 
 ### NodeTypes
 
