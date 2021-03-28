@@ -6,6 +6,11 @@ Amazon Redshift is a data warehouse product which forms part of the larger cloud
 
 Fork of Postgres, made into columnar store which allows massive parallel processing. Given a query, each row of a table can be queried in parallel with its individual filtering attributes and return much faster than a regular row-based store engine.
 
+## Usecase
+
+* Data-science
+* Business Intelligence
+
 ## Traits
 
 * Columnar storage
@@ -27,7 +32,7 @@ Fork of Postgres, made into columnar store which allows massive parallel process
 * Data is rebalanced when nodes are added or removed from the cluster
 * Data is mirrored across nodes to make data more durable
 
-#### Distribution Modes
+### Distribution Modes
 
 * Distribution Key - All entries with the same key are on the same node (the entire row of that specified hashed key)
   * Most efficient if a distribution key is available and it is possible to use
@@ -56,10 +61,37 @@ Fork of Postgres, made into columnar store which allows massive parallel process
 * DS2
   * HDD legacy data type
 
-## Usecase
+### Primary Keys / Foreign Keys
 
-* Data-science
-* Business Intelligence
+* Informational only - not enforced
+* Query planner uses to eliminate redundant joins
+
+### Sort Keys
+
+* Rows are stored in order to facilitate sorting/retrieval
+* Sort-key is used by the query planner to build plans that benefit from sorting
+* Explain command shows impact of sorting
+* Type
+  * Compound - When query predicates use a prefix, which is a subset of the sort key columns in order, a compound key is more efficient
+  * Interleaved - Weight each column in a sort key equally, predicates can use any subset of the columns that make up the sort key, in a y order
+    * Not suitable for incremental field, (ID, timestamps)
+
+#### Copy Command
+
+* Most efficient way to load data into a table
+* It can read data from multiple files/sources/streams and distribute loading to nodes/slices in order to run everything in parallel
+* Can't copy with Redshift Spectrum
+* Use VACUUM to reorganize data - reclaim space after deletes
+
+#### Compression Types
+
+Defines the type of compression
+
+* By default
+  * Sort keys - RAW
+  * Bool, Real, Double - RAW
+  * SmallInt, Integer, Big Int, Decimal, Date, Timestam -> AZ64
+  * Char, Varchar -> LZO
 
 # Integration
 
