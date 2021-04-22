@@ -1,10 +1,18 @@
 # Processing
 
+*
+*
+
+## ETL
+
+### Glue
+
+Glue is used/recommended when there is no need or reason for running you own cluster EMR Cluster
+* Glue Generates
+
 # Map Reduce
 
 * The workload is distributed across different nodes
-*
-*
 
 # Pseudo-Code
 

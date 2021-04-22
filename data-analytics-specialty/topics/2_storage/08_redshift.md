@@ -105,3 +105,7 @@ Defines the type of compression
   * Automate and schedule recurring jobs
 * DMS
   * Migrate data in or out of Redshift
+
+## Spectrum
+
+S3 Querying
