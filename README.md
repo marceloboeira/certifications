@@ -19,8 +19,8 @@
 
 ### Certifications
 
-* SAA-C02 - AWS/[Solutions Architect Associate](solutions-architect-associate/) - This is the first recommended certification for technical roles, it is a high-level overview of the core-components of AWS and its main-features
-* DAS-C01 - AWS/[Data Analytics - Specialty](data-analytics-specialty/) - The exam is designed for professionals who work with data in a data-analytics focused job
+* SAA-C02 - AWS/[Solutions Architect Associate](aws/solutions-architect-associate/) - This is the first recommended certification for technical roles, it is a high-level overview of the core-components of AWS and its main-features
+* DAS-C01 - AWS/[Data Analytics - Specialty](aws/data-analytics-specialty/) - The exam is designed for professionals who work with data in a data-analytics focused job
 
 ### Structure
 
