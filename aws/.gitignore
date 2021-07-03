@@ -1,0 +1,3 @@
+# Credetials Config
+shared/*
+!shared/credentials.sample
