@@ -178,11 +178,110 @@ Triage > Mobilize > Resolve > Prevent
 * Belligerent Responders - Big opniions, ego, chaos... be firm, "You are being disruptive to the team, I might have to remove you if you continue"
 * Hand-offs/overs are encouraged - At the discretions of people envolved as people get tired
 
-### Follow-up
+## Postmortem
 
-### Postmortens
+> What is a Postmortem?
 
-### Q&A
+A session to review what went wrong and how do we learn from it.
+
+* Blame free analysis soon after the event
+* Postmortems could be referred as After-Action Review, Post-Incident Review, Incident Report...
+* Feedback/analysis of the incident response process
+* During the incident the team is focused on restoring the service, not optimal quality/performance/best practices.
+
+> When to do run a Postmortem?
+
+Every time there is an incident, even that the root cause or side-effects were not as severe as initially thought.
+
+They should be ran shortly after the incident, a few business days.
+
+> Who is responsible for the postmortem?
+
+The IC should nominate a person to be the postmortem owner, but that person should be only the coordinator not the sole worker.
+
+The owner could be someone that took leadership during the incident, performed a task to stabilize or even the person that triggered/was in the oncall scheduled.
+
+### Goals
+
+The goal of the Postmortem is to understand systemic factors leading to the inccident and identify actions htat cacn improve relisiency of the afeccted systems.
+
+How the mistake was made? instead of Who made it?
+
+### Analysing Failure
+
+Ask why a reasonable, rational and decent person may have taken a particular action that caused an incident
+
+Ask what? and how?, avoid who? and why?
+
+### The Report
+
+* Have a template in-place
+* Go to history on Slack/G-Docs/
+* Identify the responders and add them to the document so they can help you
+* Add a link to the incident call if recorded
+* Schedule a meeting (30min-1h)
+* Analysing the incident itself
+* The incident might have started before you recognized it
+* Create a timeline
+* Include information the team didn't necessarily know at the time
+* Include metrics and charts / screenshots (Link monitoring)
+* Maybe customer data
+* Stick to facts
+* Include changes to the status of the incident
+* Include actions taken by respondders
+* Document the impact:
+  * How long was the impact visible?
+  * How many customers were affected?
+  * What functionality was affected?
+
+#### Helpful Questions
+
+* Was the incident isolated or part of something bigger, like a trend?
+* Will it get worse over time if we don't do anything?
+* How do we prevent from happening?
+
+#### Follow-up
+
+* Do we need to improve monitoring to detect it faster?
+* How do we better predict the severity of the incident?
+* Find TODO itetms raised during the incident to review and create tickets
+* Define items clearly to understand what is on scope or not on scope
+
+Examples:
+
+
+* Actionalble:
+  * Bad - "Investigate monitoring for this"
+  * Good - "Add alerting for all cases where service return >1% errors for 10min"
+* Specific:
+  * Bad - Fix issues that caused the error
+  * Good - Handle invalid postal codes with a graceful error message
+* Bounded:
+  * Bad - Make sure engineers checks database schema before migration
+  * Good - Add an automated hook for schema changes
+    * Doesn't depend on people, there is a mechanism
+
+
+#### External Messaging
+
+How to communicate to customers?
+
+* Summary - Two or three sentences
+* What happened - what was the incident, what was the duration/impact
+* Actions - What are we doing to prevent it from happening again
+
+#### Postmortem Meeting
+
+* Main outcome: buy-in for action plan
+* Participants:
+  * Incident Commander
+  * Service Owners
+  * Product/Project Managers/Owners
+  * Shadow, Scribe, Liaisons...
+  * Engineering Managers
+  * Higher Leadership (Head/Director) when such incidents are organizationally deep
+
+# Q&A
 
 * <details><summary>What is the goal of ICS?</summary>
      <p> Handle the sitation in a way that limits damage and reduces recoveru time </p>
