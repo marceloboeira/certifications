@@ -66,3 +66,17 @@
 > A few things that might be relevant to review/pay extra attention to
 
 Coming soons!
+
+## Local Setup
+
+The Makefile has all necessary commands to run the examples locally:
+
+```
+compose  Starts up consul servers via docker
+help     Lists help commands
+tf       Runs end-to-end workflow to update infra
+tf_init  Configures terraform
+tf_lock  Locks terraform dependencies
+tf_plan  Runs terraform plan
+tf_apply Apply infra changes
+```
