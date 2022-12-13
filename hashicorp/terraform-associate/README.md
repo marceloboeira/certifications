@@ -1,11 +1,11 @@
 # Terraform Associate
 
+⚠️  There isn't much to this certification in "practice" code since I have worked with terraform for a few years, reading was enough to get the meaning of most things certification-wise.
+
 ## Fundamentals
 
 * [Certification overview](https://www.hashicorp.com/certification/terraform-associate) - To understand the test/goals
 * [HashiCorp Associate Tutorials](https://learn.hashicorp.com/collections/terraform/certification-associate-tutorials) - Some surface level stuff
-* [Terraform: Up & Running: Writing Infrastructure As Code](https://www.amazon.de/-/en/Yevgeniy-Brikman/dp/1492046906) - Great source for refreshing IaC fundamentals, differences between tools and learnings basic terraform syntax
-* [A Cloud Guru - Terraform Associate 1](https://learn.acloud.guru/course/hashicorp-certified-terraform-associate-1/learn/8082ae1e-6a81-4819-a607-e466765c0f54/05cd7c68-965d-4904-a98f-8834024152f3/watch) - Great source if you have never used/interacted with terraform
 
 # Exam Objectives
 
@@ -59,8 +59,13 @@
 
 ## Resources
 
+* Books
+  * [Terraform: Up & Running: Writing Infrastructure As Code](https://www.amazon.de/-/en/Yevgeniy-Brikman/dp/1492046906) - Great source for refreshing IaC fundamentals, differences between tools and learnings basic terraform syntax
+* Courses
+  * [A Cloud Guru - Terraform Associate 1](https://learn.acloud.guru/course/hashicorp-certified-terraform-associate-1/learn/8082ae1e-6a81-4819-a607-e466765c0f54/05cd7c68-965d-4904-a98f-8834024152f3/watch) - Great source if you have never used/interacted with terraform
+  * [Udemy/HashiCorp-Terraform](https://www.udemy.com/course/terraform-hands-on-labs/) - Default course from Bryan Krausen, more focused and practical
 * Practice Tests
-  * [Udemy](https://www.udemy.com/course/terraform-associate-practice-exam)
+  * [Udemy/HashiCorp-Terraform](https://www.udemy.com/course/terraform-associate-practice-exam)
   * [Whizlabs](https://www.whizlabs.com/blog/terraform-certification-exam-questions/)
   * [Free questions](https://medium.com/bb-tutorials-and-thoughts/250-practice-questions-for-terraform-associate-certification-7a3ccebe6a1a)
 
@@ -93,3 +98,4 @@
   ```
   * Terraform continues using version `0.0.5` since that module was already initialized in state
   * More info [modules/version](https://developer.hashicorp.com/terraform/language/modules/syntax#version) and [version-constraints](https://developer.hashicorp.com/terraform/language/expressions/version-constraints)
+* Refresh command -- More info soon
