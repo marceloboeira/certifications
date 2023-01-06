@@ -61,6 +61,9 @@
   * [Udemy/HashiCorp-Consul](https://www.udemy.com/course/hashicorp-consul/) - Default course from Bryan Krausen
 * Practice Tests
   * [Udemy/HashiCorp-Consul](https://www.udemy.com/course/consul-associate-practice-exam) - Complementary Practice Exams
+* Deep-Dives
+  * [Consul Service Mesh: Deep Dive](https://www.youtube.com/watch?v=Aq1uTozNajI)
+  * [Ensuring Cross Cloud, High Availability for Your Applications](https://www.youtube.com/watch?v=OTcSHKljhLk)
 
 ## Gotchas
 > A few things that might be relevant to review/pay extra attention to
@@ -80,3 +83,4 @@ tf_lock  Locks terraform dependencies
 tf_plan  Runs terraform plan
 tf_apply Apply infra changes
 ```
+#

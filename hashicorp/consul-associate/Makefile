@@ -2,6 +2,10 @@ DOCKER ?= `which docker`
 TF ?= `which terraform`
 TF_FOLDER ?= `pwd`/terraform
 
+.PHONY: help
+help: ## Lists help commands
+	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-36s\033[0m %s\n", $$1, $$2}'
+
 .PHONY: compose
 compose: ## Starts up consul servers via docker
 	@$(DOCKER) compose up
@@ -24,7 +28,3 @@ tf_plan: ## Runs terraform plan
 .PHONY: tf_apply
 tf_apply: ## Apply infra changes
 	@cd $(TF_FOLDER); $(TF) apply -auto-approve
-
-.PHONY: help
-help: ## Lists help commands
-	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-36s\033[0m %s\n", $$1, $$2}'

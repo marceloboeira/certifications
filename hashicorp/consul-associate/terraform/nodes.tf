@@ -3,7 +3,7 @@ resource "consul_node" "root" {
   address = "https://root.marceloboeira.com"
 }
 
-resource "consul_node" "google" {
-  name    = "google"
-  address = "https://marceloboeira.com"
+resource "consul_node" "docker" {
+  name    = "docker"
+  address = "127.0.0.1"
 }
